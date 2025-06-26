@@ -9,7 +9,7 @@ const Introduction: React.FC = () => {
         <div className="introduction-content">
           <div className="profile-image">
             <img
-              src="https://via.placeholder.com/200x200/667eea/ffffff?text=Your+Photo"
+              src='./profilepic.jpeg'
               alt="Profile"
               className="profile-pic"
             />

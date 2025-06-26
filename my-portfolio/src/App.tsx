@@ -1,21 +1,21 @@
 import React from 'react';
 import Introduction from './components/Introduction';
 import About from './components/About';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Contact from './components/Contact';
-import WorkWithMe from './components/WorkWithMe';
-import './styles/App.css';
+// import Projects from './components/Projects';
+// import Skills from './components/Skills';
+// import Contact from './components/Contact';
+// import WorkWithMe from './components/WorkWithMe';
+import './App.css';
 
 function App() {
   return (
     <div className="App">
       <Introduction />
       <About />
-      <Projects />
+      {/* <Projects />
       <Skills />
       <Contact />
-      <WorkWithMe />
+      <WorkWithMe /> */}
     </div>
   );
 }

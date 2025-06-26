@@ -9,7 +9,7 @@ const About: React.FC = () => {
         <div className="about-content">
           <div className="about-image">
             <img
-              src="https://via.placeholder.com/500x600/f093fb/ffffff?text=About+Photo"
+              src='./aboutpic.jpeg'
               alt="About me"
               className="about-pic"
             />
