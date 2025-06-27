@@ -13,7 +13,7 @@ import { ScrollProgress } from './components/Navigation/ScrollProgress';
 import './App.css';
 
 function App() {
-  const sectionCount = 3; // Adjust based on the number of sections
+  const sectionCount = 2; // Adjust based on the number of sections
   const {
     sectionRefs,
     currentSection,
@@ -22,6 +22,15 @@ function App() {
     scrollToSection,
     scrollProgress,
   } = useScrollNavigation(sectionCount);  
+
+   // Convert direction to index
+   const handleScrollDirection = (direction: 'up' | 'down') => {
+    const newIndex = direction === 'down' 
+      ? Math.min(currentSection + 1, sectionCount - 1)
+      : Math.max(currentSection - 1, 0);
+    scrollToSection(newIndex);
+  };
+  
   return (
     <div>
       {/* Scroll Progress Bar */}
@@ -30,6 +39,7 @@ function App() {
       {/* Sections with refs */}
       <motion.div
         ref={sectionRefs[0]}
+        className="section"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -39,6 +49,7 @@ function App() {
 
       <motion.div
         ref={sectionRefs[1]}
+        className="section"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -50,6 +61,7 @@ function App() {
       {/* Uncomment and add more sections as needed */}
       {/* <motion.div
         ref={sectionRefs[2]}
+        className="section"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -58,6 +70,7 @@ function App() {
       </motion.div>
       <motion.div
         ref={sectionRefs[3]}
+        className="section"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -66,6 +79,7 @@ function App() {
       </motion.div>
       <motion.div
         ref={sectionRefs[4]}
+        className="section"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -74,6 +88,7 @@ function App() {
       </motion.div>
       <motion.div
         ref={sectionRefs[5]}
+        className="section"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -83,14 +98,15 @@ function App() {
 
        {/* Navigation Elements */}
        <DotNavigation 
-        sectionCount={sectionCount} 
-        currentSection={currentSection} 
-        sectionRefs={sectionRefs} 
+        sectionCount={sectionCount}
+        currentSection={currentSection}
+        scrollToSection={scrollToSection}
       />
+
       <ScrollArrows 
-        hideUpArrow={hideUpArrow} 
-        hideDownArrow={hideDownArrow} 
-        scrollToSection={scrollToSection} 
+        hideUpArrow={hideUpArrow}
+        hideDownArrow={hideDownArrow}
+        scrollToSection={handleScrollDirection}
       />
     </div>
   );

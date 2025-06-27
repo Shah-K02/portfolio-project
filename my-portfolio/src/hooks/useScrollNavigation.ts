@@ -1,63 +1,57 @@
-import { useRef, useState, useEffect, createRef} from "react";
+import { useRef, useState, useEffect } from "react";
 
 export const useScrollNavigation = (sectionCount: number) => {
-  // Initialize refs using a single useRef call with an array
-  const sectionRefs = useRef<Array<React.RefObject<HTMLDivElement | null>>>([]);
-  
-  // Ensure we have enough refs in the array
-  sectionRefs.current = Array.from({ length: sectionCount }, () => createRef<HTMLDivElement>());
+  // Initialize as an empty array that will hold our refs
+  const sectionRefs = useRef<Array<React.RefObject<HTMLDivElement>>>([]);
+
+  // Create refs in a way that satisfies TypeScript
+  if (sectionRefs.current.length === 0) {
+    sectionRefs.current = new Array(sectionCount)
+      .fill(null)
+      .map(() => {
+        const ref: { current: HTMLDivElement | null } = { current: null };
+        return ref as React.RefObject<HTMLDivElement>;
+      });
+  }
 
   const [currentSection, setCurrentSection] = useState(0);
   const [hideUpArrow, setHideUpArrow] = useState(true);
   const [hideDownArrow, setHideDownArrow] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  const scrollToSection = (direction: 'up' | 'down') => {
-    if (direction === "down" && currentSection < sectionCount - 1) {
-      const nextSection = currentSection + 1;
-      setCurrentSection(nextSection);
+  const scrollToSection = (index: number) => {
+    const ref = sectionRefs.current[index];
+    if (ref?.current) {
       window.scrollTo({
-        top: sectionRefs.current[nextSection]?.current?.offsetTop,
-        behavior: "smooth",
+        top: ref.current.offsetTop,
+        behavior: "smooth"
       });
-    } else if (direction === "up" && currentSection > 0) {
-      const prevSection = currentSection - 1;
-      setCurrentSection(prevSection);
-      window.scrollTo({
-        top: sectionRefs.current[prevSection]?.current?.offsetTop,
-        behavior: "smooth",
-      });
+      setCurrentSection(index);
     }
   };
 
   const handleScroll = () => {
-    const scrollPosition = window.pageYOffset;
+    const scrollPosition = window.scrollY + (window.innerHeight / 2);
     const windowHeight = window.innerHeight;
-    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercentage = (scrollPosition / documentHeight) * 100;
-    setScrollProgress(scrollPercentage);
+    const documentHeight = document.documentElement.scrollHeight;
 
-    // Update current section based on scroll position
     sectionRefs.current.forEach((ref, index) => {
       if (ref.current) {
         const { offsetTop, offsetHeight } = ref.current;
-        if (
-          scrollPosition >= offsetTop - windowHeight / 2 &&
-          scrollPosition < offsetTop + offsetHeight - windowHeight / 2
-        ) {
+        if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
           setCurrentSection(index);
         }
       }
     });
 
-    // Check if at the top/bottom of the page
-    setHideUpArrow(scrollPosition === 0);
-    setHideDownArrow(scrollPosition + windowHeight >= documentHeight);
+    setHideUpArrow(window.scrollY < 50);
+    setHideDownArrow(window.scrollY + windowHeight >= documentHeight - 50);
+    setScrollProgress((window.scrollY / (documentHeight - windowHeight)) * 100);
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return {
