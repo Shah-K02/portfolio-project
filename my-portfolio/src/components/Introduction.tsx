@@ -41,14 +41,15 @@ const Introduction: React.FC = () => {
           </div>
 
           <h1 className="main-title">
-            Hi, I'm <span className="highlight">Your Name</span>
+            Hi, I'm <span className="highlight">Shah Kar</span>
           </h1>
           <p className="subtitle">
-            Full Stack Developer passionate about creating beautiful, functional web applications
-          </p>
+          I am a highly motivated and passionate Computer Science graduate from Aston University, specializing in full-stack development, object-oriented programming, and database management. My goal is to apply my knowledge and skills in fast-paced environments while continuously learning and growing in the field of software development.
+
+</p>
           <div className="social-links">
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/Shah-K02"
               target="_blank"
               rel="noopener noreferrer"
               className="social-link github"
