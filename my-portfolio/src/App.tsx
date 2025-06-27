@@ -58,7 +58,6 @@ function App() {
       >
         <About />
       </motion.div>
-      {/* Uncomment and add more sections as needed */}
      <motion.div
         ref={sectionRefs[2]}
         className="section"

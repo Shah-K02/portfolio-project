@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { GitHubIcon, LinkedInIcon, EmailIcon, LocationIcon } from "./Icons";
 import "./Contact.css";
-
+import "./WorkWithMe.css";
 const ContactSection = () => {
   return (
     <section id="contact" className="contact-section">
