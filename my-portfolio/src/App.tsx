@@ -2,10 +2,10 @@ import React from 'react';
 import {motion} from 'framer-motion';
 import Introduction from './components/Introduction';
 import About from './components/About';
-// import Projects from './components/Projects';
-// import Skills from './components/Skills';
-// import Contact from './components/Contact';
-// import WorkWithMe from './components/WorkWithMe';
+import Projects from './components/Projects';
+import Skills from './components/Skills';
+import Contact from './components/Contact';
+import WorkWithMe from './components/WorkWithMe';
 import { useScrollNavigation } from './hooks/useScrollNavigation';
 import { ScrollArrows } from './components/Navigation/ScrollArrows';
 import { DotNavigation } from './components/Navigation/DotNavigation';
@@ -13,7 +13,7 @@ import { ScrollProgress } from './components/Navigation/ScrollProgress';
 import './App.css';
 
 function App() {
-  const sectionCount = 2; // Adjust based on the number of sections
+  const sectionCount = 6; // Adjust based on the number of sections
   const {
     sectionRefs,
     currentSection,
@@ -59,7 +59,7 @@ function App() {
         <About />
       </motion.div>
       {/* Uncomment and add more sections as needed */}
-      {/* <motion.div
+     <motion.div
         ref={sectionRefs[2]}
         className="section"
         initial={{ opacity: 0, y: 50 }}
@@ -94,7 +94,7 @@ function App() {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <WorkWithMe />
-      </motion.div> */}
+      </motion.div>
 
        {/* Navigation Elements */}
        <DotNavigation 
