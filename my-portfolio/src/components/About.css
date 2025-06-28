@@ -4,16 +4,18 @@
 }
 
 .section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
   text-align: center;
   color: #1f2937;
   margin-bottom: 4rem;
+  background: linear-gradient(to right, #2563eb, #9333ea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 .about-content {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 3rem;
   align-items: center;
 }

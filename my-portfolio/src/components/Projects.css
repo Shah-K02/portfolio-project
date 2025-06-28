@@ -9,7 +9,6 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  font-family: "poppins", sans-serif;
 }
 
 .projects-section::before {
@@ -39,8 +38,6 @@
 }
 
 .projects-title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 700;
   color: #ffffff;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   letter-spacing: -0.02em;
