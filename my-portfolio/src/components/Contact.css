@@ -1,4 +1,7 @@
-/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+}
 .contact-section {
   min-height: 100vh;
   display: flex;

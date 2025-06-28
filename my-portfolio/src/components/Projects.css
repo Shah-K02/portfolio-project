@@ -1,4 +1,4 @@
-/* Projects.css - Modern & Clean Design */
+/* Projects.css - Modern & Clean Design with Enhanced Icons */
 
 /* Main Projects Section */
 .projects-section {
@@ -9,6 +9,7 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
+  font-family: "poppins", sans-serif;
 }
 
 .projects-section::before {
@@ -31,15 +32,19 @@
   width: 100%;
 }
 
-/* Projects Title */
-.projects-title {
+/* Projects Header */
+.projects-header {
   text-align: center;
   margin-bottom: 4rem;
+}
+
+.projects-title {
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
   color: #ffffff;
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   letter-spacing: -0.02em;
+  margin: 0 0 1rem 0;
 }
 
 .projects-title span {
@@ -62,7 +67,58 @@
   border-radius: 2px;
 }
 
+.projects-subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Project Filter */
+.project-filter {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  text-transform: capitalize;
+}
+
+.filter-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.95);
+  color: #667eea;
+  font-weight: 600;
+}
+
 /* Carousel Container */
+.projects-carousel-container {
+  position: relative;
+}
+
 .projects-carousel {
   display: flex;
   align-items: center;
@@ -71,7 +127,7 @@
   outline: none;
 }
 
-/* Carousel Arrows */
+/* Enhanced Carousel Arrows with Better Icon Support */
 .carousel-arrow {
   background: rgba(255, 255, 255, 0.15);
   border: 2px solid rgba(255, 255, 255, 0.2);
@@ -85,9 +141,33 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   z-index: 2;
   flex-shrink: 0;
+  position: relative;
+}
+
+/* Icon styling for better visibility */
+.carousel-arrow svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Fallback for when icons don't load */
+.carousel-arrow:not(:has(svg))::before {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.carousel-arrow.left:not(:has(svg))::before {
+  content: "‹";
+}
+
+.carousel-arrow.right:not(:has(svg))::before {
+  content: "›";
 }
 
 .carousel-arrow:hover:not(:disabled) {
@@ -104,6 +184,10 @@
 .carousel-arrow:disabled {
   opacity: 0.3;
   cursor: not-allowed;
+}
+
+.carousel-arrow:disabled svg {
+  opacity: 0.5;
 }
 
 .carousel-arrow.left {
@@ -128,19 +212,19 @@
 /* Projects Grid */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* Project Cards */
+/* Enhanced Project Cards */
 .projects-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 20px;
-  padding: 2rem;
+  padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -148,7 +232,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 280px;
+  min-height: 320px;
 }
 
 .projects-card::before {
@@ -158,10 +242,9 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(
-    90deg,
-    var(--card-color, #667eea) 0%,
-    color-mix(in srgb, var(--card-color, #667eea) 80%, white) 100%
+  background: var(
+    --card-gradient,
+    linear-gradient(90deg, #667eea 0%, #764ba2 100%)
   );
 }
 
@@ -172,13 +255,60 @@
 }
 
 /* Card Content */
+.projects-card-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.projects-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
 .projects-card-title {
   font-size: 1.5rem;
   font-weight: 700;
   color: #2d3748;
-  margin: 0 0 1rem 0;
+  margin: 0;
   line-height: 1.3;
   letter-spacing: -0.01em;
+  flex: 1;
+}
+
+.projects-card-status {
+  flex-shrink: 0;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  border: 1px solid transparent;
+}
+
+.status-completed {
+  background: rgba(72, 187, 120, 0.1);
+  color: #2f855a;
+  border-color: rgba(72, 187, 120, 0.2);
+}
+
+.status-in-progress {
+  background: rgba(237, 137, 54, 0.1);
+  color: #c05621;
+  border-color: rgba(237, 137, 54, 0.2);
+}
+
+.status-archived {
+  background: rgba(113, 128, 150, 0.1);
+  color: #4a5568;
+  border-color: rgba(113, 128, 150, 0.2);
 }
 
 .projects-card-description {
@@ -189,6 +319,44 @@
   flex-grow: 1;
 }
 
+/* Technology Tags */
+.projects-card-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tech-tag {
+  padding: 0.25rem 0.75rem;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.tech-tag.more {
+  background: rgba(113, 128, 150, 0.1);
+  color: #4a5568;
+  border-color: rgba(113, 128, 150, 0.2);
+}
+
+/* Card Footer */
+.projects-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.projects-card-year {
+  font-size: 0.9rem;
+  color: #718096;
+  font-weight: 500;
+}
+
 .projects-card-link {
   display: inline-flex;
   align-items: center;
@@ -197,11 +365,11 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   text-decoration: none;
+  border: none;
   border-radius: 12px;
   font-weight: 600;
   font-size: 0.9rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  align-self: flex-start;
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -242,10 +410,6 @@
   justify-content: center;
   gap: 0.75rem;
   margin-top: 3rem;
-  position: absolute;
-  bottom: -4rem;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 .indicator {
@@ -300,7 +464,7 @@
 /* Responsive Design */
 @media (max-width: 1200px) {
   .projects-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1.5rem;
   }
 
@@ -311,13 +475,27 @@
   .carousel-arrow {
     width: 50px;
     height: 50px;
-    font-size: 1.25rem;
+  }
+
+  .carousel-arrow svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
 @media (max-width: 768px) {
   .projects-section {
     padding: 4rem 1rem;
+  }
+
+  .project-filter {
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
   }
 
   .projects-carousel {
@@ -328,6 +506,13 @@
   .carousel-arrow {
     position: static;
     order: initial;
+    width: 50px;
+    height: 50px;
+  }
+
+  .carousel-arrow svg {
+    width: 18px;
+    height: 18px;
   }
 
   .carousel-viewport {
@@ -341,8 +526,17 @@
   }
 
   .projects-card {
+    min-height: 280px;
+  }
+
+  .projects-card-content {
     padding: 1.5rem;
-    min-height: 240px;
+  }
+
+  .projects-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 
   .carousel-indicators {
@@ -358,9 +552,22 @@
     padding: 3rem 1rem;
   }
 
-  .projects-card {
+  .project-filter {
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .projects-card-content {
     padding: 1.25rem;
+  }
+
+  .projects-card {
     border-radius: 16px;
+    min-height: 260px;
   }
 
   .projects-card-title {
@@ -374,14 +581,24 @@
   .carousel-arrow {
     width: 44px;
     height: 44px;
-    font-size: 1.1rem;
+  }
+
+  .carousel-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .tech-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
   }
 }
 
 /* Focus States for Accessibility */
 .carousel-arrow:focus-visible,
 .indicator:focus-visible,
-.projects-card-link:focus-visible {
+.projects-card-link:focus-visible,
+.filter-btn:focus-visible {
   outline: 2px solid rgba(255, 255, 255, 0.8);
   outline-offset: 2px;
 }
@@ -413,7 +630,66 @@
   animation: shimmer 1.5s infinite;
 }
 
-/* Custom Properties for Dynamic Card Colors */
-.projects-card[style*="background-color"] {
-  --card-color: attr(style background-color);
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .projects-card {
+    background: rgba(26, 32, 44, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .projects-card-title {
+    color: #f7fafc;
+  }
+
+  .projects-card-description {
+    color: #cbd5e0;
+  }
+
+  .projects-card-year {
+    color: #a0aec0;
+  }
+
+  .status-completed {
+    background: rgba(72, 187, 120, 0.2);
+    color: #68d391;
+  }
+
+  .status-in-progress {
+    background: rgba(237, 137, 54, 0.2);
+    color: #fbb863;
+  }
+
+  .status-archived {
+    background: rgba(113, 128, 150, 0.2);
+    color: #cbd5e0;
+  }
+
+  .tech-tag {
+    background: rgba(102, 126, 234, 0.2);
+    color: #90cdf4;
+  }
+}
+
+/* Print styles */
+@media print {
+  .projects-section {
+    background: white;
+    padding: 2rem;
+  }
+
+  .carousel-arrow,
+  .carousel-indicators,
+  .project-filter {
+    display: none;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .projects-card {
+    break-inside: avoid;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
 }

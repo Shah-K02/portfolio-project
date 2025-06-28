@@ -22,7 +22,18 @@ body {
   color: var(--text-dark);
   background-color: var(--bg-light);
 }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: white; /* or whatever color you want */
+}
 
+#root {
+  min-height: 100vh;
+  background-color: white; /* or whatever color you want */
+}
 .container {
   max-width: 1200px;
   margin: 0 auto;
