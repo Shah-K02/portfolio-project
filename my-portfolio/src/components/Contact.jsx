@@ -58,7 +58,7 @@ const ContactSection = () => {
               <div>
                 <h3 className="contact-title">GitHub</h3>
                 <a
-                  href="https://github.com/yourusername"
+                  href="https://github.com/Shah-K02"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="contact-link"
@@ -95,7 +95,7 @@ const ContactSection = () => {
                   type="text"
                   id="name"
                   className="form-input"
-                  placeholder="Your name"
+                  placeholder="Shah Kar"
                 />
               </div>
               <div className="form-group">
@@ -106,7 +106,7 @@ const ContactSection = () => {
                   type="email"
                   id="email"
                   className="form-input"
-                  placeholder="Your email"
+                  placeholder="shahkar0215@gmail.com"
                 />
               </div>
               <div className="form-group">
@@ -117,7 +117,7 @@ const ContactSection = () => {
                   id="message"
                   rows={5}
                   className="form-textarea"
-                  placeholder="Your message"
+                  placeholder="Your message here..."
                 ></textarea>
               </div>
               <button type="submit" className="submit-button">

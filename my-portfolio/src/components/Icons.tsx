@@ -5,7 +5,6 @@ interface IconProps {
   size?: number;
 }
 
-// Existing icons from your paste.txt
 export const GitHubIcon: React.FC<IconProps> = ({
   className = "",
   size = 24,
