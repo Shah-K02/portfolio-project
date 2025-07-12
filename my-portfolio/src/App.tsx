@@ -10,6 +10,8 @@ import { useScrollNavigation } from './hooks/useScrollNavigation';
 import { ScrollArrows } from './components/Navigation/ScrollArrows';
 import { DotNavigation } from './components/Navigation/DotNavigation';
 import { ScrollProgress } from './components/Navigation/ScrollProgress';
+import { ThemeProvider } from './context/ThemeContext';
+import { ThemeToggle } from './components/Navigation/ThemeToggle';
 import './App.css';
 
 function App() {
@@ -32,82 +34,86 @@ function App() {
   };
   
   return (
-    <div>
-      {/* Scroll Progress Bar */}
-      <ScrollProgress scrollProgress={scrollProgress} />
+    <ThemeProvider>
+      <div>
+        <ThemeToggle />
+        <ScrollProgress scrollProgress={scrollProgress} />
 
-      {/* Sections with refs */}
-      <motion.div
-        ref={sectionRefs[0]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Introduction />
-      </motion.div>
+        <motion.div
+          ref={sectionRefs[0]}
+          className="section"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <Introduction />
+        </motion.div>
 
-      <motion.div
-        ref={sectionRefs[1]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-      >
-        <About />
-      </motion.div>
-     <motion.div
-        ref={sectionRefs[2]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Projects />
-      </motion.div>
-      <motion.div
-        ref={sectionRefs[3]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Skills />
-      </motion.div>
-      <motion.div
-        ref={sectionRefs[4]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Contact />
-      </motion.div>
-      <motion.div
-        ref={sectionRefs[5]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <WorkWithMe />
-      </motion.div>
+        <motion.div
+          ref={sectionRefs[1]}
+          className="section"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <About />
+        </motion.div>
 
-       {/* Navigation Elements */}
-       <DotNavigation 
-        sectionCount={sectionCount}
-        currentSection={currentSection}
-        scrollToSection={scrollToSection}
-      />
+        <motion.div
+          ref={sectionRefs[2]}
+          className="section"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <Projects />
+        </motion.div>
 
-      <ScrollArrows 
-        hideUpArrow={hideUpArrow}
-        hideDownArrow={hideDownArrow}
-        scrollToSection={handleScrollDirection}
-      />
-    </div>
+        <motion.div
+          ref={sectionRefs[3]}
+          className="section"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <Skills />
+        </motion.div>
+
+        <motion.div
+          ref={sectionRefs[4]}
+          className="section"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <Contact />
+        </motion.div>
+
+        <motion.div
+          ref={sectionRefs[5]}
+          className="section"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <WorkWithMe />
+        </motion.div>
+
+        <DotNavigation 
+          sectionCount={sectionCount}
+          currentSection={currentSection}
+          scrollToSection={scrollToSection}
+        />
+
+        <ScrollArrows 
+          hideUpArrow={hideUpArrow}
+          hideDownArrow={hideDownArrow}
+          scrollToSection={handleScrollDirection}
+        />
+      </div>
+    </ThemeProvider>
   );
 }
 export default App;

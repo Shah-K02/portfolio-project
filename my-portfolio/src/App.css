@@ -3,6 +3,91 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+  /* Dark theme colors */
+  --rich-black: #000814;
+  --oxford-blue: #001d3d;
+  --yale-blue: #003566;
+  --mikado-yellow: #ffc300;
+  --gold: #ffd60a;
+
+  /* Gradients */
+  --gradient-radial: radial-gradient(circle, var(--mikado-yellow), var(--gold));
+  --gradient-top: linear-gradient(180deg, var(--gold) 0%, rgba(255, 214, 10, 0.1) 100%);
+}
+
+[data-theme='dark'] {
+  --bg-primary: var(--rich-black);
+  --bg-secondary: var(--oxford-blue);
+  --bg-tertiary: var(--yale-blue);
+  --text-primary: var(--mikado-yellow);
+  --text-secondary: var(--gold);
+  --text-body: var(--gold);
+  --link-color: var(--mikado-yellow);
+  --link-hover: var(--gold);
+  --button-bg: var(--mikado-yellow);
+  --button-text: var(--rich-black);
+  --nav-bg: var(--oxford-blue);
+  --card-bg: var(--oxford-blue);
+  --accent-color: var(--gold);
+}
+
+[data-theme='light'] {
+  --bg-primary: #ffffff;
+  --bg-secondary: rgba(255, 195, 0, 0.1);
+  --bg-tertiary: rgba(255, 214, 10, 0.2);
+  --text-primary: var(--rich-black);
+  --text-secondary: var(--oxford-blue);
+  --text-body: var(--oxford-blue);
+  --link-color: var(--yale-blue);
+  --link-hover: var(--oxford-blue);
+  --button-bg: var(--mikado-yellow);
+  --button-text: var(--rich-black);
+  --nav-bg: var(--mikado-yellow);
+  --card-bg: rgba(255, 195, 0, 0.1);
+  --accent-color: var(--yale-blue);
+}
+
+html,
+body {
+  background: var(--bg-primary);
+  color: var(--text-body);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2 {
+  color: var(--text-primary);
+}
+
+h3, h4, h5, h6 {
+  color: var(--text-secondary);
+}
+
+p {
+  color: var(--text-body);
+}
+
+a {
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+.btn {
+  background: var(--button-bg);
+  color: var(--button-text);
+}
+
+.card {
+  background: var(--card-bg);
+}
+
+.section {
+  background: var(--bg-secondary);
+}
 @import url("https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 h1,
 h2,
