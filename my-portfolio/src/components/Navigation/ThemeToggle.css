@@ -3,28 +3,39 @@
   top: 1rem;
   right: 1rem;
   z-index: 1000;
-  background: transparent;
+  background: var(--bg-primary);
   border: 2px solid var(--text-primary);
   color: var(--text-primary);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  border-radius: 8px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 0;
+  backdrop-filter: blur(8px);
 }
 
 .theme-toggle:hover {
-  transform: scale(1.1);
+  transform: translateY(-2px);
   background: var(--text-primary);
   color: var(--bg-primary);
-  box-shadow: 0 0 15px var(--text-primary);
+  box-shadow: 0 4px 20px -2px var(--text-primary);
 }
 
 .theme-toggle:focus {
   outline: none;
   box-shadow: 0 0 0 3px var(--text-secondary);
+}
+
+.theme-toggle svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle:hover svg {
+  transform: rotate(360deg);
 }

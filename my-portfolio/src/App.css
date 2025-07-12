@@ -19,8 +19,8 @@
 
 [data-theme='dark'] {
   --bg-primary: var(--rich-black);
-  --bg-secondary: var(--oxford-blue);
-  --bg-tertiary: var(--yale-blue);
+  --bg-secondary: var(--rich-black);
+  --bg-tertiary: var(--rich-black);
   --text-primary: var(--mikado-yellow);
   --text-secondary: var(--gold);
   --text-body: var(--gold);
@@ -28,15 +28,15 @@
   --link-hover: var(--gold);
   --button-bg: var(--mikado-yellow);
   --button-text: var(--rich-black);
-  --nav-bg: var(--oxford-blue);
+  --nav-bg: var(--rich-black);
   --card-bg: var(--oxford-blue);
   --accent-color: var(--gold);
 }
 
 [data-theme='light'] {
   --bg-primary: #ffffff;
-  --bg-secondary: rgba(255, 195, 0, 0.1);
-  --bg-tertiary: rgba(255, 214, 10, 0.2);
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #ffffff;
   --text-primary: var(--rich-black);
   --text-secondary: var(--oxford-blue);
   --text-body: var(--oxford-blue);
@@ -44,7 +44,7 @@
   --link-hover: var(--oxford-blue);
   --button-bg: var(--mikado-yellow);
   --button-text: var(--rich-black);
-  --nav-bg: var(--mikado-yellow);
+  --nav-bg: #ffffff;
   --card-bg: rgba(255, 195, 0, 0.1);
   --accent-color: var(--yale-blue);
 }

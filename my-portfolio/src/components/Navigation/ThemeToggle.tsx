@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from '../../context/ThemeContext';
-import { FaSun, FaMoon } from 'react-icons/fa';
+import { HiSun, HiMoon } from 'react-icons/hi';
 import './ThemeToggle.css';
 
 export const ThemeToggle: React.FC = () => {
@@ -12,7 +12,7 @@ export const ThemeToggle: React.FC = () => {
       onClick={toggleTheme}
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
-      {theme === 'light' ? <FaMoon size={20} /> : <FaSun size={20} />}
+      {theme === 'light' ? <HiMoon size={24} /> : <HiSun size={24} />}
     </button>
   );
 };
