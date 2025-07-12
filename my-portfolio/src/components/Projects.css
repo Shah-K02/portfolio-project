@@ -37,16 +37,13 @@
 }
 
 .projects-title {
-  color: #ffffff;
+  color: var(--text-primary);
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   letter-spacing: -0.02em;
   margin: 0 0 1rem 0;
-}
-
-.projects-title span {
-  background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 3rem;
+  line-height: 1.2;
+  background: var(--text-primary);
   background-clip: text;
   position: relative;
 }
@@ -65,7 +62,7 @@
 
 .projects-subtitle {
   font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--text-primary);
   font-weight: 400;
   margin: 0;
   max-width: 600px;
@@ -84,12 +81,12 @@
 
 .filter-btn {
   padding: 0.75rem 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--button-background);
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 25px;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--button-text);
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
@@ -97,16 +94,16 @@
 }
 
 .filter-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--button-hover);
   border-color: rgba(255, 255, 255, 0.3);
   color: rgba(255, 255, 255, 0.95);
   transform: translateY(-2px);
 }
 
 .filter-btn.active {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--nav-dot-active);
   border-color: rgba(255, 255, 255, 0.95);
-  color: #667eea;
+  color: var(--button-text);
   font-weight: 600;
 }
 
