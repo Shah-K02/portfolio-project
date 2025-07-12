@@ -1,5 +1,5 @@
 /* Light Theme */
-:root[data-theme='light'] {
+:root[data-theme="light"] {
   --background: #ffffff;
   --header-primary: #000814;
   --header-secondary: #001d3d;
@@ -16,7 +16,7 @@
   --gradient-end: #ffd60a;
   --shadow-color: rgba(0, 8, 20, 0.1);
   --shadow-hover: rgba(0, 8, 20, 0.2);
-  
+
   /* Navigation Specific */
   --nav-dot-inactive: #ffffff;
   --nav-dot-hover: #ffd60a;
@@ -29,7 +29,7 @@
 }
 
 /* Dark Theme */
-:root[data-theme='dark'] {
+:root[data-theme="dark"] {
   --background: #000814;
   --header-primary: #ffc300;
   --header-secondary: #ffd60a;
@@ -41,12 +41,12 @@
   --button-hover: #ffd60a;
   --card-background: #001d3d;
   --section-background: #000814;
-  --icon-color: #ffd60a;
+  --icon-color: #8b7400;
   --gradient-start: #ffc300;
   --gradient-end: #ffd60a;
   --shadow-color: rgba(0, 0, 0, 0.3);
   --shadow-hover: rgba(0, 0, 0, 0.4);
-  
+
   /* Navigation Specific */
   --nav-dot-inactive: #001d3d;
   --nav-dot-hover: #ffc300;
@@ -60,23 +60,33 @@
 
 /* Global Transitions */
 * {
-  transition: background-color 0.3s ease,
-              color 0.3s ease,
-              border-color 0.3s ease,
-              box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Global Gradients */
 .gradient-radial {
-  background: radial-gradient(circle at center, var(--gradient-start), var(--gradient-end));
+  background: radial-gradient(
+    circle at center,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
 }
 
 .gradient-top {
-  background: linear-gradient(to top, var(--gradient-start), var(--gradient-end));
+  background: linear-gradient(
+    to top,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

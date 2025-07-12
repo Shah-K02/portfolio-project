@@ -73,11 +73,12 @@
 }
 
 .bg-blue-600 {
-  background-color: #2563eb;
+  color: var(--icon-color);
+  background-color: var(--button-hover);
 }
 
 .hover\:bg-blue-700:hover {
-  background-color: #1d4ed8;
+  background-color: var(--button-hover);
 }
 
 .rounded-lg {
@@ -110,7 +111,7 @@
 }
 
 .hover\:bg-blue-400:hover {
-  background-color: #60a5fa;
+  background-color: var(--button-hover);
 }
 
 .hover\:text-gray-900:hover {
