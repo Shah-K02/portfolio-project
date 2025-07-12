@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import "./Projects.css";
 import "../styles/sectionAnimation.css";
 
@@ -162,6 +162,15 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
 const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const projectsRef = React.useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: projectsRef,
+    offset: ["start end", "end start"],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
   const handleViewProject = (project: Project) => {
     setSelectedProject(project);
@@ -174,8 +183,8 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
   };
 
   return (
-    <section className="projects-section" id="projects">
-      <div className="projects-container">
+    <section className="projects-section" id="projects" ref={projectsRef}>
+      <motion.div className="projects-container" style={{ opacity, scale }}>
         <motion.header
           className="projects-header"
           variants={containerVariants}
@@ -195,7 +204,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
           projects={projects}
           onViewProject={handleViewProject}
         />
-      </div>
+      </motion.div>
 
       {isModalOpen && selectedProject && (
         <ProjectModal

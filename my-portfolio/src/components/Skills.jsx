@@ -27,7 +27,6 @@ import {
   SiExpress,
 } from "react-icons/si";
 
-// Example icons for skills (replace with appropriate icons as needed)
 const skillIcons = {
   Java: <FaJava />,
   JavaScript: <FaJsSquare />,
@@ -71,152 +70,138 @@ const skills = {
     { name: "VS Code", icon: skillIcons["VS Code"] },
   ],
 };
-const Skills = () => (
-  <section className="skills-section" id="skills">
-    <div className="skills-container">
-      <motion.h2
-        className="skills-title"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        Skills & Expertise
-      </motion.h2>
 
-      <div className="skills-grid">
-        {/* Programming Languages */}
-        <motion.div
+const SkillCard = ({
+  title,
+  items,
+  icon,
+  color,
+  delay = 0,
+  isList = false,
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6, delay }}
+    className={`skills-card skills-card-${color}`}
+  >
+    <div className="skills-card-header">
+      {icon && (
+        <span className={`skills-card-icon skills-card-icon-${color}`}>
+          {icon}
+        </span>
+      )}
+      <h3 className="skills-card-title">{title}</h3>
+    </div>
+    {isList ? (
+      <ul className="skills-ul">
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    ) : (
+      <div className="skills-list">
+        {items.map((skill) => (
+          <div key={skill.name} className="skills-list-item">
+            <span className="skills-list-icon">{skill.icon}</span>
+            <span className="skills-list-text">{skill.name}</span>
+          </div>
+        ))}
+      </div>
+    )}
+  </motion.div>
+);
+
+const Skills = () => {
+  const skillCards = [
+    {
+      title: "Programming Languages",
+      items: skills.languages,
+      icon: <FaCode />,
+      color: "blue",
+      delay: 0,
+    },
+    {
+      title: "Frameworks & Libraries",
+      items: skills.frameworks,
+      icon: <FaGlobe />,
+      color: "purple",
+      delay: 0.1,
+    },
+    {
+      title: "Tools & Technologies",
+      items: skills.tools,
+      icon: <FaDatabase />,
+      color: "green",
+      delay: 0.2,
+    },
+    {
+      title: "Soft Skills",
+      items: [
+        "Leadership & Teamwork",
+        "Project Management",
+        "Problem Solving",
+        "Communication",
+        "Time Management",
+        "Multilingual Communication",
+      ],
+      icon: <FaBriefcase />,
+      color: "orange",
+      delay: 0.3,
+      isList: true,
+    },
+    {
+      title: "Software Engineering",
+      items: [
+        "Agile & Scrum",
+        "SDLC",
+        "Data Structures & Algorithms",
+        "Object-Oriented Programming",
+        "Test-Driven Development",
+      ],
+      icon: <FaAward />,
+      color: "pink",
+      delay: 0.4,
+      isList: true,
+    },
+    {
+      title: "Additional",
+      items: [
+        "UI/UX Design Principles",
+        "API Development",
+        "Database Design",
+        "Version Control (Git)",
+        "Project Documentation",
+      ],
+      icon: <FaUser />,
+      color: "indigo",
+      delay: 0.5,
+      isList: true,
+    },
+  ];
+
+  return (
+    <section className="skills-section" id="skills">
+      <div className="skills-container">
+        <motion.h2
+          className="skills-title"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="skills-card skills-card-blue"
         >
-          <div className="skills-card-header">
-            <FaCode className="skills-card-icon skills-card-icon-blue" />
-            <h3 className="skills-card-title">Programming Languages</h3>
-          </div>
-          <div className="skills-list">
-            {skills.languages.map((skill) => (
-              <div key={skill.name} className="skills-list-item">
-                <span className="skills-list-icon">{skill.icon}</span>
-                <span className="skills-list-text">{skill.name}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+          Skills & Expertise
+        </motion.h2>
 
-        {/* Frameworks & Libraries */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="skills-card skills-card-purple"
-        >
-          <div className="skills-card-header">
-            <FaGlobe className="skills-card-icon skills-card-icon-purple" />
-            <h3 className="skills-card-title">Frameworks & Libraries</h3>
-          </div>
-          <div className="skills-list">
-            {skills.frameworks.map((skill) => (
-              <div key={skill.name} className="skills-list-item">
-                <span className="skills-list-icon">{skill.icon}</span>
-                <span className="skills-list-text">{skill.name}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Tools & Technologies */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="skills-card skills-card-green"
-        >
-          <div className="skills-card-header">
-            <FaDatabase className="skills-card-icon skills-card-icon-green" />
-            <h3 className="skills-card-title">Tools & Technologies</h3>
-          </div>
-          <div className="skills-list">
-            {skills.tools.map((skill) => (
-              <div key={skill.name} className="skills-list-item">
-                <span className="skills-list-icon">{skill.icon}</span>
-                <span className="skills-list-text">{skill.name}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Soft Skills */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="skills-card skills-card-orange"
-        >
-          <div className="skills-card-header">
-            <FaBriefcase className="skills-card-icon skills-card-icon-orange" />
-            <h3 className="skills-card-title">Soft Skills</h3>
-          </div>
-          <ul className="skills-ul">
-            <li> Leadership & Teamwork</li>
-            <li> Project Management</li>
-            <li> Problem Solving</li>
-            <li> Communication</li>
-            <li> Time Management</li>
-            <li> Multilingual Communication</li>
-          </ul>
-        </motion.div>
-
-        {/* Software Engineering */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="skills-card skills-card-pink"
-        >
-          <div className="skills-card-header">
-            <FaAward className="skills-card-icon skills-card-icon-pink" />
-            <h3 className="skills-card-title">Software Engineering</h3>
-          </div>
-          <ul className="skills-ul">
-            <li> Agile & Scrum</li>
-            <li> SDLC</li>
-            <li> Data Structures & Algorithms</li>
-            <li> Object-Oriented Programming</li>
-            <li> Test-Driven Development</li>
-          </ul>
-        </motion.div>
-
-        {/* Additional Skills */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="skills-card skills-card-indigo"
-        >
-          <div className="skills-card-header">
-            <FaUser className="skills-card-icon skills-card-icon-indigo" />
-            <h3 className="skills-card-title">Additional</h3>
-          </div>
-          <ul className="skills-ul">
-            <li> UI/UX Design Principles</li>
-            <li> API Development</li>
-            <li> Database Design</li>
-            <li> Version Control (Git)</li>
-            <li> Project Documentation</li>
-          </ul>
-        </motion.div>
+        <div className="skills-grid">
+          {skillCards.map((card) => (
+            <SkillCard key={card.title} {...card} />
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Skills;
