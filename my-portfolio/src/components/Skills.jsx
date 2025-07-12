@@ -84,29 +84,48 @@ const SkillCard = ({
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.6, delay }}
+    whileHover={{ scale: 1.05 }}
     className={`skills-card skills-card-${color}`}
   >
     <div className="skills-card-header">
       {icon && (
-        <span className={`skills-card-icon skills-card-icon-${color}`}>
+        <motion.span
+          className={`skills-card-icon skills-card-icon-${color}`}
+          animate={{ rotate: [0, 360] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        >
           {icon}
-        </span>
+        </motion.span>
       )}
       <h3 className="skills-card-title">{title}</h3>
     </div>
     {isList ? (
       <ul className="skills-ul">
-        {items.map((item) => (
-          <li key={item}>{item}</li>
+        {items.map((item, index) => (
+          <motion.li
+            key={item}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+          >
+            {item}
+          </motion.li>
         ))}
       </ul>
     ) : (
       <div className="skills-list">
-        {items.map((skill) => (
-          <div key={skill.name} className="skills-list-item">
+        {items.map((skill, index) => (
+          <motion.div
+            key={skill.name}
+            className="skills-list-item"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ scale: 1.1 }}
+          >
             <span className="skills-list-icon">{skill.icon}</span>
             <span className="skills-list-text">{skill.name}</span>
-          </div>
+          </motion.div>
         ))}
       </div>
     )}
@@ -182,7 +201,13 @@ const Skills = () => {
   ];
 
   return (
-    <section className="skills-section" id="skills">
+    <motion.section
+      className="skills-section"
+      id="skills"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
       <div className="skills-container">
         <motion.h2
           className="skills-title"
@@ -194,13 +219,18 @@ const Skills = () => {
           Skills & Expertise
         </motion.h2>
 
-        <div className="skills-grid">
+        <motion.div
+          className="skills-grid"
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
           {skillCards.map((card) => (
             <SkillCard key={card.title} {...card} />
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
