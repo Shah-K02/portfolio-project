@@ -1,0 +1,87 @@
+.dot-navigation {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 1000;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--nav-dot-inactive);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid var(--nav-dot-border);
+}
+
+.dot:hover {
+  transform: scale(1.2);
+  background-color: var(--nav-dot-hover);
+}
+
+.dot.active-dot {
+  background-color: var(--nav-dot-active);
+  transform: scale(1.3);
+  box-shadow: 0 0 10px var(--nav-dot-glow);
+}
+
+.arrow-container {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 1000;
+}
+
+.arrow-button {
+  padding: 0.5rem;
+  background-color: var(--nav-arrow-background);
+  color: var(--nav-arrow-color);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.arrow-button:hover {
+  transform: scale(1.1);
+  background-color: var(--nav-arrow-hover);
+  box-shadow: 0 4px 12px var(--shadow-hover);
+}
+
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: var(--gradient-radial, linear-gradient(to right, var(--gradient-start), var(--gradient-end)));
+  z-index: 1000;
+  transition: width 0.1s ease;
+}
+
+@media (max-width: 768px) {
+  .dot-navigation {
+    right: 1rem;
+  }
+
+  .arrow-container {
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+
+  .arrow-button {
+    padding: 0.4rem;
+  }
+}

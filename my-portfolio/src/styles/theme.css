@@ -1,0 +1,83 @@
+/* Light Theme */
+:root[data-theme='light'] {
+  --background: #ffffff;
+  --header-primary: #000814;
+  --header-secondary: #001d3d;
+  --text-primary: #000814;
+  --text-secondary: #001d3d;
+  --accent: #003566;
+  --button-background: #ffc300;
+  --button-text: #000814;
+  --button-hover: #ffd60a;
+  --card-background: #fafafa;
+  --section-background: #ffffff;
+  --icon-color: #003566;
+  --gradient-start: #ffc300;
+  --gradient-end: #ffd60a;
+  --shadow-color: rgba(0, 8, 20, 0.1);
+  --shadow-hover: rgba(0, 8, 20, 0.2);
+  
+  /* Navigation Specific */
+  --nav-dot-inactive: #ffffff;
+  --nav-dot-hover: #ffd60a;
+  --nav-dot-active: #ffc300;
+  --nav-dot-border: #001d3d;
+  --nav-dot-glow: rgba(255, 195, 0, 0.4);
+  --nav-arrow-background: #ffffff;
+  --nav-arrow-color: #001d3d;
+  --nav-arrow-hover: #ffc300;
+}
+
+/* Dark Theme */
+:root[data-theme='dark'] {
+  --background: #000814;
+  --header-primary: #ffc300;
+  --header-secondary: #ffd60a;
+  --text-primary: #ffd60a;
+  --text-secondary: #ffc300;
+  --accent: #ffd60a;
+  --button-background: #ffc300;
+  --button-text: #000814;
+  --button-hover: #ffd60a;
+  --card-background: #001d3d;
+  --section-background: #000814;
+  --icon-color: #ffd60a;
+  --gradient-start: #ffc300;
+  --gradient-end: #ffd60a;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(0, 0, 0, 0.4);
+  
+  /* Navigation Specific */
+  --nav-dot-inactive: #001d3d;
+  --nav-dot-hover: #ffc300;
+  --nav-dot-active: #ffd60a;
+  --nav-dot-border: #ffd60a;
+  --nav-dot-glow: rgba(255, 214, 10, 0.4);
+  --nav-arrow-background: #001d3d;
+  --nav-arrow-color: #ffd60a;
+  --nav-arrow-hover: #ffc300;
+}
+
+/* Global Transitions */
+* {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+/* Global Gradients */
+.gradient-radial {
+  background: radial-gradient(circle at center, var(--gradient-start), var(--gradient-end));
+}
+
+.gradient-top {
+  background: linear-gradient(to top, var(--gradient-start), var(--gradient-end));
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

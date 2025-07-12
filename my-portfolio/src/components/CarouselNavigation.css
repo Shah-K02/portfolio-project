@@ -1,0 +1,67 @@
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--nav-arrow-background);
+  color: var(--nav-arrow-color);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  z-index: 10;
+}
+
+.carousel-arrow.left {
+  left: 1rem;
+}
+
+.carousel-arrow.right {
+  right: 1rem;
+}
+
+.carousel-arrow:hover:not(:disabled) {
+  transform: translateY(-50%) scale(1.1);
+  background-color: var(--nav-arrow-hover);
+  box-shadow: 0 4px 12px var(--shadow-hover);
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.carousel-arrow svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.carousel-arrow:hover:not(:disabled) svg {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .carousel-arrow.left {
+    left: 0.5rem;
+  }
+
+  .carousel-arrow.right {
+    right: 0.5rem;
+  }
+
+  .carousel-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+}

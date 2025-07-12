@@ -3,39 +3,49 @@
   top: 1rem;
   right: 1rem;
   z-index: 1000;
-  background: var(--bg-primary);
-  border: 2px solid var(--text-primary);
-  color: var(--text-primary);
-  border-radius: 8px;
-  width: 44px;
-  height: 44px;
+  background-color: var(--card-background);
+  border: 2px solid var(--accent);
+  color: var(--icon-color);
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 0;
+  box-shadow: 0 2px 8px var(--shadow-color);
   backdrop-filter: blur(8px);
 }
 
 .theme-toggle:hover {
-  transform: translateY(-2px);
-  background: var(--text-primary);
-  color: var(--bg-primary);
-  box-shadow: 0 4px 20px -2px var(--text-primary);
-}
-
-.theme-toggle:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--text-secondary);
+  transform: scale(1.1);
+  background-color: var(--button-background);
+  color: var(--button-text);
+  border-color: var(--button-hover);
+  box-shadow: 0 4px 12px var(--shadow-hover);
 }
 
 .theme-toggle svg {
-  width: 24px;
-  height: 24px;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: transform 0.3s ease;
 }
 
 .theme-toggle:hover svg {
   transform: rotate(360deg);
+}
+
+@media (max-width: 768px) {
+  .theme-toggle {
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .theme-toggle svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
