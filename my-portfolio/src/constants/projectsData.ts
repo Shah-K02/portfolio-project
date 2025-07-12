@@ -75,6 +75,6 @@ export const PROJECTS_DATA: Project[] = [
     ],
     status: "completed",
     category: "API Development",
-    year: 2023,
+    year: 2025,
   },
 ];
