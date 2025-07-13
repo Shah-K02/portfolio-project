@@ -25,15 +25,7 @@
   --contact-button-text: var(--white);
   --contact-button-shadow: 0 4px 12px rgba(0, 53, 102, 0.3);
 
-  /* Work With Me Section */
-  --workwithme-button-primary: var(--yale-blue);
-  --workwithme-button-hover: var(--oxford-blue);
-  --workwithme-button-text: var(--white);
-  --workwithme-button-shadow: 0 4px 12px rgba(0, 29, 61, 0.2);
-  --workwithme-card-bg: rgba(250, 250, 250, 0.9);
-  --workwithme-card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --workwithme-border: rgba(0, 29, 61, 0.1);
-  --workwithme-icon-color: var(--white);
+
 
   --button-text: var(--rich-black);
   --button-hover: var(--gold);
@@ -80,15 +72,7 @@
   --contact-button-text: var(--rich-black);
   --contact-button-shadow: 0 4px 12px rgba(255, 214, 10, 0.4);
 
-  /* Work With Me Section */
-  --workwithme-button-primary: var(--mikado-yellow);
-  --workwithme-button-hover: var(--gold);
-  --workwithme-button-text: var(--rich-black);
-  --workwithme-button-shadow: 0 4px 12px rgba(255, 195, 0, 0.3);
-  --workwithme-card-bg: rgba(0, 29, 61, 0.8);
-  --workwithme-card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  --workwithme-border: rgba(255, 195, 0, 0.2);
-  --workwithme-icon-color: var(--rich-black);
+
 
   --button-text: var(--white);
   --button-hover: var(--gold);

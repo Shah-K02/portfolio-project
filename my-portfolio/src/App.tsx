@@ -5,7 +5,7 @@ import About from './components/About';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
-import WorkWithMe from './components/WorkWithMe';
+
 import { useScrollNavigation } from './hooks/useScrollNavigation';
 import { ScrollArrows } from './components/Navigation/ScrollArrows';
 import { DotNavigation } from './components/Navigation/DotNavigation';
@@ -15,7 +15,7 @@ import { ThemeToggle } from './components/Navigation/ThemeToggle';
 import './App.css';
 
 function AppContent() {
-  const sectionCount = 6;
+  const sectionCount = 5;
   const { theme } = useTheme();
   const {
     sectionRefs,
@@ -94,15 +94,7 @@ function AppContent() {
         <Contact />
       </motion.div>
 
-      <motion.div
-        ref={sectionRefs[5]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <WorkWithMe />
-      </motion.div>
+
 
       <DotNavigation 
         sectionCount={sectionCount}
