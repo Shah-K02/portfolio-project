@@ -22,9 +22,7 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 4rem;
-  background: linear-gradient(to right, #2563eb, #9333ea);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background: var(--header-primary);
   background-clip: text;
   color: transparent;
 }

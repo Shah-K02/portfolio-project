@@ -5,7 +5,7 @@
 .section-title {
   text-align: center;
   margin-bottom: 4rem;
-  background: linear-gradient(to right, #2563eb, #9333ea);
+  background-color: var(--text-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -49,45 +49,33 @@
 .strength-icon,
 .edu-icon {
   display: inline-flex;
-  background-color: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+  align-items: center;
+  justify-content: center;
+  background-color: var(--card-background);
   border-radius: 50%;
   padding: 0.5rem;
-  transition: transform 0.3s ease;
   width: 50px;
   height: 50px;
   margin-bottom: 1rem;
-}
-.info-card {
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--shadow-color);
+  transition: all 0.3s ease;
 }
 
-.strengths-card {
-  background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+:root[data-theme="dark"] .strength-icon,
+:root[data-theme="dark"] .edu-icon {
+  background-color: var(--button-hover);
 }
 
-.education-card {
-  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-}
-
-.card-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.strengths-card .card-title {
-  color: #1e40af;
-}
-
-.education-card .card-title {
-  color: #7c3aed;
+.strength-icon img,
+.edu-icon img {
+  width: 24px;
+  height: 24px;
+  color: var(--text-primary);
 }
 
 .strengths-list {
   list-style: none;
-  color: #374151;
+  color: var(--text-on-accent);
 }
 
 .strengths-list li {
@@ -98,30 +86,32 @@
 
 .strengths-list li::before {
   content: "•";
-  color: #3b82f6;
+  color: var(--accent-light);
   font-weight: bold;
   position: absolute;
   left: 0;
 }
 
 .education-content {
-  color: #374151;
+  color: var(--text-primary);
 }
 
 .degree {
   font-weight: 600;
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
+  color: var(--text-primary);
 }
 
 .university {
   font-size: 0.9rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
 }
 
 .coursework {
   line-height: 1.6;
+  color: var(--text-secondary);
 }
 
 @media (max-width: 767px) {
@@ -333,4 +323,44 @@
   .about.section-visible .about-info.stagger-item {
     transform: translateY(0) scale(1);
   }
+}
+
+.info-card {
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px var(--shadow-color);
+}
+
+.strengths-card {
+  background: var(--card-background);
+  background: radial-gradient(
+    circle at center,
+    var(--accent-light),
+    var(--accent)
+  );
+  color: var(--text-on-accent);
+}
+
+.education-card {
+  background: var(--card-background);
+  background: radial-gradient(
+    circle at center,
+    var(--card-background-light),
+    var(--card-background)
+  );
+  color: var(--text-primary);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.strengths-card .card-title {
+  color: var(--text-on-accent);
+}
+
+.education-card .card-title {
+  color: var(--accent);
 }

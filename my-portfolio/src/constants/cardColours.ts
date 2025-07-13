@@ -1,8 +1,8 @@
 export const CARD_COLORS = [
-    "#f8b195", // light pink
-    "#f67280", // pink
-    "#c06c84", // mauve
-    "#6c5b7b", // purple
-    "#355c7d", // blue
+    "#003566", // dark blue
+    "#ffd60a", // yellow
+    "#ffc300", // gold
+    "#001f4d", // oxford tint
+    "#0a0f2f", // dark blue
     "#99b898", // green
   ] as const;
