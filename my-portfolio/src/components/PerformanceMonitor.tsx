@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Monitor, Activity, Zap, Clock, Eye, EyeOff } from 'react-feather';
-import { PerformanceMonitor as PerfMonitor } from '../utils/performanceOptimizations';
+import { Monitor, Activity, Zap, Clock, EyeOff } from 'react-feather';
 import './PerformanceMonitor.css';
 
 interface PerformanceMetrics {
@@ -32,20 +31,8 @@ const PerformanceMonitorComponent: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [metrics, setMetrics] = useState<PerformanceMetrics | null>(null);
   const [isCollecting, setIsCollecting] = useState(false);
-  const perfMonitor = new PerfMonitor();
 
-  useEffect(() => {
-    // Only show in development mode
-    if (process.env.NODE_ENV === 'development') {
-      collectMetrics();
-      
-      // Update metrics every 5 seconds
-      const interval = setInterval(collectMetrics, 5000);
-      return () => clearInterval(interval);
-    }
-  }, []);
-
-  const collectMetrics = async () => {
+  const collectMetrics = useCallback(async () => {
     setIsCollecting(true);
     
     try {
@@ -88,7 +75,12 @@ const PerformanceMonitorComponent: React.FC = () => {
     } finally {
       setIsCollecting(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(collectMetrics, 2000);
+    return () => clearInterval(interval);
+  }, [collectMetrics]);
 
   const getLCP = (): Promise<number> => {
     return new Promise((resolve) => {

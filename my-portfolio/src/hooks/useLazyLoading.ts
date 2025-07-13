@@ -343,10 +343,12 @@ export const useVirtualScroll = (
   };
 };
 
-export default {
+const lazyLoadingHooks = {
   useLazyLoading,
   useLazyImage,
   useLazyComponent,
   usePreload,
   useVirtualScroll
 };
+
+export default lazyLoadingHooks;

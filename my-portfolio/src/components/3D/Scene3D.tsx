@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Text, Box, Sphere, useTexture } from '@react-three/drei';
-import { Mesh, Vector3 } from 'three';
+import React, { useRef, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, Text, Box, Sphere } from '@react-three/drei';
+import { Mesh } from 'three';
 import './Scene3D.css';
 
 interface FloatingElementProps {
@@ -54,7 +54,6 @@ const FloatingElement: React.FC<FloatingElementProps> = ({ position, color, text
 
 const AnimatedSphere: React.FC = () => {
   const sphereRef = useRef<Mesh>(null!);
-  const { viewport } = useThree();
 
   useFrame((state) => {
     if (sphereRef.current) {

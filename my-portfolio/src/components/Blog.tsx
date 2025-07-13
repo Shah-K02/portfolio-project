@@ -27,7 +27,7 @@ const Blog: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isVisible, elementRef } = useScrollAnimation(0.2);
 
-  const blogPosts: BlogPost[] = [
+  const blogPosts: BlogPost[] = useMemo(() => [
     {
       id: 'post1',
       title: 'Building Scalable React Applications with TypeScript',
@@ -118,7 +118,7 @@ const Blog: React.FC = () => {
       comments: 31,
       imageUrl: 'https://via.placeholder.com/600x300/81c784/ffffff?text=State+Management'
     }
-  ];
+  ], []);
 
   const categories = ['all', ...Array.from(new Set(blogPosts.map(post => post.category)))];
 

@@ -144,7 +144,6 @@ class AdvancedAnalytics {
 
   private determineVisitFrequency(): 'first-time' | 'returning' | 'frequent' {
     const visitCount = parseInt(localStorage.getItem('visitCount') || '0');
-    const lastVisit = localStorage.getItem('lastVisit');
     
     if (visitCount === 0) return 'first-time';
     if (visitCount < 5) return 'returning';

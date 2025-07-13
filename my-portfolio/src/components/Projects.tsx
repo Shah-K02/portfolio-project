@@ -4,13 +4,11 @@ import "./Projects.css";
 import "../styles/sectionAnimation.css";
 
 // Components
-import ProjectCard from "./ProjectCard";
 import ProjectModal from "./ProjectModal";
 import CarouselNavigation from "./CarouselNavigation";
 import PageIndicators from "./PageIndicators";
 import ProjectFilter from "./ProjectFilter";
 import Enhanced3DProjectCard from "./Enhanced3DProjectCard";
-import MagneticCursor from "./MagneticCursor";
 
 // Hooks
 import {

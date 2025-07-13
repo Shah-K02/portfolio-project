@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, Suspense, lazy, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import Introduction from './components/Introduction';
 import About from './components/About';
 import Projects from './components/Projects';
@@ -10,7 +10,7 @@ import { useScrollNavigation } from './hooks/useScrollNavigation';
 import { ScrollArrows } from './components/Navigation/ScrollArrows';
 import { DotNavigation } from './components/Navigation/DotNavigation';
 import { ScrollProgress } from './components/Navigation/ScrollProgress';
-import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { ThemeToggle } from './components/Navigation/ThemeToggle';
 import PerformanceMonitor from './components/PerformanceMonitor';
 import AchievementSystem from './components/Gamification/AchievementSystem';
@@ -26,7 +26,6 @@ const Blog = lazy(() => import('./components/Blog'));
 
 function AppContent() {
   const sectionCount = 7;
-  const { theme } = useTheme();
   const {
     sectionRefs,
     currentSection,
@@ -35,7 +34,7 @@ function AppContent() {
     scrollToSection,
     scrollProgress,
   } = useScrollNavigation(sectionCount);
-  const perfMonitor = new PerfMonitor();
+  const perfMonitor = useMemo(() => new PerfMonitor(), []);
 
   // Preload critical resources
   usePreload([
@@ -73,7 +72,7 @@ function AppContent() {
       perfMonitor.cleanup();
       analytics.stopTracking();
     };
-  }, []);
+  }, [perfMonitor]);
 
   const handleScrollDirection = (direction: 'up' | 'down') => {
     const newIndex = direction === 'down' 

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import './InteractiveParticles.css';
 
 interface Particle {
@@ -38,9 +38,11 @@ const InteractiveParticles: React.FC<InteractiveParticlesProps> = ({
   const mouseRef = useRef({ x: 0, y: 0, isDown: false });
   const [isActive, setIsActive] = useState(false);
 
-  const colors = theme === 'dark' 
-    ? ['#4f46e5', '#7c3aed', '#ec4899', '#f59e0b', '#10b981']
-    : ['#3b82f6', '#8b5cf6', '#f472b6', '#fbbf24', '#34d399'];
+  const colors = useMemo(() => 
+    theme === 'dark' 
+      ? ['#4f46e5', '#7c3aed', '#ec4899', '#f59e0b', '#10b981']
+      : ['#3b82f6', '#8b5cf6', '#f472b6', '#fbbf24', '#34d399']
+  , [theme]);
 
   const createParticle = useCallback((x?: number, y?: number, type: Particle['type'] = 'normal'): Particle => {
     const canvas = canvasRef.current;

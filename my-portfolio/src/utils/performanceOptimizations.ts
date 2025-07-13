@@ -342,7 +342,7 @@ export const initializePerformanceOptimizations = (): PerformanceMonitor | null 
   }
 };
 
-export default {
+const performanceUtils = {
   lazyLoadImage,
   debounce,
   throttle,
@@ -359,3 +359,5 @@ export default {
   registerServiceWorker,
   initializePerformanceOptimizations
 };
+
+export default performanceUtils;

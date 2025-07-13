@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, Send, X, User, Minimize2, Maximize2 } from 'react-feather';
 import './AIAssistant.css';
@@ -46,7 +46,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ portfolioData }) => {
 
   const data = portfolioData || defaultPortfolioData;
 
-  const knowledgeBase = {
+  const knowledgeBase = useMemo(() => ({
     greetings: [
       'Hello! I\'m your AI assistant. How can I help you learn more about this portfolio?',
       'Hi there! I\'m here to answer any questions about the projects, skills, or experience showcased here.',
@@ -72,15 +72,15 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ portfolioData }) => {
       patterns: ['help', 'what can you do', 'commands', 'assistance'],
       response: 'I can help you with information about skills, projects, experience, and how to get in touch. Try asking about specific technologies, projects, or career background!'
     }
-  };
+  }), [data]);
 
-  const quickSuggestions = [
+  const quickSuggestions = useMemo(() => [
     'What skills are showcased?',
     'Tell me about the projects',
     'What\'s the work experience?',
     'How can I get in touch?',
     'What technologies are used?'
-  ];
+  ], []);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -103,7 +103,36 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ portfolioData }) => {
       setMessages([welcomeMessage]);
       setSuggestions(quickSuggestions.slice(0, 3));
     }
-  }, [isOpen]);
+  }, [isOpen, messages.length, knowledgeBase.greetings, quickSuggestions]);
+
+  const updateSuggestions = useCallback((userMessage: string) => {
+    const message = userMessage.toLowerCase();
+    let newSuggestions: string[] = [];
+    
+    if (message.includes('skill') || message.includes('technology')) {
+      newSuggestions = [
+        'What projects use React?',
+        'Tell me about the backend skills',
+        'What\'s the experience with cloud platforms?'
+      ];
+    } else if (message.includes('project')) {
+      newSuggestions = [
+        'What technologies were used?',
+        'How long did the projects take?',
+        'Are there any live demos?'
+      ];
+    } else if (message.includes('experience')) {
+      newSuggestions = [
+        'What was the role at each company?',
+        'What skills were developed?',
+        'Any notable achievements?'
+      ];
+    } else {
+      newSuggestions = quickSuggestions.slice(0, 3);
+    }
+    
+    setSuggestions(newSuggestions);
+  }, [quickSuggestions]);
 
   const generateResponse = useCallback((userMessage: string): string => {
     const message = userMessage.toLowerCase();
@@ -145,7 +174,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ portfolioData }) => {
     
     // Fallback response
     return 'I\'m not sure about that specific question, but I can help you with information about skills, projects, experience, or contact details. What would you like to know?';
-  }, [data]);
+  }, [data, knowledgeBase]);
 
   const handleSendMessage = useCallback(async (messageText?: string) => {
     const text = messageText || inputValue.trim();
@@ -184,36 +213,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ portfolioData }) => {
     if ((window as any).achievementSystem) {
       (window as any).achievementSystem.trackInteraction();
     }
-  }, [inputValue, generateResponse]);
-
-  const updateSuggestions = useCallback((userMessage: string) => {
-    const message = userMessage.toLowerCase();
-    let newSuggestions: string[] = [];
-    
-    if (message.includes('skill') || message.includes('technology')) {
-      newSuggestions = [
-        'What projects use React?',
-        'Tell me about the backend skills',
-        'What\'s the experience with cloud platforms?'
-      ];
-    } else if (message.includes('project')) {
-      newSuggestions = [
-        'What technologies were used?',
-        'How long did the projects take?',
-        'Are there any live demos?'
-      ];
-    } else if (message.includes('experience')) {
-      newSuggestions = [
-        'What was the role at each company?',
-        'What skills were developed?',
-        'Any notable achievements?'
-      ];
-    } else {
-      newSuggestions = quickSuggestions.slice(0, 3);
-    }
-    
-    setSuggestions(newSuggestions);
-  }, []);
+  }, [inputValue, generateResponse, updateSuggestions]);
 
   const handleKeyPress = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
