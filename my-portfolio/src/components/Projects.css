@@ -408,7 +408,7 @@
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--nav-dot-inactive);
   background-color: transparent;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -424,23 +424,23 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--nav-dot-inactive);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
 }
 
 .indicator.active {
-  border-color: rgba(255, 255, 255, 0.8);
+  border-color: var(--nav-dot-active);
   transform: scale(1.2);
 }
 
 .indicator.active::before {
   opacity: 1;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--nav-dot-active);
 }
 
 .indicator:hover:not(.active) {
-  border-color: rgba(255, 255, 255, 0.6);
+  border-color: var(--nav-dot-hover);
   transform: scale(1.1);
 }
 

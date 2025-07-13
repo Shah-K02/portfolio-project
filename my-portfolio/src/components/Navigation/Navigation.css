@@ -17,11 +17,13 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid var(--nav-dot-border);
+  box-shadow: 0 0 5px var(--nav-dot-glow);
 }
 
 .dot:hover {
   transform: scale(1.2);
   background-color: var(--nav-dot-hover);
+  box-shadow: 0 0 8px var(--nav-dot-glow);
 }
 
 .dot.active-dot {
@@ -41,19 +43,25 @@
 }
 
 .arrow-button {
-  padding: 0.5rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--nav-arrow-background);
   color: var(--nav-arrow-color);
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px var(--shadow-color);
+  box-shadow: 0 2px 8px var(--nav-dot-glow);
+  border: none;
+  padding: 0;
 }
 
 .arrow-button:hover {
   transform: scale(1.1);
   background-color: var(--nav-arrow-hover);
-  box-shadow: 0 4px 12px var(--shadow-hover);
+  box-shadow: 0 4px 12px var(--nav-dot-glow);
 }
 
 .scroll-progress-bar {
@@ -61,7 +69,7 @@
   top: 0;
   left: 0;
   height: 4px;
-  background: var(--gradient-radial, linear-gradient(to right, var(--gradient-start), var(--gradient-end)));
+  background: var(--gradient-radial);
   z-index: 1000;
   transition: width 0.1s ease;
 }
@@ -82,6 +90,7 @@
   }
 
   .arrow-button {
-    padding: 0.4rem;
+    width: 35px;
+    height: 35px;
   }
 }

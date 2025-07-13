@@ -1,69 +1,107 @@
+:root {
+  /* Base colors */
+  --rich-black: #000814;
+  --oxford-blue: #001d3d;
+  --yale-blue: #003566;
+  --mikado-yellow: #ffc300;
+  --gold: #ffd60a;
+  --white: #ffffff;
+}
+
 /* Light Theme */
 :root[data-theme="light"] {
-  --background: #ffffff;
-  --header-primary: #000814;
-  --header-secondary: #001d3d;
-  --text-primary: #000814;
-  --text-secondary: #001d3d;
-  --accent: #003566;
+  --background: var(--white);
+  --header-primary: var(--rich-black);
+  --header-secondary: var(--oxford-blue);
+  --text-primary: var(--rich-black);
+  --text-secondary: var(--oxford-blue);
+  --accent: var(--yale-blue);
   --accent-light: #0353a4;
-  --button-background: #ffc300;
-  --button-text: #000814;
-  --button-hover: #ffd60a;
-  --card-background: #fafafa;
-  --card-background-light: #ffffff;
-  --section-background: #ffffff;
-  --icon-color: #003566;
+
+  /* Work With Me Section */
+  --workwithme-button-primary: var(--yale-blue);
+  --workwithme-button-hover: var(--oxford-blue);
+  --workwithme-button-text: var(--white);
+  --workwithme-button-shadow: 0 4px 12px rgba(0, 29, 61, 0.2);
+  --workwithme-card-bg: rgba(250, 250, 250, 0.9);
+  --workwithme-card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --workwithme-border: rgba(0, 29, 61, 0.1);
+  --workwithme-icon-color: var(--white);
+
+  --button-text: var(--rich-black);
+  --button-hover: var(--gold);
+  --button-shadow: 0 4px 12px rgba(0, 29, 61, 0.2);
+  --text-on-primary: var(--white);
+  --card-background: rgba(250, 250, 250, 0.9);
+  --card-background-light: var(--white);
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --border-color: rgba(0, 29, 61, 0.1);
+  --section-background: var(--white);
+  --icon-color: var(--yale-blue);
   --icon-invert: 0;
-  --text-on-accent: #ffffff;
-  --gradient-start: #ffc300;
-  --gradient-end: #ffd60a;
+  --text-on-accent: var(--white);
+  --gradient-start: var(--mikado-yellow);
+  --gradient-end: var(--gold);
   --shadow-color: rgba(0, 8, 20, 0.1);
   --shadow-hover: rgba(0, 8, 20, 0.2);
 
   /* Navigation Specific */
-  --nav-dot-inactive: #ffffff;
-  --nav-dot-hover: #ffd60a;
-  --nav-dot-active: #ffc300;
-  --nav-dot-border: #001d3d;
+  --nav-dot-inactive: rgba(0, 29, 61, 0.6);
+  --nav-dot-hover: var(--gold);
+  --nav-dot-active: var(--mikado-yellow);
+  --nav-dot-border: var(--oxford-blue);
   --nav-dot-glow: rgba(255, 195, 0, 0.4);
-  --nav-arrow-background: #ffffff;
-  --nav-arrow-color: #001d3d;
-  --nav-arrow-hover: #ffc300;
+  --nav-arrow-background: rgba(0, 29, 61, 0.8);
+  --nav-arrow-color: var(--white);
+  --nav-arrow-hover: var(--oxford-blue);
 }
 
 /* Dark Theme */
 :root[data-theme="dark"] {
-  --background: #000814;
-  --header-primary: #ffc300;
-  --header-secondary: #ffd60a;
-  --text-primary: #ffd60a;
-  --text-secondary: #ffc300;
-  --accent: #ffd60a;
+  --background: var(--rich-black);
+  --header-primary: var(--mikado-yellow);
+  --header-secondary: var(--gold);
+  --text-primary: var(--gold);
+  --text-secondary: var(--mikado-yellow);
+  --accent: var(--gold);
   --accent-light: #ffe14f;
-  --button-background: #ffc300;
-  --button-text: #000814;
-  --button-hover: #ffd60a;
-  --card-background: #001d3d;
-  --card-background-light: #003566;
-  --section-background: #000814;
-  --icon-color: #8b7400;
+
+  /* Work With Me Section */
+  --workwithme-button-primary: var(--mikado-yellow);
+  --workwithme-button-hover: var(--gold);
+  --workwithme-button-text: var(--rich-black);
+  --workwithme-button-shadow: 0 4px 12px rgba(255, 195, 0, 0.3);
+  --workwithme-card-bg: rgba(0, 29, 61, 0.8);
+  --workwithme-card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --workwithme-border: rgba(255, 195, 0, 0.2);
+  --workwithme-icon-color: var(--rich-black);
+
+  --button-text: var(--white);
+  --button-hover: var(--gold);
+  --button-shadow: 0 4px 12px rgba(255, 195, 0, 0.3);
+  --text-on-primary: var(--rich-black);
+  --card-background: rgba(0, 29, 61, 0.8);
+  --card-background-light: var(--yale-blue);
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --border-color: rgba(255, 195, 0, 0.2);
+  --section-background: var(--rich-black);
+  --icon-color: var(--mikado-yellow);
   --icon-invert: 1;
-  --text-on-accent: #000814;
-  --gradient-start: #ffc300;
-  --gradient-end: #ffd60a;
+  --text-on-accent: var(--rich-black);
+  --gradient-start: var(--mikado-yellow);
+  --gradient-end: var(--gold);
   --shadow-color: rgba(0, 0, 0, 0.3);
   --shadow-hover: rgba(0, 0, 0, 0.4);
 
   /* Navigation Specific */
-  --nav-dot-inactive: #001d3d;
-  --nav-dot-hover: #ffc300;
-  --nav-dot-active: #ffd60a;
-  --nav-dot-border: #ffd60a;
+  --nav-dot-inactive: rgba(255, 214, 10, 0.6);
+  --nav-dot-hover: var(--white);
+  --nav-dot-active: var(--mikado-yellow);
+  --nav-dot-border: var(--gold);
   --nav-dot-glow: rgba(255, 214, 10, 0.4);
-  --nav-arrow-background: #001d3d;
-  --nav-arrow-color: #ffd60a;
-  --nav-arrow-hover: #ffc300;
+  --nav-arrow-background: var(--mikado-yellow);
+  --nav-arrow-color: var(--rich-black);
+  --nav-arrow-hover: var(--white);
 }
 
 /* Global Transitions */

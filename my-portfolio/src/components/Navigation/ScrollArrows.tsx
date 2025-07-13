@@ -1,5 +1,6 @@
 
-import { IoIosArrowUp,IoIosArrowDown   } from "react-icons/io";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
+import './Navigation.css';
 
 interface ScrollArrowsProps {
   hideUpArrow: boolean;
@@ -10,18 +11,22 @@ interface ScrollArrowsProps {
 export const ScrollArrows = ({ hideUpArrow, hideDownArrow, scrollToSection }: ScrollArrowsProps) => (
   <div className="arrow-container">
     {!hideUpArrow && (
-      <IoIosArrowUp  
+      <button 
         className="arrow-button"
         onClick={() => scrollToSection("up")}
-        size={30}
-      />
+        aria-label="Scroll up"
+      >
+        <IoIosArrowUp size={24} style={{ color: 'inherit' }} />
+      </button>
     )}
     {!hideDownArrow && (
-      <IoIosArrowDown  
+      <button 
         className="arrow-button"
         onClick={() => scrollToSection("down")}
-        size={30}
-      />
+        aria-label="Scroll down"
+      >
+        <IoIosArrowDown size={24} style={{ color: 'inherit' }} />
+      </button>
     )}
   </div>
 );
