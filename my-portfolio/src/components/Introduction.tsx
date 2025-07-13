@@ -3,8 +3,11 @@ import { GitHubIcon, LinkedInIcon } from "./Icons";
 import "./Introduction.css";
 import { motion } from "framer-motion";
 import { Code } from "react-feather";
-import { useScrollAnimation } from "../hooks/useScrollAnimation"; // Adjust path as needed
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import "../styles/sectionAnimation.css";
+import ParticleBackground from "./ParticleBackground";
+import TypingAnimation from "./TypingAnimation";
+import MagneticCursor from "./MagneticCursor";
 const Introduction: React.FC = () => {
   const { isVisible, elementRef } = useScrollAnimation(0.2); // 20% threshold for early trigger
 
@@ -14,7 +17,9 @@ const Introduction: React.FC = () => {
       className={`introduction section-animated fade-up ${
         isVisible ? "section-visible" : "section-hidden"
       }`}
+      style={{ position: 'relative', overflow: 'hidden' }}
     >
+      <ParticleBackground count={2000} />
       <div className="container">
         <div
           className={`introduction-content stagger-children ${
@@ -56,54 +61,102 @@ const Introduction: React.FC = () => {
             </motion.div>
           </div>
 
-          <h1 className="main-title stagger-item">
+          <motion.h1 
+            className="main-title stagger-item"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
             Hi, I'm <span className="highlight">Shah Kar</span>
-          </h1>
+          </motion.h1>
 
-          <p className="subtitle stagger-item">
-            I am a highly motivated and passionate Computer Science graduate
-            from Aston University, specializing in full-stack development,
-            object-oriented programming, and database management. My goal is to
-            apply my knowledge and skills in fast-paced environments while
-            continuously learning and growing in the field of software
-            development.
-          </p>
+          <motion.div 
+            className="subtitle-container stagger-item"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+          >
+            <p className="subtitle-static">
+              I am a passionate Computer Science graduate specializing in{" "}
+            </p>
+            <div className="typing-container">
+              <TypingAnimation
+                texts={[
+                  "Full-Stack Development",
+                  "React & TypeScript",
+                  "Node.js & Express",
+                  "Database Design",
+                  "API Development",
+                  "Modern Web Technologies"
+                ]}
+                className="typing-text"
+                speed={80}
+                deleteSpeed={40}
+                delayBetweenTexts={1500}
+              />
+            </div>
+            <p className="subtitle-static">
+              Ready to create innovative solutions and contribute to cutting-edge projects.
+            </p>
+          </motion.div>
 
-          <div className="social-links stagger-item">
-            <motion.a
-              href="https://github.com/Shah-K02"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-link github"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{
-                opacity: isVisible ? 1 : 0,
-                y: isVisible ? 0 : 20,
-              }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <GitHubIcon />
-            </motion.a>
+          <motion.div 
+            className="social-links stagger-item"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+          >
+            <MagneticCursor strength={0.2}>
+              <motion.a
+                href="https://github.com/Shah-K02"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link github enhanced"
+                whileHover={{ 
+                  scale: 1.1,
+                  boxShadow: "0 0 25px var(--neon-cyan, #00f5ff)",
+                  backgroundColor: "rgba(0, 245, 255, 0.1)"
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <GitHubIcon />
+              </motion.a>
+            </MagneticCursor>
 
-            <motion.a
-              href="https://www.linkedin.com/in/shah-kar"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="social-link linkedin"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{
-                opacity: isVisible ? 1 : 0,
-                y: isVisible ? 0 : 20,
-              }}
-              transition={{ duration: 0.6, delay: 1.0 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <LinkedInIcon />
-            </motion.a>
-          </div>
+            <MagneticCursor strength={0.2}>
+              <motion.a
+                href="https://www.linkedin.com/in/shah-kar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link linkedin enhanced"
+                whileHover={{ 
+                  scale: 1.1,
+                  boxShadow: "0 0 25px var(--electric-blue, #0066ff)",
+                  backgroundColor: "rgba(0, 102, 255, 0.1)"
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <LinkedInIcon />
+              </motion.a>
+            </MagneticCursor>
+            
+            <MagneticCursor strength={0.2}>
+              <motion.button
+                className="cta-button"
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 0 30px var(--quantum-purple, #6366f1)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  const projectsSection = document.querySelector('[data-section="projects"]');
+                  projectsSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                View My Work
+              </motion.button>
+            </MagneticCursor>
+          </motion.div>
         </div>
       </div>
     </section>

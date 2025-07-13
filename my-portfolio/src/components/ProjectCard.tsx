@@ -2,7 +2,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Project } from "../types/project";
-import { CARD_COLORS } from "../constants/cardColours";
+
+// Card colors for project cards
+const CARD_COLORS = [
+  "#003566", // dark blue
+  "#ffd60a", // yellow
+  "#0a0f2f", // dark blue
+  "#ffc300", // gold
+  "#001f4d", // oxford tint
+] as const;
 
 interface ProjectCardProps {
   project: Project;

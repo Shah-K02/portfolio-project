@@ -66,7 +66,7 @@
   max-height: 90vh;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  scrollbar-color: var(--border-color) transparent;
 }
 
 .modal-content::-webkit-scrollbar {
@@ -78,12 +78,12 @@
 }
 
 .modal-content::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--border-color);
   border-radius: 3px;
 }
 
 .modal-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--accent);
 }
 
 /* Modal Header */
@@ -144,7 +144,7 @@
 .screenshot-container {
   border-radius: 12px;
   overflow: hidden;
-  background: #f7fafc;
+  background: var(--card-background-light);
   aspect-ratio: 16/10;
   position: relative;
 }
@@ -169,7 +169,7 @@
 .modal-description p {
   font-size: 1.1rem;
   line-height: 1.6;
-  color: #4a5568;
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -181,7 +181,7 @@
 .modal-technologies h3 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #2d3748;
+  color: var(--text-primary);
   margin: 0 0 1rem 0;
 }
 
@@ -193,8 +193,8 @@
 
 .tech-tag {
   padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  color: var(--text-on-accent);
   border-radius: 20px;
   font-size: 0.875rem;
   font-weight: 500;
@@ -216,7 +216,7 @@
 
 .detail-label {
   font-size: 0.875rem;
-  color: #718096;
+  color: var(--text-secondary);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -224,7 +224,7 @@
 
 .detail-value {
   font-size: 1rem;
-  color: #2d3748;
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -234,7 +234,7 @@
   gap: 1rem;
   flex-wrap: wrap;
   padding-top: 1rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-top: 1px solid var(--border-color);
 }
 
 .action-button {
@@ -252,25 +252,25 @@
 }
 
 .action-button.primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  color: var(--text-on-accent);
+  box-shadow: 0 4px 15px var(--shadow-color);
 }
 
 .action-button.primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 25px var(--shadow-hover);
 }
 
 .action-button.secondary {
-  background: rgba(0, 0, 0, 0.05);
-  color: #4a5568;
-  border: 2px solid rgba(0, 0, 0, 0.1);
+  background: var(--card-background-light);
+  color: var(--text-secondary);
+  border: 2px solid var(--border-color);
 }
 
 .action-button.secondary:hover {
-  background: rgba(0, 0, 0, 0.08);
-  border-color: rgba(0, 0, 0, 0.15);
+  background: var(--card-background);
+  border-color: var(--accent);
   transform: translateY(-1px);
 }
 

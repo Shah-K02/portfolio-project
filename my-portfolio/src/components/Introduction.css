@@ -1,4 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+
+/* Futuristic color variables */
+:root {
+  --neon-cyan: #00f5ff;
+  --electric-blue: #0066ff;
+  --deep-space: #0a0a0f;
+  --quantum-purple: #6366f1;
+  --matrix-green: #00ff88;
+  --hologram-white: #f8fafc;
+}
 
 @keyframes float {
   0% {
@@ -138,61 +148,135 @@
   background-clip: text;
 }
 
-.subtitle {
-  font-size: 1.5rem;
-  color: var(--text-secondary);
+/* Enhanced subtitle container */
+.subtitle-container {
   margin-bottom: 3rem;
+  text-align: center;
+}
+
+.subtitle-static {
+  font-size: 1.3rem;
+  color: var(--text-secondary);
   line-height: 1.6;
+  margin-bottom: 1rem;
   transition: color 0.3s ease;
+}
+
+.typing-container {
+  margin: 1.5rem 0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typing-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--neon-cyan, #00f5ff);
+  text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+  background: linear-gradient(135deg, var(--neon-cyan, #00f5ff), var(--electric-blue, #0066ff));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.typing-cursor {
+  animation: cursorBlink 1s infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
 .social-links {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
+/* Enhanced social links */
 .social-link {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 6px var(--shadow-color);
+  backdrop-filter: blur(10px);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
 }
 
-.social-link.github {
-  background-color: var(--card-background);
-  color: var(--text-primary);
+.social-link.enhanced {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.social-link.github:hover {
-  background-color: var(--button-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 15px var(--shadow-hover);
+.social-link.github.enhanced {
+  color: var(--hologram-white, #f8fafc);
 }
 
-.social-link.linkedin {
-  background-color: var(--button-background);
-  color: var(--button-text);
+.social-link.linkedin.enhanced {
+  color: var(--hologram-white, #f8fafc);
 }
 
-.social-link.linkedin:hover {
-  background-color: var(--button-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 15px var(--shadow-hover);
+/* CTA Button */
+.cta-button {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, var(--quantum-purple, #6366f1), var(--electric-blue, #0066ff));
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
 }
 
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+/* Enhanced responsive design */
 @media (max-width: 768px) {
   .main-title {
     font-size: 2.5rem;
   }
 
-  .subtitle {
-    font-size: 1.2rem;
+  .subtitle-static {
+    font-size: 1.1rem;
+  }
+  
+  .typing-text {
+    font-size: 1.4rem;
   }
 
   .profile-circle-container {
@@ -214,6 +298,26 @@
     gap: 1.5rem;
   }
 
+  .social-link {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .cta-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .typing-text {
+    font-size: 1.2rem;
+  }
+  
+  .social-links {
+    gap: 1rem;
+  }
+  
   .social-link {
     width: 50px;
     height: 50px;

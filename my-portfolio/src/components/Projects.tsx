@@ -9,6 +9,8 @@ import ProjectModal from "./ProjectModal";
 import CarouselNavigation from "./CarouselNavigation";
 import PageIndicators from "./PageIndicators";
 import ProjectFilter from "./ProjectFilter";
+import Enhanced3DProjectCard from "./Enhanced3DProjectCard";
+import MagneticCursor from "./MagneticCursor";
 
 // Hooks
 import {
@@ -137,13 +139,12 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
             animate="visible"
           >
             {visibleProjects.map((project, idx) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                colorIndex={currentPage * visibleCards + idx}
-                index={idx}
-                onViewProject={onViewProject}
-              />
+                 <Enhanced3DProjectCard
+                   key={project.id}
+                   project={project}
+                   index={idx}
+                   onViewProject={onViewProject}
+                 />
             ))}
           </motion.ul>
         </div>
@@ -192,7 +193,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <h2 className="projects-title">
+          <h2 className="projects-title futuristic-title">
             <span>My Projects</span>
           </h2>
           <p className="projects-subtitle">

@@ -47,6 +47,32 @@
   position: relative;
 }
 
+/* Enhanced futuristic title */
+.projects-title.futuristic-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 4rem;
+  background: linear-gradient(135deg, #00f5ff, #0066ff, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
+  position: relative;
+}
+
+.projects-title.futuristic-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00f5ff, transparent);
+  border-radius: 2px;
+}
+
 .projects-title span::after {
   content: "";
   position: absolute;
@@ -78,10 +104,19 @@
   flex-wrap: wrap;
 }
 
+/* Enhanced filter buttons */
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
 .filter-btn {
   padding: 0.75rem 1.5rem;
   background: var(--button-background);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid var(--border-color);
   border-radius: 25px;
   color: var(--button-text);
   font-weight: 500;
@@ -94,16 +129,62 @@
 
 .filter-btn:hover {
   background: var(--button-hover);
-  border-color: rgba(255, 255, 255, 0.3);
-  color: rgba(255, 255, 255, 0.95);
+  border-color: var(--accent);
+  color: var(--text-on-accent);
   transform: translateY(-2px);
 }
 
 .filter-btn.active {
   background: var(--nav-dot-active);
-  border-color: rgba(255, 255, 255, 0.95);
+  border-color: var(--accent);
   color: var(--button-text);
   font-weight: 600;
+}
+
+/* Futuristic filter buttons */
+.filter-btn.futuristic-filter {
+  padding: 1rem 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-btn.futuristic-filter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.filter-btn.futuristic-filter:hover::before {
+  left: 100%;
+}
+
+.filter-btn.futuristic-filter:hover {
+  border-color: #00f5ff;
+  background: rgba(0, 245, 255, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.2);
+}
+
+.filter-btn.futuristic-filter.active {
+  background: linear-gradient(135deg, #00f5ff, #0066ff);
+  color: white;
+  border-color: #00f5ff;
+  box-shadow: 0 0 30px rgba(0, 245, 255, 0.4);
 }
 
 /* Carousel Container */
@@ -121,8 +202,8 @@
 
 /* Enhanced Carousel Arrows with Better Icon Support */
 .carousel-arrow {
-  background: rgba(255, 255, 255, 0.15);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: var(--nav-arrow-background);
+  border: 2px solid var(--border-color);
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -132,11 +213,67 @@
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
-  color: #ffffff;
+  color: var(--text-primary);
   font-size: 1.2rem;
   z-index: 2;
   flex-shrink: 0;
   position: relative;
+}
+
+/* Futuristic carousel controls */
+.carousel-controls.futuristic-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+/* Futuristic carousel buttons */
+.carousel-btn.futuristic-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.4rem;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-btn.futuristic-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(0, 245, 255, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.carousel-btn.futuristic-btn:hover:not(:disabled)::before {
+  opacity: 1;
+}
+
+.carousel-btn.futuristic-btn:hover:not(:disabled) {
+  border-color: #00f5ff;
+  background: rgba(0, 245, 255, 0.1);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+.carousel-btn.futuristic-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 /* Icon styling for better visibility */
@@ -163,10 +300,10 @@
 }
 
 .carousel-arrow:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: var(--button-hover);
+  border-color: var(--accent);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px var(--shadow-color);
 }
 
 .carousel-arrow:active:not(:disabled) {
@@ -195,9 +332,9 @@
   flex: 1;
   overflow: hidden;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--card-background-light);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
   padding: 2rem;
 }
 
@@ -211,14 +348,23 @@
   margin: 0;
 }
 
+/* Enhanced projects grid */
+.projects-grid.enhanced-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 3rem;
+  margin-bottom: 4rem;
+  perspective: 1000px;
+}
+
 /* Enhanced Project Cards */
 .projects-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
+  background: var(--card-background);
+  backdrop-filter: blur(30px);
   border-radius: 20px;
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -234,16 +380,14 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: var(
-    --card-gradient,
-    linear-gradient(90deg, #667eea 0%, #764ba2 100%)
-  );
+  background: var(--gradient-start);
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
 }
 
 .projects-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 24px rgba(0, 0, 0, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2), 0 10px 30px rgba(0, 0, 0, 0.12);
+  border-color: var(--accent);
 }
 
 /* Card Content */
@@ -265,7 +409,7 @@
 .projects-card-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2d3748;
+  color: var(--text-primary);
   margin: 0;
   line-height: 1.3;
   letter-spacing: -0.01em;
@@ -286,26 +430,26 @@
 }
 
 .status-completed {
-  background: rgba(72, 187, 120, 0.1);
-  color: #2f855a;
-  border-color: rgba(72, 187, 120, 0.2);
+  background: var(--card-background-light);
+  color: var(--gradient-end);
+  border-color: var(--border-color);
 }
 
 .status-in-progress {
-  background: rgba(237, 137, 54, 0.1);
-  color: #c05621;
-  border-color: rgba(237, 137, 54, 0.2);
+  background: var(--card-background-light);
+  color: var(--accent);
+  border-color: var(--border-color);
 }
 
 .status-archived {
-  background: rgba(113, 128, 150, 0.1);
-  color: #4a5568;
-  border-color: rgba(113, 128, 150, 0.2);
+  background: var(--card-background);
+  color: var(--text-secondary);
+  border-color: var(--border-color);
 }
 
 .projects-card-description {
   font-size: 1rem;
-  color: #4a5568;
+  color: var(--text-secondary);
   line-height: 1.6;
   margin: 0 0 1.5rem 0;
   flex-grow: 1;
@@ -321,18 +465,18 @@
 
 .tech-tag {
   padding: 0.25rem 0.75rem;
-  background: rgba(102, 126, 234, 0.1);
-  color: #667eea;
+  background: var(--card-background-light);
+  color: var(--accent);
   border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 500;
-  border: 1px solid rgba(102, 126, 234, 0.2);
+  border: 1px solid var(--border-color);
 }
 
 .tech-tag.more {
-  background: rgba(113, 128, 150, 0.1);
-  color: #4a5568;
-  border-color: rgba(113, 128, 150, 0.2);
+  background: var(--card-background);
+  color: var(--text-secondary);
+  border-color: var(--border-color);
 }
 
 /* Card Footer */
@@ -345,7 +489,7 @@
 
 .projects-card-year {
   font-size: 0.9rem;
-  color: #f0f0f0;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
@@ -354,8 +498,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  color: var(--text-on-accent);
   text-decoration: none;
   border: none;
   border-radius: 12px;
@@ -385,7 +529,7 @@
 
 .projects-card-link:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 25px var(--shadow-hover);
 }
 
 .projects-card-link:hover::before {
@@ -442,6 +586,48 @@
 .indicator:hover:not(.active) {
   border-color: var(--nav-dot-hover);
   transform: scale(1.1);
+}
+
+/* Futuristic indicators */
+.indicator.futuristic-indicator {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  position: relative;
+}
+
+.indicator.futuristic-indicator::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00f5ff;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.indicator.futuristic-indicator.active::before {
+  opacity: 1;
+}
+
+.indicator.futuristic-indicator.active {
+  background: rgba(0, 245, 255, 0.2);
+  border-color: #00f5ff;
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.4);
+}
+
+.indicator.futuristic-indicator:hover {
+  border-color: #00f5ff;
+  background: rgba(0, 245, 255, 0.1);
 }
 
 /* Empty State */
@@ -591,12 +777,12 @@
 .indicator:focus-visible,
 .projects-card-link:focus-visible,
 .filter-btn:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
 .projects-carousel:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline: 2px solid var(--border-color);
   outline-offset: 4px;
   border-radius: 24px;
 }
@@ -614,53 +800,15 @@
 .projects-card.loading {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.1) 0px,
-    rgba(255, 255, 255, 0.2) 40px,
-    rgba(255, 255, 255, 0.1) 80px
+    var(--card-background-light) 0px,
+    var(--card-background) 40px,
+    var(--card-background-light) 80px
   );
   background-size: 200px 100%;
   animation: shimmer 1.5s infinite;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .projects-card {
-    background: rgba(26, 32, 44, 0.95);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
 
-  .projects-card-title {
-    color: #f7fafc;
-  }
-
-  .projects-card-description {
-    color: #cbd5e0;
-  }
-
-  .projects-card-year {
-    color: #ffffff;
-  }
-
-  .status-completed {
-    background: rgba(72, 187, 120, 0.2);
-    color: #68d391;
-  }
-
-  .status-in-progress {
-    background: rgba(237, 137, 54, 0.2);
-    color: #fbb863;
-  }
-
-  .status-archived {
-    background: rgba(113, 128, 150, 0.2);
-    color: #cbd5e0;
-  }
-
-  .tech-tag {
-    background: rgba(102, 126, 234, 0.2);
-    color: #90cdf4;
-  }
-}
 
 /* Print styles */
 @media print {
