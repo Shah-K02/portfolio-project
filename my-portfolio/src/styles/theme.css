@@ -18,6 +18,13 @@
   --accent: var(--yale-blue);
   --accent-light: #0353a4;
 
+  /* Contact Section */
+  --contact-icon-bg: var(--yale-blue);
+  --contact-icon-text: var(--white);
+  --contact-button-bg: var(--yale-blue);
+  --contact-button-text: var(--white);
+  --contact-button-shadow: 0 4px 12px rgba(0, 53, 102, 0.3);
+
   /* Work With Me Section */
   --workwithme-button-primary: var(--yale-blue);
   --workwithme-button-hover: var(--oxford-blue);
@@ -65,6 +72,13 @@
   --text-secondary: var(--mikado-yellow);
   --accent: var(--gold);
   --accent-light: #ffe14f;
+
+  /* Contact Section */
+  --contact-icon-bg: var(--gold);
+  --contact-icon-text: var(--rich-black);
+  --contact-button-bg: var(--gold);
+  --contact-button-text: var(--rich-black);
+  --contact-button-shadow: 0 4px 12px rgba(255, 214, 10, 0.4);
 
   /* Work With Me Section */
   --workwithme-button-primary: var(--mikado-yellow);
