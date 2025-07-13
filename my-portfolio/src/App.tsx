@@ -13,7 +13,10 @@ import { ScrollProgress } from './components/Navigation/ScrollProgress';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { ThemeToggle } from './components/Navigation/ThemeToggle';
 import PerformanceMonitor from './components/PerformanceMonitor';
-import { PerformanceMonitor as PerfMonitor } from './utils/performanceOptimizations';
+import AchievementSystem from './components/Gamification/AchievementSystem';
+import AIAssistant from './components/AI/AIAssistant';
+import analytics from './utils/advancedAnalytics';
+import { PerformanceMonitor as PerfMonitor, preloadResource } from './utils/performanceOptimizations';
 import { usePreload } from './hooks/useLazyLoading';
 import './App.css';
 
@@ -42,10 +45,10 @@ function AppContent() {
   ], { delay: 1000 });
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  useEffect(() => {
+    // Preload critical resources
+    preloadResource('/profilepic.jpeg', 'image');
+    preloadResource('/aboutpic.jpeg', 'image');
+    
     // Add resource hints for better performance
     const link1 = document.createElement('link');
     link1.rel = 'dns-prefetch';
@@ -60,10 +63,15 @@ function AppContent() {
 
     // Start performance monitoring
     perfMonitor.markStart('app-initialization');
+    
+    // Start advanced analytics
+    analytics.startTracking();
+    analytics.trackPageView('home');
 
     return () => {
       perfMonitor.markEnd('app-initialization');
       perfMonitor.cleanup();
+      analytics.stopTracking();
     };
   }, []);
 
@@ -79,6 +87,22 @@ function AppContent() {
       <ThemeToggle />
       <ScrollProgress scrollProgress={scrollProgress} />
       <PerformanceMonitor />
+        <AchievementSystem onAchievementUnlock={(achievement) => {
+          console.log('Achievement unlocked:', achievement.title);
+        }} />
+        <AIAssistant portfolioData={{
+          name: 'Portfolio Owner',
+          skills: ['React', 'TypeScript', 'Node.js', 'Python', 'AWS', 'MongoDB'],
+          projects: [
+            { title: 'E-commerce Platform', description: 'Full-stack e-commerce solution with React and Node.js', technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'] },
+            { title: 'Task Management App', description: 'Collaborative task management with real-time updates', technologies: ['React', 'Socket.io', 'Express', 'PostgreSQL'] },
+            { title: 'Data Visualization Dashboard', description: 'Interactive analytics dashboard with D3.js', technologies: ['React', 'D3.js', 'Python', 'FastAPI'] }
+          ],
+          experience: [
+            { company: 'Tech Solutions Inc.', role: 'Senior Full Stack Developer', duration: '2022-Present' },
+            { company: 'Digital Innovations', role: 'Frontend Developer', duration: '2020-2022' }
+          ]
+        }} />
 
       <motion.div
         ref={sectionRefs[0]}

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import "./Skills.css";
+import Scene3D from './3D/Scene3D';
 import {
   FaCode,
   FaGlobe,
@@ -208,6 +209,10 @@ const Skills = () => {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
+      <div className="skills-3d-background">
+        <Scene3D skills={skills.languages.map(skill => skill.name)} />
+      </div>
+      
       <div className="skills-container">
         <motion.h2
           className="skills-title"
@@ -216,7 +221,7 @@ const Skills = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Skills & Expertise
+          Skills & Technologies
         </motion.h2>
 
         <motion.div
