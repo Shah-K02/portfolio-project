@@ -8,8 +8,6 @@ export interface UserSession {
   interactions: Interaction[];
   deviceInfo: DeviceInfo;
   preferences: UserPreferences;
-  achievements: string[];
-  totalScore: number;
 }
 
 export interface PageView {
@@ -79,9 +77,7 @@ class AdvancedAnalytics {
       pageViews: [],
       interactions: [],
       deviceInfo: this.getDeviceInfo(),
-      preferences: this.getUserPreferences(),
-      achievements: [],
-      totalScore: 0
+      preferences: this.getUserPreferences()
     };
   }
 
@@ -207,7 +203,7 @@ class AdvancedAnalytics {
   }
 
   private getElementSelector(element: Element): string {
-    if (element.id) return `#${element.id}`;
+    if (element.id) return `#$;{element.id}`;
     if (element.className && typeof element.className === 'string') {
       return `.${element.className.split(' ')[0]}`;
     }
@@ -274,11 +270,6 @@ class AdvancedAnalytics {
     if (!this.isTracking) return;
     
     this.session.interactions.push(interaction);
-    
-    // Trigger achievement system
-    if ((window as any).achievementSystem) {
-      (window as any).achievementSystem.trackInteraction();
-    }
   }
 
   public updateUserPreference(key: keyof UserPreferences, value: any): void {

@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense, lazy, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Introduction from './components/Introduction';
 import About from './components/About';
@@ -13,16 +13,14 @@ import { ScrollProgress } from './components/Navigation/ScrollProgress';
 import { ThemeProvider } from './context/ThemeContext';
 import { ThemeToggle } from './components/Navigation/ThemeToggle';
 import PerformanceMonitor from './components/PerformanceMonitor';
-import AchievementSystem from './components/Gamification/AchievementSystem';
+
 import AIAssistant from './components/AI/AIAssistant';
 import analytics from './utils/advancedAnalytics';
 import { PerformanceMonitor as PerfMonitor, preloadResource } from './utils/performanceOptimizations';
 import { usePreload } from './hooks/useLazyLoading';
 import './App.css';
 
-// Lazy load heavy components
-const Resume = lazy(() => import('./components/Resume'));
-const Blog = lazy(() => import('./components/Blog'));
+// Lazy load heavy components (currently unused)
 
 function AppContent() {
   const sectionCount = 5;
@@ -86,9 +84,6 @@ function AppContent() {
       <ThemeToggle />
       <ScrollProgress scrollProgress={scrollProgress} />
       <PerformanceMonitor />
-        <AchievementSystem onAchievementUnlock={(achievement) => {
-          console.log('Achievement unlocked:', achievement.title);
-        }} />
         <AIAssistant portfolioData={{
           name: 'Portfolio Owner',
           skills: ['React', 'TypeScript', 'Node.js', 'Python', 'AWS', 'MongoDB'],

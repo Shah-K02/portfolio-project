@@ -209,10 +209,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ portfolioData }) => {
     // Update suggestions based on context
     updateSuggestions(text);
     
-    // Track interaction
-    if ((window as any).achievementSystem) {
-      (window as any).achievementSystem.trackInteraction();
-    }
+
   }, [inputValue, generateResponse, updateSuggestions]);
 
   const handleKeyPress = useCallback((e: React.KeyboardEvent) => {
