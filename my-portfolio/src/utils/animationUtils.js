@@ -22,21 +22,41 @@ const createScrollObserver = (options = {}) => {
   return observer;
 };
 
-// Progress indicator for scroll position
+// Progress indicator for scroll position with ARIA support
 const createScrollProgress = () => {
+  const progressContainer = document.querySelector('.scroll-progress-container');
   const progressBar = document.querySelector('.progress-bar');
-  if (!progressBar) return;
+  if (!progressBar || !progressContainer) return;
+
+  let ticking = false;
+  let lastKnownScrollPosition = 0;
 
   const updateProgress = () => {
     const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = (window.scrollY / windowHeight) * 100;
-    progressBar.style.transform = `scaleX(${progress / 100})`;
+    const progress = Math.min(Math.max((window.scrollY / windowHeight) * 100, 0), 100);
+    
+    // Update ARIA attributes
+    progressContainer.setAttribute('aria-valuenow', Math.round(progress));
+    
+    // Update progress bar with RAF
+    requestAnimationFrame(() => {
+      progressBar.style.transform = `scaleX(${progress / 100})`;
+      ticking = false;
+    });
   };
 
-  window.addEventListener('scroll', updateProgress, { passive: true });
+  const onScroll = () => {
+    lastKnownScrollPosition = window.scrollY;
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateProgress);
+    }
+  };
+
+  window.addEventListener('scroll', onScroll, { passive: true });
   updateProgress(); // Initial call
 
-  return () => window.removeEventListener('scroll', updateProgress);
+  return () => window.removeEventListener('scroll', onScroll);
 };
 
 // Staggered animation helper
