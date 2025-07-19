@@ -62,11 +62,14 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const visibleCards = useResponsiveCardCount();
 
-  // Memoized filtered projects
+  // Memoized filtered and sorted projects
   const filteredProjects = useMemo(() => {
-    return selectedCategory === "all"
+    const filtered = selectedCategory === "all"
       ? projects
       : projects.filter((project) => project.category === selectedCategory);
+    
+    // Sort by year in descending order (newest first)
+    return filtered.sort((a, b) => (b.year || 0) - (a.year || 0));
   }, [projects, selectedCategory]);
 
   // Memoized categories

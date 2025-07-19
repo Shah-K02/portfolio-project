@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Project } from '../types/project';
 import MagneticCursor from './MagneticCursor';
+import './Enhanced3DProjectCard.css';
 
 interface Enhanced3DProjectCardProps {
   project: Project;
@@ -120,13 +121,12 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
                   key={tech}
                   className="tech-orb"
                   animate={{
-                    rotate: isHovered ? 360 : 0,
+                    scale: isHovered ? 1.05 : 1,
                   }}
                   transition={{
-                    duration: 2,
-                    delay: techIndex * 0.2,
-                    repeat: isHovered ? Infinity : 0,
-                    ease: 'linear'
+                    duration: 0.3,
+                    delay: techIndex * 0.1,
+                    ease: 'easeOut'
                   }}
                 >
                   {tech}

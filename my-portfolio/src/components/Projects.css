@@ -324,12 +324,14 @@
 /* Projects Grid */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 3rem;
   list-style: none;
   padding: 0;
   margin: 0;
   perspective: 1000px;
+  justify-items: center;
+  align-items: start;
 }
 
 /* Enhanced Project Cards */
@@ -649,7 +651,7 @@
 @media (max-width: 1200px) {
   .projects-grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+    gap: 2.5rem;
   }
 
   .carousel-viewport {
@@ -705,8 +707,9 @@
   }
 
   .projects-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    justify-items: center;
   }
 
   .projects-card {
@@ -743,6 +746,16 @@
   .filter-btn {
     padding: 0.5rem 0.75rem;
     font-size: 0.8rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    justify-items: center;
+  }
+
+  .carousel-viewport {
+    padding: 0.5rem;
   }
 
   .projects-card-content {

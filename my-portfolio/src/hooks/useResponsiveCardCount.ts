@@ -6,13 +6,13 @@ const BREAKPOINTS = {
 } as const;
 
 const CARDS_PER_VIEWPORT = {
-  MOBILE: 2,
-  TABLET: 3,
-  DESKTOP: 6,
+  MOBILE: 4,
+  TABLET: 4,
+  DESKTOP: 4,
 } as const;
 
 export const useResponsiveCardCount = () => {
-  const [visibleCards, setVisibleCards] = useState<2 | 3 | 6>(CARDS_PER_VIEWPORT.DESKTOP);
+  const [visibleCards, setVisibleCards] = useState<4>(CARDS_PER_VIEWPORT.DESKTOP);
 
   const updateVisibleCards = useCallback(() => {
     const screenWidth = window.innerWidth;

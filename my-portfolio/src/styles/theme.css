@@ -6,6 +6,13 @@
   --mikado-yellow: #ffc300;
   --gold: #ffd60a;
   --white: #ffffff;
+  
+  /* Futuristic colors for 3D cards */
+  --neon-cyan: #00f5ff;
+  --electric-blue: #0066ff;
+  --quantum-purple: #6366f1;
+  --matrix-green: #00ff88;
+  --hologram-white: #f8fafc;
 }
 
 /* Light Theme */
