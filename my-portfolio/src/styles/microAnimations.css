@@ -1,0 +1,167 @@
+/* Loading States */
+.button-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.button-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: translateX(-100%);
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Button Hover Effects */
+.button-ripple {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.button-ripple::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, var(--color-primary) 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 1s;
+}
+
+.button-ripple:active::after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+/* Form Interactions */
+.form-field {
+  position: relative;
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.form-field-valid {
+  border-color: var(--color-success);
+}
+
+.form-field-invalid {
+  border-color: var(--color-error);
+}
+
+.form-feedback {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 0.875rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.form-feedback.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Skeleton Loading */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton-start) 25%,
+    var(--color-skeleton-middle) 50%,
+    var(--color-skeleton-start) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Ripple Animation */
+@keyframes ripple {
+  to {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Success Animation */
+.success-checkmark {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  animation: success-scale 0.3s ease-in-out;
+}
+
+.success-checkmark::before,
+.success-checkmark::after {
+  content: '';
+  position: absolute;
+  background: var(--color-success);
+}
+
+.success-checkmark::before {
+  width: 3px;
+  height: 12px;
+  left: 11px;
+  top: 19px;
+  transform: rotate(45deg);
+  animation: success-left 0.15s ease-in-out;
+}
+
+.success-checkmark::after {
+  width: 3px;
+  height: 22px;
+  left: 22px;
+  top: 10px;
+  transform: rotate(-45deg);
+  animation: success-right 0.15s ease-in-out 0.15s;
+}
+
+@keyframes success-scale {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes success-left {
+  0% {
+    transform: rotate(45deg) scaleY(0);
+  }
+  100% {
+    transform: rotate(45deg) scaleY(1);
+  }
+}
+
+@keyframes success-right {
+  0% {
+    transform: rotate(-45deg) scaleY(0);
+  }
+  100% {
+    transform: rotate(-45deg) scaleY(1);
+  }
+}

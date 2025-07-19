@@ -1,24 +1,37 @@
+/* Animation Variables */
+:root {
+  --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-duration: 0.8s;
+  --transition-duration-fast: 0.4s;
+  --transition-duration-slow: 1.2s;
+}
+
 /* Base animation classes */
 .section-animated {
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-property: opacity, transform;
+  transition: all var(--transition-duration) var(--transition-smooth);
+  transition-property: opacity, transform, box-shadow;
+  will-change: opacity, transform;
 }
 
 /* Hidden state (default) */
 .section-hidden {
   opacity: 0;
   transform: translateY(50px);
+  pointer-events: none;
 }
 
 /* Visible state */
 .section-visible {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
 
-/* Animation variants */
+/* Animation variants with enhanced transitions */
 .fade-up {
   transform: translateY(50px);
+  transition-timing-function: var(--transition-bounce);
 }
 
 .fade-up.section-visible {
@@ -27,6 +40,7 @@
 
 .fade-down {
   transform: translateY(-50px);
+  transition-timing-function: var(--transition-bounce);
 }
 
 .fade-down.section-visible {
@@ -35,6 +49,7 @@
 
 .fade-left {
   transform: translateX(-50px);
+  transition-timing-function: var(--transition-bounce);
 }
 
 .fade-left.section-visible {
@@ -43,6 +58,7 @@
 
 .fade-right {
   transform: translateX(50px);
+  transition-timing-function: var(--transition-bounce);
 }
 
 .fade-right.section-visible {
@@ -50,18 +66,50 @@
 }
 
 .scale-in {
-  transform: scale(0.9);
+  transform: scale(0.95);
+  transition-timing-function: var(--transition-bounce);
 }
 
 .scale-in.section-visible {
   transform: scale(1);
 }
 
-/* Staggered children animations */
+/* Hover animations for interactive elements */
+.hover-lift {
+  transition: transform var(--transition-duration-fast) var(--transition-smooth),
+              box-shadow var(--transition-duration-fast) var(--transition-smooth);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Progress indicator animation */
+.progress-bar {
+  transform-origin: left;
+  transition: transform var(--transition-duration-fast) var(--transition-smooth);
+}
+
+/* Breadcrumb animations */
+.breadcrumb-enter {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.breadcrumb-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity var(--transition-duration-fast) var(--transition-smooth),
+              transform var(--transition-duration-fast) var(--transition-smooth);
+}
+
+/* Enhanced staggered children animations */
 .stagger-children .stagger-item {
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--transition-duration-fast) var(--transition-bounce);
   opacity: 0;
   transform: translateY(30px);
+  will-change: opacity, transform;
 }
 
 .stagger-children.section-visible .stagger-item {
@@ -69,21 +117,35 @@
   transform: translateY(0);
 }
 
-.stagger-children.section-visible .stagger-item:nth-child(1) {
-  transition-delay: 0.1s;
+/* Dynamic stagger delays */
+@for $i from 1 through 10 {
+  .stagger-children.section-visible .stagger-item:nth-child($i) {
+    transition-delay: calc(0.1s * $i);
+  }
 }
-.stagger-children.section-visible .stagger-item:nth-child(2) {
-  transition-delay: 0.2s;
+
+/* Scroll-triggered animations */
+.scroll-trigger {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-duration) var(--transition-smooth),
+              transform var(--transition-duration) var(--transition-bounce);
 }
-.stagger-children.section-visible .stagger-item:nth-child(3) {
-  transition-delay: 0.3s;
+
+.scroll-trigger.in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
-.stagger-children.section-visible .stagger-item:nth-child(4) {
-  transition-delay: 0.4s;
+
+/* Page transition effects */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
 }
-.stagger-children.section-visible .stagger-item:nth-child(5) {
-  transition-delay: 0.5s;
-}
-.stagger-children.section-visible .stagger-item:nth-child(6) {
-  transition-delay: 0.6s;
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--transition-duration) var(--transition-smooth),
+              transform var(--transition-duration) var(--transition-bounce);
 }
