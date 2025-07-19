@@ -30,48 +30,101 @@
 
 /* Animation variants with enhanced transitions */
 .fade-up {
+  opacity: 0;
   transform: translateY(50px);
-  transition-timing-function: var(--transition-bounce);
+  transition: opacity 0.6s var(--transition-smooth),
+              transform 0.6s var(--transition-bounce);
 }
 
 .fade-up.section-visible {
+  opacity: 1;
   transform: translateY(0);
 }
 
 .fade-down {
+  opacity: 0;
   transform: translateY(-50px);
-  transition-timing-function: var(--transition-bounce);
+  transition: opacity 0.6s var(--transition-smooth),
+              transform 0.6s var(--transition-bounce);
 }
 
 .fade-down.section-visible {
+  opacity: 1;
   transform: translateY(0);
 }
 
 .fade-left {
+  opacity: 0;
   transform: translateX(-50px);
-  transition-timing-function: var(--transition-bounce);
+  transition: opacity 0.6s var(--transition-smooth),
+              transform 0.6s var(--transition-bounce);
 }
 
 .fade-left.section-visible {
+  opacity: 1;
   transform: translateX(0);
 }
 
 .fade-right {
+  opacity: 0;
   transform: translateX(50px);
-  transition-timing-function: var(--transition-bounce);
+  transition: opacity 0.6s var(--transition-smooth),
+              transform 0.6s var(--transition-bounce);
 }
 
 .fade-right.section-visible {
+  opacity: 1;
   transform: translateX(0);
 }
 
 .scale-in {
+  opacity: 0;
   transform: scale(0.95);
-  transition-timing-function: var(--transition-bounce);
+  transition: opacity 0.6s var(--transition-smooth),
+              transform 0.6s var(--transition-bounce);
 }
 
 .scale-in.section-visible {
+  opacity: 1;
   transform: scale(1);
+}
+
+/* New transition variants */
+.slide-up {
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 0.8s var(--transition-smooth),
+              transform 0.8s var(--transition-bounce);
+}
+
+.slide-up.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.zoom-fade {
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 0.8s var(--transition-smooth),
+              transform 0.8s var(--transition-bounce);
+}
+
+.zoom-fade.section-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.flip-up {
+  opacity: 0;
+  transform: perspective(1000px) rotateX(-30deg);
+  transform-origin: bottom;
+  transition: opacity 0.8s var(--transition-smooth),
+              transform 0.8s var(--transition-bounce);
+}
+
+.flip-up.section-visible {
+  opacity: 1;
+  transform: perspective(1000px) rotateX(0);
 }
 
 /* Hover animations for interactive elements */
