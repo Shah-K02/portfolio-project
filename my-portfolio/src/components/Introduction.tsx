@@ -9,7 +9,7 @@ import ParticleBackground from "./ParticleBackground";
 import TypingAnimation from "./TypingAnimation";
 import MagneticCursor from "./MagneticCursor";
 
-import InteractiveParticles from './Interactive/InteractiveParticles';
+import InteractiveParticles from "./Interactive/InteractiveParticles";
 const Introduction: React.FC = () => {
   const { isVisible, elementRef } = useScrollAnimation(0.2); // 20% threshold for early trigger
 
@@ -19,15 +19,14 @@ const Introduction: React.FC = () => {
       className={`introduction section-animated fade-up ${
         isVisible ? "section-visible" : "section-hidden"
       }`}
-      style={{ position: 'relative', overflow: 'hidden' }}
+      style={{ position: "relative", overflow: "hidden" }}
     >
       <div className="intro-background">
-        <InteractiveParticles 
+        <InteractiveParticles
           particleCount={50}
           color="#64ffda"
           connectionDistance={100}
         />
-
       </div>
       <ParticleBackground count={2000} />
       <div className="container">
@@ -71,7 +70,7 @@ const Introduction: React.FC = () => {
             </motion.div>
           </div>
 
-          <motion.h1 
+          <motion.h1
             className="main-title stagger-item"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
@@ -80,14 +79,14 @@ const Introduction: React.FC = () => {
             Hi, I'm <span className="highlight">Shah Kar</span>
           </motion.h1>
 
-          <motion.div 
+          <motion.div
             className="subtitle-container stagger-item"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
             <p className="subtitle-static">
-              I am a passionate Computer Science graduate specializing in{" "}
+              I am a passionate Computer Science graduate specialising in{" "}
             </p>
             <div className="typing-container">
               <TypingAnimation
@@ -97,7 +96,7 @@ const Introduction: React.FC = () => {
                   "Node.js & Express",
                   "Database Design",
                   "API Development",
-                  "Modern Web Technologies"
+                  "Modern Web Technologies",
                 ]}
                 className="typing-text"
                 speed={80}
@@ -106,11 +105,12 @@ const Introduction: React.FC = () => {
               />
             </div>
             <p className="subtitle-static">
-              Ready to create innovative solutions and contribute to cutting-edge projects.
+              Ready to create innovative solutions and contribute to
+              cutting-edge projects.
             </p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="social-links stagger-item"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
@@ -122,10 +122,10 @@ const Introduction: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link github enhanced"
-                whileHover={{ 
+                whileHover={{
                   scale: 1.1,
                   boxShadow: "0 0 25px var(--neon-cyan, #00f5ff)",
-                  backgroundColor: "rgba(0, 245, 255, 0.1)"
+                  backgroundColor: "rgba(0, 245, 255, 0.1)",
                 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -139,28 +139,30 @@ const Introduction: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link linkedin enhanced"
-                whileHover={{ 
+                whileHover={{
                   scale: 1.1,
                   boxShadow: "0 0 25px var(--electric-blue, #0066ff)",
-                  backgroundColor: "rgba(0, 102, 255, 0.1)"
+                  backgroundColor: "rgba(0, 102, 255, 0.1)",
                 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <LinkedInIcon />
               </motion.a>
             </MagneticCursor>
-            
+
             <MagneticCursor strength={0.2}>
               <motion.button
                 className="cta-button"
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 0 30px var(--quantum-purple, #6366f1)"
+                  boxShadow: "0 0 30px var(--quantum-purple, #6366f1)",
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
-                  const projectsSection = document.querySelector('[data-section="projects"]');
-                  projectsSection?.scrollIntoView({ behavior: 'smooth' });
+                  const projectsSection = document.querySelector(
+                    '[data-section="projects"]'
+                  );
+                  projectsSection?.scrollIntoView({ behavior: "smooth" });
                 }}
               >
                 View My Work
