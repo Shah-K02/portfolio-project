@@ -241,41 +241,69 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.875rem 1.5rem;
-  border-radius: 12px;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
   font-weight: 600;
   font-size: 1rem;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: none;
+  cursor: pointer;
 }
 
 .action-button.primary {
-  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-  color: var(--text-on-accent);
-  box-shadow: 0 4px 15px var(--shadow-color);
+  background: linear-gradient(135deg, var(--neon-cyan, #00f5ff), var(--electric-blue, #0066ff));
+  color: var(--rich-black, #000814);
+  border: 1px solid var(--neon-cyan, #00f5ff);
+}
+
+:root[data-theme="light"] .action-button.primary {
+  background: linear-gradient(135deg, var(--yale-blue, #003566), var(--oxford-blue, #001d3d));
+  color: white;
+  border: 1px solid var(--yale-blue, #003566);
+  box-shadow: 0 4px 12px rgba(0, 29, 61, 0.2);
+}
+
+:root[data-theme="light"] .action-button.primary:hover {
+  background: linear-gradient(135deg, var(--oxford-blue, #001d3d), var(--rich-black, #000814));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 29, 61, 0.3);
 }
 
 .action-button.primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px var(--shadow-hover);
+  box-shadow: 0 8px 20px rgba(0, 245, 255, 0.3);
 }
 
 .action-button.secondary {
-  background: var(--card-background-light);
-  color: var(--text-secondary);
-  border: 2px solid var(--border-color);
+  background: rgba(0, 102, 255, 0.2);
+  color: var(--hologram-white, #f8fafc);
+  border: 1px solid var(--electric-blue, #0066ff);
+}
+
+:root[data-theme="light"] .action-button.secondary {
+  background: rgba(0, 53, 102, 0.1);
+  color: var(--oxford-blue, #001d3d);
+  border: 1.5px solid var(--yale-blue, #003566);
+  box-shadow: 0 2px 8px rgba(0, 29, 61, 0.1);
+}
+
+:root[data-theme="light"] .action-button.secondary:hover {
+  background: rgba(0, 53, 102, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 29, 61, 0.2);
 }
 
 .action-button.secondary:hover {
-  background: var(--card-background);
-  border-color: var(--accent);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 102, 255, 0.3);
 }
 
 .action-button:active {
-  transform: translateY(0);
+  transform: translateY(-1px);
 }
 
 /* Responsive Design */

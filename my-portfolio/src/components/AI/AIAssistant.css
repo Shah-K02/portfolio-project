@@ -6,20 +6,33 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-  color: white;
+  border: 1px solid var(--neon-cyan, #00f5ff);
+  background: linear-gradient(135deg, var(--neon-cyan, #00f5ff), var(--electric-blue, #0066ff));
+  color: var(--rich-black, #000814);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+:root[data-theme="light"] .ai-assistant-toggle {
+  background: linear-gradient(135deg, var(--yale-blue, #003566), var(--oxford-blue, #001d3d));
+  color: white;
+  border: 1px solid var(--yale-blue, #003566);
+  box-shadow: 0 4px 12px rgba(0, 29, 61, 0.2);
 }
 
 .ai-assistant-toggle:hover {
-  box-shadow: 0 12px 35px rgba(79, 70, 229, 0.4);
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 245, 255, 0.3);
+}
+
+:root[data-theme="light"] .ai-assistant-toggle:hover {
+  background: linear-gradient(135deg, var(--oxford-blue, #001d3d), var(--rich-black, #000814));
+  box-shadow: 0 6px 16px rgba(0, 29, 61, 0.3);
 }
 
 .ai-assistant-window {
@@ -256,18 +269,33 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-  color: white;
+  border: 1px solid var(--neon-cyan, #00f5ff);
+  background: linear-gradient(135deg, var(--neon-cyan, #00f5ff), var(--electric-blue, #0066ff));
+  color: var(--rich-black, #000814);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+:root[data-theme="light"] .send-btn {
+  background: linear-gradient(135deg, var(--yale-blue, #003566), var(--oxford-blue, #001d3d));
+  color: white;
+  border: 1px solid var(--yale-blue, #003566);
+  box-shadow: 0 4px 12px rgba(0, 29, 61, 0.2);
 }
 
 .send-btn:hover:not(:disabled) {
-  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 245, 255, 0.3);
+}
+
+:root[data-theme="light"] .send-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--oxford-blue, #001d3d), var(--rich-black, #000814));
+  box-shadow: 0 6px 16px rgba(0, 29, 61, 0.3);
 }
 
 .send-btn:disabled {
