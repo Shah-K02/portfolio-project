@@ -1,7 +1,7 @@
 .ai-assistant-toggle {
   position: fixed;
   bottom: 30px;
-  right: 30px;
+  left: 30px;
   z-index: 1000;
   width: 60px;
   height: 60px;
@@ -25,7 +25,7 @@
 .ai-assistant-window {
   position: fixed;
   bottom: 100px;
-  right: 30px;
+  left: 30px;
   width: 400px;
   height: 600px;
   background: rgba(255, 255, 255, 0.95);
@@ -185,7 +185,9 @@
 }
 
 @keyframes typing {
-  0%, 60%, 100% {
+  0%,
+  60%,
+  100% {
     transform: translateY(0);
     opacity: 0.4;
   }
@@ -281,8 +283,7 @@
     width: 50px;
     height: 50px;
   }
-  
-  .ai-assistant-window {
+  element.className.split .ai-assistant-window {
     bottom: 80px;
     right: 20px;
     left: 20px;
@@ -290,11 +291,11 @@
     height: 70vh;
     max-height: 500px;
   }
-  
+
   .ai-assistant-messages {
     padding: 15px;
   }
-  
+
   .ai-assistant-input {
     padding: 15px;
   }
@@ -309,11 +310,11 @@
     height: auto;
     max-height: none;
   }
-  
+
   .message {
     max-width: 90%;
   }
-  
+
   .message-content {
     padding: 10px 14px;
   }
@@ -325,42 +326,42 @@
     background: rgba(15, 23, 42, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
-  
+
   .message-content {
     background: rgba(255, 255, 255, 0.1);
     color: #f8fafc;
   }
-  
+
   .message.user .message-content {
     background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
     color: white;
   }
-  
+
   .suggestion-btn {
     background: rgba(79, 70, 229, 0.2);
     border-color: rgba(79, 70, 229, 0.3);
     color: #a5b4fc;
   }
-  
+
   .suggestion-btn:hover {
     background: rgba(79, 70, 229, 0.3);
   }
-  
+
   .ai-assistant-input {
     background: rgba(15, 23, 42, 0.8);
     border-top-color: rgba(255, 255, 255, 0.1);
   }
-  
+
   .ai-assistant-input input {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.2);
     color: #f8fafc;
   }
-  
+
   .ai-assistant-input input::placeholder {
     color: #94a3b8;
   }
-  
+
   .ai-assistant-input input:focus {
     border-color: #4f46e5;
     background: rgba(255, 255, 255, 0.15);
@@ -394,7 +395,7 @@
   .send-btn {
     transition: none;
   }
-  
+
   .typing-indicator span {
     animation: none;
   }
@@ -406,11 +407,11 @@
     border: 2px solid #000;
     background: #fff;
   }
-  
+
   .message-content {
     border: 1px solid #000;
   }
-  
+
   .suggestion-btn {
     border: 2px solid #4f46e5;
   }

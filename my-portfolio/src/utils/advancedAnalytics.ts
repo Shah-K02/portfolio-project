@@ -208,7 +208,13 @@ class AdvancedAnalytics {
 
   private getElementSelector(element: Element): string {
     if (element.id) return `#${element.id}`;
-    if (element.className) return `.${element.className.split(' ')[0]}`;
+    if (element.className && typeof element.className === 'string') {
+      return `.${element.className.split(' ')[0]}`;
+    }
+    if (element.className && element.className.toString) {
+      const classNameStr = element.className.toString();
+      if (classNameStr) return `.${classNameStr.split(' ')[0]}`;
+    }
     return element.tagName.toLowerCase();
   }
 
