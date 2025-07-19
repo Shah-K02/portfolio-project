@@ -5,13 +5,19 @@
   --transition-duration: 0.8s;
   --transition-duration-fast: 0.4s;
   --transition-duration-slow: 1.2s;
+  --transform-gpu: translate3d(0, 0, 0);
 }
 
 /* Base animation classes */
 .section-animated {
-  transition: all var(--transition-duration) var(--transition-smooth);
-  transition-property: opacity, transform, box-shadow;
-  will-change: opacity, transform;
+  transition: opacity var(--transition-duration) var(--transition-smooth),
+              transform var(--transition-duration) var(--transition-smooth),
+              box-shadow var(--transition-duration) var(--transition-smooth);
+  will-change: transform, opacity;
+  transform: var(--transform-gpu);
+  contain: layout style paint;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 /* Hidden state (default) */

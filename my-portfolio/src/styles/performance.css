@@ -1,25 +1,66 @@
 /* Performance Optimizations */
 
-/* Content Visibility Optimizations */
+/* Content Visibility and Containment */
 .off-screen-section {
   content-visibility: auto;
   contain-intrinsic-size: 0 500px;
+  contain: layout style paint;
 }
 
-/* Apply to specific sections */
+/* Section-specific optimizations */
 .projects-section:not(.section-visible),
 .skills-section:not(.section-visible),
 .about:not(.section-visible),
 .blog-section:not(.section-visible) {
   content-visibility: auto;
   contain-intrinsic-size: 0 500px;
+  contain: layout style paint;
 }
 
-/* Optimize paint and layout operations */
+/* Animation Performance Layer */
 .performance-layer {
   will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;
+  contain: paint;
+}
+
+/* Animated Elements Optimization */
+.section-animated,
+.fade-right,
+.fade-left,
+.scale-in,
+.slide-up,
+.hover-lift {
+  will-change: transform, opacity;
+  contain: paint;
+  backface-visibility: hidden;
+}
+
+/* Interactive Elements */
+.nav-btn,
+.button-loading,
+.modal-container,
+.carousel-item {
+  contain: layout paint;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .will-change-transform {
+    will-change: auto;
+  }
 }
 
 /* Optimize animations */

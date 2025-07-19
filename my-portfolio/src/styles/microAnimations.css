@@ -2,10 +2,16 @@
 .button-loading {
   position: relative;
   overflow: hidden;
+  contain: layout paint;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .button-loading::after {
   content: '';
+  contain: strict;
+  will-change: transform;
+  backface-visibility: hidden;
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
