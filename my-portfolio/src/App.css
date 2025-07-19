@@ -195,6 +195,32 @@ body {
   min-height: 100vh;
 }
 
+.app-root {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Utility Classes */
 .container {
   width: var(--content-width);

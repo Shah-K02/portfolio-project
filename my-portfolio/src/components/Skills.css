@@ -249,16 +249,40 @@
 }
 
 .skills-card-icon {
-  width: 48px;
-  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 60px;
+  height: 60px;
   border-radius: 16px;
-  background: var(--gradient-primary);
-  color: white;
-  font-size: 1.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
   flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-card-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+}
+
+.skills-card-icon:hover {
+  transform: translateY(-4px) scale(1.05);
+  color: var(--text-primary);
+  box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+}
+
+.skills-card-icon:hover::before {
+  opacity: 0.1;
 }
 
 .skills-card-title {

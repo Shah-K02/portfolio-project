@@ -132,7 +132,7 @@ function AppContent() {
   }, []);
 
   return (
-    <div className="app-container" style={{ position: "relative" }}>
+    <div className="app-container">
       <ThemeToggle />
       <ScrollProgress scrollProgress={scrollProgress} />
       <PerformanceMonitor />
@@ -284,10 +284,13 @@ function AppContent() {
 
 function App() {
   return (
-    <ThemeProvider>
-      <VisualEffects />
-      <AppContent />
-    </ThemeProvider>
+    <div className="app-root">
+      <ThemeProvider>
+        <ThemeToggle />
+        <VisualEffects />
+        <AppContent />
+      </ThemeProvider>
+    </div>
   );
 }
 
