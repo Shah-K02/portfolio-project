@@ -8,7 +8,7 @@ import "../styles/sectionAnimation.css";
 import ParticleBackground from "./ParticleBackground";
 import TypingAnimation from "./TypingAnimation";
 import MagneticCursor from "./MagneticCursor";
-import Scene3D from './3D/Scene3D';
+
 import InteractiveParticles from './Interactive/InteractiveParticles';
 const Introduction: React.FC = () => {
   const { isVisible, elementRef } = useScrollAnimation(0.2); // 20% threshold for early trigger
@@ -27,9 +27,7 @@ const Introduction: React.FC = () => {
           color="#64ffda"
           connectionDistance={100}
         />
-        <div className="intro-3d">
-          <Scene3D />
-        </div>
+
       </div>
       <ParticleBackground count={2000} />
       <div className="container">

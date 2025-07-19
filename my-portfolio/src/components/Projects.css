@@ -156,6 +156,9 @@
 /* Carousel Container */
 .projects-carousel-container {
   position: relative;
+  transform: translateZ(0);
+  will-change: transform;
+  z-index: 1;
 }
 
 .projects-carousel {
@@ -164,6 +167,9 @@
   gap: 2rem;
   position: relative;
   outline: none;
+  transform: translateZ(0);
+  will-change: transform;
+  z-index: 1;
 }
 
 /* Enhanced Carousel Arrows */

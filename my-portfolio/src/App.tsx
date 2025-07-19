@@ -34,12 +34,15 @@ function AppContent() {
   } = useScrollNavigation(sectionCount);
   const perfMonitor = useMemo(() => new PerfMonitor(), []);
 
-  // Preload critical resources
-  usePreload([
-    '/fonts/inter.woff2',
-    '/fonts/jetbrains-mono.woff2',
-    '/images/hero-bg.webp'
-  ], { delay: 1000 });
+  // Preload critical resources with correct 'as' attribute
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = '/images/hero-bg.webp';
+    link.type = 'image/webp';
+    document.head.appendChild(link);
+  }, []);
 
   useEffect(() => {
     // Preload critical resources
@@ -79,8 +82,46 @@ function AppContent() {
     scrollToSection(newIndex);
   };
   
+  useEffect(() => {
+    // Add font preloading with CDN sources
+    const style = document.createElement('style');
+    style.textContent = `
+      @font-face {
+        font-family: 'Inter';
+        src: url('https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-700-normal.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        src: url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.18/files/jetbrains-mono-latin-400-normal.woff2') format('woff2');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Add preload links
+    const fontPreloadLinks = [
+      { href: 'https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-700-normal.woff2', type: 'font/woff2' },
+      { href: 'https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.18/files/jetbrains-mono-latin-400-normal.woff2', type: 'font/woff2' }
+    ];
+
+    fontPreloadLinks.forEach(font => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'font';
+      link.href = font.href;
+      link.type = font.type;
+      link.crossOrigin = 'anonymous';
+      document.head.appendChild(link);
+    });
+  }, []);
+
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="app-container" style={{ position: 'relative', minHeight: '100vh', overflow: 'hidden', transform: 'translateZ(0)', willChange: 'transform' }}>
       <ThemeToggle />
       <ScrollProgress scrollProgress={scrollProgress} />
       <PerformanceMonitor />

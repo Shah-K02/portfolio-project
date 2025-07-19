@@ -20,16 +20,49 @@ const FloatingElement: React.FC<FloatingElementProps> = ({ position, color, text
     if (meshRef.current) {
       meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime) * 0.2;
       meshRef.current.rotation.y += 0.01;
-      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 2) * 0.1;
+      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime * 2) * 0.2;
     }
   });
 
+  const getIconGeometry = (text: string) => {
+    switch(text.toLowerCase()) {
+      case 'react':
+        return <Sphere args={[0.6, 32, 32]} />;
+      case 'typescript':
+        return <Box args={[1, 1, 1]} />;
+      case 'node.js':
+        return <Box args={[1.2, 0.8, 0.2]} />;
+      case 'python':
+        return <Box args={[0.8, 0.8, 0.8]} />;
+      case 'aws':
+        return <Box args={[1.2, 0.6, 0.6]} />;
+      default:
+        return <Box args={[1, 1, 1]} />;
+    }
+  };
+
+  const getIconColor = (text: string) => {
+    switch(text.toLowerCase()) {
+      case 'react':
+        return '#61DAFB';
+      case 'typescript':
+        return '#3178C6';
+      case 'node.js':
+        return '#68A063';
+      case 'python':
+        return '#FFD43B';
+      case 'aws':
+        return '#FF9900';
+      default:
+        return color;
+    }
+  };
+
   return (
     <group position={position}>
-      <Box
+      <mesh
         ref={meshRef}
-        args={[1, 1, 1]}
-        scale={clicked ? 1.2 : hovered ? 1.1 : 1}
+        scale={clicked ? 1.3 : hovered ? 1.2 : 1}
         onClick={() => {
           setClicked(!clicked);
           onClick?.();
@@ -37,14 +70,21 @@ const FloatingElement: React.FC<FloatingElementProps> = ({ position, color, text
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
       >
-        <meshStandardMaterial color={hovered ? '#ff6b6b' : color} />
-      </Box>
+        {getIconGeometry(text)}
+        <meshPhongMaterial
+          color={getIconColor(text)}
+          emissive={hovered ? getIconColor(text) : '#000000'}
+          emissiveIntensity={hovered ? 0.5 : 0}
+          shininess={100}
+        />
+      </mesh>
       <Text
         position={[0, -1.5, 0]}
-        fontSize={0.3}
+        fontSize={0.35}
         color="white"
         anchorX="center"
         anchorY="middle"
+        font={undefined} // Using default font
       >
         {text}
       </Text>
