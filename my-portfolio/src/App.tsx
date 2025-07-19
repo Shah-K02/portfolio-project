@@ -5,6 +5,7 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
+import { VisualEffects } from "./components/VisualEffects";
 
 import { useScrollNavigation } from "./hooks/useScrollNavigation";
 import { ScrollArrows } from "./components/Navigation/ScrollArrows";
@@ -284,6 +285,7 @@ function AppContent() {
 function App() {
   return (
     <ThemeProvider>
+      <VisualEffects />
       <AppContent />
     </ThemeProvider>
   );
