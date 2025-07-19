@@ -1,112 +1,113 @@
 :root {
-  /* Base colors */
-  --rich-black: #000814;
-  --oxford-blue: #001d3d;
-  --yale-blue: #003566;
-  --mikado-yellow: #ffc300;
-  --gold: #ffd60a;
-  --white: #ffffff;
+  /* Primary Colors */
+  --primary-900: #000814;  /* Rich Black */
+  --primary-800: #001d3d;  /* Oxford Blue */
+  --primary-700: #003566;  /* Yale Blue */
   
-  /* Futuristic colors for 3D cards */
-  --neon-cyan: #00f5ff;
-  --electric-blue: #0066ff;
-  --quantum-purple: #6366f1;
-  --matrix-green: #00ff88;
-  --hologram-white: #f8fafc;
+  /* Accent Colors */
+  --accent-500: #ffc300;  /* Mikado Yellow */
+  --accent-400: #ffd60a;  /* Gold */
+  
+  /* Futuristic Accents */
+  --neon-500: #00f5ff;    /* Neon Cyan */
+  --electric-500: #0066ff; /* Electric Blue */
+  
+  /* Semantic Colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  
+  /* System Colors */
+  --white: #ffffff;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--neon-500), var(--electric-500));
+  --gradient-accent: linear-gradient(135deg, var(--accent-500), var(--accent-400));
 }
 
 /* Light Theme */
 :root[data-theme="light"] {
+  /* Base Theme Colors */
   --background: var(--white);
-  --header-primary: var(--rich-black);
-  --header-secondary: var(--oxford-blue);
-  --text-primary: var(--rich-black);
-  --text-secondary: var(--oxford-blue);
-  --accent: var(--yale-blue);
-  --accent-light: #0353a4;
-
-  /* Contact Section */
-  --contact-icon-bg: var(--yale-blue);
-  --contact-icon-text: var(--white);
-  --contact-button-bg: var(--yale-blue);
-  --contact-button-text: var(--white);
-  --contact-button-shadow: 0 4px 12px rgba(0, 53, 102, 0.3);
-
-
-
-  --button-text: var(--rich-black);
-  --button-hover: var(--gold);
-  --button-shadow: 0 4px 12px rgba(0, 29, 61, 0.2);
-  --text-on-primary: var(--white);
-  --card-background: rgba(250, 250, 250, 0.9);
-  --card-background-light: var(--white);
-  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --border-color: rgba(0, 29, 61, 0.1);
-  --section-background: var(--white);
-  --icon-color: var(--yale-blue);
-  --icon-invert: 0;
-  --text-on-accent: var(--white);
-  --gradient-start: var(--mikado-yellow);
-  --gradient-end: var(--gold);
-  --shadow-color: rgba(0, 8, 20, 0.1);
-  --shadow-hover: rgba(0, 8, 20, 0.2);
-
-  /* Navigation Specific */
+  --surface: var(--white);
+  --surface-hover: rgba(0, 0, 0, 0.02);
+  
+  /* Typography Colors */
+  --text-primary: var(--primary-900);
+  --text-secondary: var(--primary-800);
+  --text-tertiary: var(--primary-700);
+  
+  /* Interactive Colors */
+  --accent: var(--primary-700);
+  --accent-hover: var(--primary-800);
+  --accent-muted: rgba(0, 53, 102, 0.1);
+  
+  /* Component Colors */
+  --button-bg: var(--gradient-primary);
+  --button-text: var(--white);
+  --button-border: var(--neon-500);
+  --button-shadow: 0 4px 12px rgba(0, 53, 102, 0.2);
+  
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --card-border: var(--glass-border);
+  --card-shadow: var(--glass-shadow);
+  
+  /* Navigation Colors */
+  --nav-bg: var(--glass-bg);
+  --nav-border: var(--glass-border);
+  --nav-shadow: var(--glass-shadow);
   --nav-dot-inactive: rgba(0, 29, 61, 0.6);
-  --nav-dot-hover: var(--gold);
-  --nav-dot-active: var(--mikado-yellow);
-  --nav-dot-border: var(--oxford-blue);
-  --nav-dot-glow: rgba(255, 195, 0, 0.4);
-  --nav-arrow-background: rgba(0, 29, 61, 0.8);
-  --nav-arrow-color: var(--white);
-  --nav-arrow-hover: var(--oxford-blue);
+  --nav-dot-hover: var(--accent-400);
+  --nav-dot-active: var(--accent-500);
+  
+  /* Status Colors */
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --error-bg: rgba(239, 68, 68, 0.1);
 }
 
 /* Dark Theme */
 :root[data-theme="dark"] {
-  --background: var(--rich-black);
-  --header-primary: var(--mikado-yellow);
-  --header-secondary: var(--gold);
-  --text-primary: var(--gold);
-  --text-secondary: var(--mikado-yellow);
-  --accent: var(--gold);
-  --accent-light: #ffe14f;
-
-  /* Contact Section */
-  --contact-icon-bg: var(--gold);
-  --contact-icon-text: var(--rich-black);
-  --contact-button-bg: var(--gold);
-  --contact-button-text: var(--rich-black);
-  --contact-button-shadow: 0 4px 12px rgba(255, 214, 10, 0.4);
-
-
-
-  --button-text: var(--white);
-  --button-hover: var(--gold);
-  --button-shadow: 0 4px 12px rgba(255, 195, 0, 0.3);
-  --text-on-primary: var(--rich-black);
-  --card-background: rgba(0, 29, 61, 0.8);
-  --card-background-light: var(--yale-blue);
-  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  --border-color: rgba(255, 195, 0, 0.2);
-  --section-background: var(--rich-black);
-  --icon-color: var(--mikado-yellow);
-  --icon-invert: 1;
-  --text-on-accent: var(--rich-black);
-  --gradient-start: var(--mikado-yellow);
-  --gradient-end: var(--gold);
-  --shadow-color: rgba(0, 0, 0, 0.3);
-  --shadow-hover: rgba(0, 0, 0, 0.4);
-
-  /* Navigation Specific */
-  --nav-dot-inactive: rgba(255, 214, 10, 0.6);
-  --nav-dot-hover: var(--white);
-  --nav-dot-active: var(--mikado-yellow);
-  --nav-dot-border: var(--gold);
-  --nav-dot-glow: rgba(255, 214, 10, 0.4);
-  --nav-arrow-background: var(--mikado-yellow);
-  --nav-arrow-color: var(--rich-black);
-  --nav-arrow-hover: var(--white);
+  /* Base Theme Colors */
+  --background: var(--primary-900);
+  --surface: var(--primary-800);
+  --surface-hover: rgba(255, 255, 255, 0.05);
+  
+  /* Typography Colors */
+  --text-primary: var(--white);
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  
+  /* Interactive Colors */
+  --accent: var(--accent-500);
+  --accent-hover: var(--accent-400);
+  --accent-muted: rgba(255, 195, 0, 0.1);
+  
+  /* Component Colors */
+  --button-bg: var(--gradient-accent);
+  --button-text: var(--primary-900);
+  --button-border: var(--accent-500);
+  --button-shadow: 0 4px 12px rgba(255, 195, 0, 0.2);
+  
+  --card-bg: rgba(0, 29, 61, 0.9);
+  --card-border: var(--glass-border);
+  --card-shadow: var(--glass-shadow);
+  
+  /* Navigation Colors */
+  --nav-bg: var(--glass-bg);
+  --nav-border: var(--glass-border);
+  --nav-shadow: var(--glass-shadow);
+  --nav-dot-inactive: rgba(255, 255, 255, 0.6);
+  --nav-dot-hover: var(--accent-400);
+  --nav-dot-active: var(--accent-500);
+  
+  /* Status Colors */
+  --success-bg: rgba(16, 185, 129, 0.2);
+  --warning-bg: rgba(245, 158, 11, 0.2);
+  --error-bg: rgba(239, 68, 68, 0.2);
 }
 
 /* Global Transitions */
