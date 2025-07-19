@@ -338,6 +338,53 @@
   perspective: 1000px;
   justify-items: center;
   align-items: start;
+  touch-action: pan-x pan-y;
+  user-select: none;
+}
+
+/* Scroll Progress Indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--glass-bg);
+  z-index: 1000;
+  transform-origin: 0%;
+}
+
+.scroll-progress-bar {
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary);
+  transform-origin: 0%;
+}
+
+
+
+/* Touch Swipe Indicator */
+.swipe-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.swipe-indicator.visible {
+  opacity: 0.7;
+  animation: swipeHint 1.5s ease-in-out infinite;
+}
+
+@keyframes swipeHint {
+  0%, 100% { transform: translate(-50%, -50%) translateX(0); }
+  50% { transform: translate(-50%, -50%) translateX(20px); }
 }
 
 /* Enhanced Project Cards */

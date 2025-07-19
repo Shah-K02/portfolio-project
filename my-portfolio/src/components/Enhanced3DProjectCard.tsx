@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, TouchEvent } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, Variants } from 'framer-motion';
 import { Project } from '../types/project';
 import { SpringConfig } from '../types/animation';
@@ -107,17 +107,18 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
         onClick={() => setIsFlipped(!isFlipped)}
       >
         {/* Card Front */}
-        <motion.div
-          className="card-face card-front"
-          animate={{ rotateY: isFlipped ? 180 : 0 }}
-          transition={{ duration: 0.6 }}
-          style={{
-            backfaceVisibility: 'hidden',
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-          }}
-        >
+          <motion.div
+            className="card-face card-front"
+            animate={{ rotateY: isFlipped ? 180 : 0 }}
+            transition={{ duration: 0.6 }}
+            style={{
+              backfaceVisibility: 'hidden',
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+            }}
+          >
+
           <div className="card-content">
             {/* Holographic border effect */}
             <div className="holographic-border" />
