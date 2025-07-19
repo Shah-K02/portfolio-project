@@ -25,7 +25,7 @@ const Resume = lazy(() => import('./components/Resume'));
 const Blog = lazy(() => import('./components/Blog'));
 
 function AppContent() {
-  const sectionCount = 7;
+  const sectionCount = 5;
   const {
     sectionRefs,
     currentSection,
@@ -145,7 +145,7 @@ function AppContent() {
         <Skills />
       </motion.div>
 
-      <motion.div
+      {/* <motion.div
         ref={sectionRefs[4]}
         className="section"
         initial={{ opacity: 0, y: 50 }}
@@ -160,9 +160,9 @@ function AppContent() {
         }>
           <Resume />
         </Suspense>
-      </motion.div>
+      </motion.div> */}
 
-      <motion.div
+      {/* <motion.div
         ref={sectionRefs[5]}
         className="section"
         initial={{ opacity: 0, y: 50 }}
@@ -177,7 +177,7 @@ function AppContent() {
         }>
           <Blog />
         </Suspense>
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
         ref={sectionRefs[6]}
