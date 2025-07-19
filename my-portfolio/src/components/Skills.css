@@ -3,6 +3,9 @@
   position: relative;
   background: var(--bg-primary);
   overflow: hidden;
+  contain: layout paint style;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
 .skills-3d-background {
@@ -14,12 +17,22 @@
   z-index: 0;
   opacity: 0.4;
   pointer-events: none;
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  transition: opacity 0.3s ease-out;
+  contain: strict;
+}
+
+/* Parallax scroll effect */
+.skills-section[data-scroll="true"] .skills-3d-background {
+  transform: translate3d(0, calc(var(--scroll-y, 0) * -0.1px), 0);
 }
 
 @media (max-width: 768px) {
   .skills-3d-background {
     opacity: 0.6;
     height: 100%;
+    transform: none !important;
   }
 }
 
@@ -34,6 +47,25 @@
               radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
+  opacity: 0;
+  animation: fadeGradient 0.6s ease-out forwards;
+  will-change: opacity;
+  contain: strict;
+}
+
+@keyframes fadeGradient {
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-section,
+  .skills-3d-background,
+  .skills-section::before {
+    animation: none;
+    transition: none;
+    transform: none !important;
+    opacity: 1;
+  }
 }
 
 .skills-container {
@@ -72,9 +104,47 @@
 }
 .skills-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  perspective: 1000px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  position: relative;
+  z-index: 1;
+  contain: layout style;
+}
+
+/* Animation classes */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
+}
+
+.animate-on-scroll.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animation for grid items */
+.animate-on-scroll > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-on-scroll.animate-in > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll,
+  .animate-on-scroll > * {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
 
 .skills-ul {
@@ -82,19 +152,38 @@
   color: var(--text-secondary);
   padding: 0;
   margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  contain: layout style;
 }
 
-@media (min-width: 768px) {
-  .skills-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
-  }
+/* Intersection Observer Animation Classes */
+.skills-grid > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@media (min-width: 1024px) {
-  .skills-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
+.skills-grid > .in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered Animation Delay */
+.skills-grid > *:nth-child(1) { transition-delay: 0.1s; }
+.skills-grid > *:nth-child(2) { transition-delay: 0.2s; }
+.skills-grid > *:nth-child(3) { transition-delay: 0.3s; }
+.skills-grid > *:nth-child(4) { transition-delay: 0.4s; }
+.skills-grid > *:nth-child(5) { transition-delay: 0.5s; }
+.skills-grid > *:nth-child(6) { transition-delay: 0.6s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-grid > * {
+    transition: none;
+    opacity: 1;
+    transform: none;
   }
 }
 .skills-card {
@@ -104,12 +193,17 @@
   backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   min-height: 280px;
   display: flex;
   flex-direction: column;
+  contain: content;
+  will-change: transform, box-shadow;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .skills-card::before {
@@ -121,12 +215,30 @@
   height: 3px;
   background: var(--gradient-primary);
   opacity: 0.8;
+  transform: scaleX(0.8);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .skills-card:hover {
-  transform: translateY(-8px);
+  transform: translate3d(0, -8px, 0);
   box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15), 0 8px 32px rgba(0, 0, 0, 0.1);
   border-color: var(--primary-400);
+}
+
+.skills-card:hover::before {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-card {
+    transition: none;
+    transform: none !important;
+  }
+  
+  .skills-card::before {
+    transform: none;
+    transition: none;
+  }
 }
 /* Skills Card Header */
 .skills-card-header {
@@ -164,6 +276,7 @@
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 1rem;
   flex-grow: 1;
+  contain: layout style;
 }
 
 .skills-list-item {
@@ -174,16 +287,51 @@
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
-  transition: all 0.3s ease;
   cursor: pointer;
   backdrop-filter: blur(10px);
+  contain: content;
+  will-change: transform, box-shadow;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .skills-list-item:hover {
-  transform: translateY(-2px);
+  transform: translate3d(0, -2px, 0);
   background: rgba(99, 102, 241, 0.1);
   border-color: var(--primary-400);
   box-shadow: 0 8px 25px rgba(99, 102, 241, 0.15);
+}
+
+/* Staggered entrance animation for list items */
+.skills-list-item {
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.skills-list-item:nth-child(1) { animation-delay: 0.1s; }
+.skills-list-item:nth-child(2) { animation-delay: 0.15s; }
+.skills-list-item:nth-child(3) { animation-delay: 0.2s; }
+.skills-list-item:nth-child(4) { animation-delay: 0.25s; }
+.skills-list-item:nth-child(5) { animation-delay: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-list-item {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .skills-list-item-icon {

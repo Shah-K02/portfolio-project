@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef } from "react";
 import "./Skills.css";
 import SkillsBackground from "./SkillsBackground";
-import { useRef } from "react";
 import {
   FaCode,
   FaGlobe,
@@ -136,6 +136,7 @@ const SkillCard = ({
 
 const Skills = () => {
   const sectionRef = useRef(null);
+  const gridRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
@@ -145,6 +146,61 @@ const Skills = () => {
   const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
   const titleY = useTransform(scrollYProgress, [0, 0.5], [100, 0]);
   const gridScale = useTransform(scrollYProgress, [0, 0.2], [0.8, 1]);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const grid = gridRef.current;
+    if (!section || !grid) return;
+
+    // Scroll animation handler
+    const scrollHandler = () => {
+      const scrollY = window.scrollY;
+      section.style.setProperty('--scroll-y', String(scrollY));
+      section.setAttribute('data-scroll', 'true');
+    };
+
+    // Intersection Observer for skills grid
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-in');
+            // Trigger staggered animation for child elements
+            const children = entry.target.children;
+            Array.from(children).forEach((child, index) => {
+              child.style.animationDelay = `${index * 0.1}s`;
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '50px',
+      }
+    );
+
+    // Observe skills grid
+    observer.observe(grid);
+
+    // Add scroll listener with throttling
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          scrollHandler();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      observer.disconnect();
+    };
+  }, []);
 
   const skillCards = [
     {
@@ -242,8 +298,9 @@ const Skills = () => {
         </motion.h2>
 
         <motion.div
-          className="skills-grid"
-          style={{ scale: gridScale }}
+          ref={gridRef}
+          className="skills-grid animate-on-scroll"
+          style={{ scale: gridScale, willChange: 'transform, opacity' }}
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, type: "spring", stiffness: 100, damping: 15 }}
