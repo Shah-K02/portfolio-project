@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useState, useMemo, useRef, useEffect } from "react";
+import { motion, useScroll, useTransform, Variants } from "framer-motion";
+import { AnimationVariants } from "../types/animation";
 import "./Projects.css";
 import "../styles/sectionAnimation.css";
 
@@ -15,6 +16,7 @@ import {
   useResponsiveCardCount,
   useCarousel,
   useKeyboardNavigation,
+  useFLIPAnimation
 } from "../hooks";
 
 // Types
@@ -27,7 +29,7 @@ import { PROJECTS_DATA } from "../constants/projectsData";
 import { getUniqueCategories } from "../utils/projectUtils";
 
 // Animation variants
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
   visible: {
     opacity: 1,
@@ -36,12 +38,26 @@ const containerVariants = {
   },
 };
 
-const carouselVariants = {
+const carouselVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: { duration: 0.3 },
   },
+};
+
+const projectCardVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: (i: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delay: i * 0.1,
+      type: "spring",
+      stiffness: 100,
+      damping: 10
+    }
+  })
 };
 
 // Props interfaces
@@ -96,8 +112,41 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
     onNext: goToNext,
   });
 
+  const gridRef = useRef<HTMLUListElement>(null);
+  const { recordPosition, playAnimation } = useFLIPAnimation({
+    duration: 0.6,
+    ease: "anticipate"
+  });
+
+  // Record positions before category change
+  useEffect(() => {
+    if (!gridRef.current) return;
+    
+    const cards = Array.from(gridRef.current.children);
+    cards.forEach((card, index) => {
+      if (card instanceof HTMLElement) {
+        recordPosition(`card-${index}`, card);
+      }
+    });
+  }, [selectedCategory, recordPosition]);
+
   const handleCategoryChange = (category: string) => {
+    // Record current positions
+    if (gridRef.current) {
+      const cards = Array.from(gridRef.current.children);
+      cards.forEach((card, index) => {
+        if (card instanceof HTMLElement) {
+          recordPosition(`card-${index}`, card);
+        }
+      });
+    }
+
     setSelectedCategory(category);
+
+    // Play FLIP animation after state update
+    requestAnimationFrame(() => {
+      playAnimation();
+    });
   };
 
   if (projects.length === 0) {
@@ -132,20 +181,31 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
 
         <div className="carousel-viewport">
           <motion.ul
+            ref={gridRef}
             className="projects-grid"
             role="list"
             key={selectedCategory}
             variants={carouselVariants}
             initial="hidden"
             animate="visible"
+            layoutId="projects-grid"
           >
             {visibleProjects.map((project, idx) => (
-                 <Enhanced3DProjectCard
+                 <motion.li
                    key={project.id}
-                   project={project}
-                   index={idx}
-                   onViewProject={onViewProject}
-                 />
+                   variants={projectCardVariants}
+                   custom={idx}
+                   initial="hidden"
+                   animate="visible"
+                   layout
+                   style={{ listStyle: 'none' }}
+                 >
+                   <Enhanced3DProjectCard
+                     project={project}
+                     index={idx}
+                     onViewProject={onViewProject}
+                   />
+                 </motion.li>
             ))}
           </motion.ul>
         </div>

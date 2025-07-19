@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, Variants } from 'framer-motion';
 import { Project } from '../types/project';
+import { SpringConfig } from '../types/animation';
 import MagneticCursor from './MagneticCursor';
 import './Enhanced3DProjectCard.css';
 
@@ -19,13 +20,28 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
   const [isFlipped, setIsFlipped] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   
-  // Mouse position tracking
+  // Mouse position tracking with spring physics
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
-  // Spring animations for smooth movement
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]));
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]));
+  // Enhanced spring configuration for more natural movement
+  const springConfig: SpringConfig = {
+    stiffness: 150,
+    damping: 15,
+    mass: 0.1
+  };
+  
+  // Spring animations for card rotation
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig);
+  
+  // Parallax effect for card elements
+  const imageX = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), springConfig);
+  const imageY = useSpring(useTransform(mouseY, [-0.5, 0.5], [-15, 15]), springConfig);
+  
+  // Depth effect for content layers
+  const titleZ = useSpring(useTransform(mouseY, [-0.5, 0.5], [20, -20]), springConfig);
+  const orbitZ = useSpring(useTransform(mouseX, [-0.5, 0.5], [-30, 30]), springConfig);
   
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
@@ -56,6 +72,19 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
     }
   };
   
+  // Define variants
+  const cardVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        delay: i * 0.1
+      }
+    })
+  };
+
   return (
     <MagneticCursor strength={0.1}>
       <motion.div
@@ -65,10 +94,12 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
           rotateX,
           rotateY,
           transformStyle: 'preserve-3d',
+          perspective: '1000px'
         }}
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: index * 0.1 }}
+        variants={cardVariants}
+        initial="hidden"
+        animate="visible"
+        custom={index}
         whileHover={{ scale: 1.02 }}
         onMouseMove={handleMouseMove}
         onMouseEnter={() => setIsHovered(true)}
@@ -102,10 +133,15 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
             {/* Project title with glow effect */}
             <motion.h3 
               className="project-title-3d"
-              animate={{ 
+              style={{
+                transform: `translateZ(${titleZ.get()}px)`,
                 textShadow: isHovered 
-                  ? '0 0 20px var(--neon-cyan, #00f5ff)' 
+                  ? '0 0 20px var(--neon-cyan, #00f5ff), 0 0 40px var(--neon-cyan, #00f5ff)' 
                   : '0 0 0px transparent'
+              }}
+              animate={{ 
+                scale: isHovered ? 1.05 : 1,
+                transition: { type: "spring", ...springConfig }
               }}
             >
               {project.title}
@@ -115,27 +151,40 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
             <p className="project-description-3d">{project.description}</p>
             
             {/* Technology orbit */}
-            <div className="tech-orbit">
+            <motion.div 
+              className="tech-orbit"
+              style={{ transform: `translateZ(${orbitZ.get()}px)` }}
+            >
               {project.technologies?.slice(0, 4).map((tech, techIndex) => (
                 <motion.span
                   key={tech}
                   className="tech-orb"
                   animate={{
-                    scale: isHovered ? 1.05 : 1,
+                    scale: isHovered ? 1.1 : 1,
+                    y: isHovered ? -5 : 0
                   }}
                   transition={{
-                    duration: 0.3,
-                    delay: techIndex * 0.1,
-                    ease: 'easeOut'
+                    type: "spring",
+                    ...springConfig,
+                    delay: techIndex * 0.1
                   }}
                 >
                   {tech}
                 </motion.span>
               ))}
-            </div>
+            </motion.div>
             
-            {/* Year badge */}
-            <div className="year-badge">{project.year}</div>
+            {/* Year badge with parallax */}
+            <motion.div 
+              className="year-badge"
+              style={{
+                x: imageX,
+                y: imageY,
+                filter: isHovered ? 'brightness(1.2) drop-shadow(0 0 10px var(--neon-cyan))' : 'none'
+              }}
+            >
+              {project.year}
+            </motion.div>
           </div>
         </motion.div>
         

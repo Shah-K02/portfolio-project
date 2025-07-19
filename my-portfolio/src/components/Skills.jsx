@@ -1,5 +1,7 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import "./Skills.css";
+import SkillsBackground from "./SkillsBackground";
+import { useRef } from "react";
 import {
   FaCode,
   FaGlobe,
@@ -133,6 +135,17 @@ const SkillCard = ({
 );
 
 const Skills = () => {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Parallax and opacity effects
+  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 0.5], [100, 0]);
+  const gridScale = useTransform(scrollYProgress, [0, 0.2], [0.8, 1]);
+
   const skillCards = [
     {
       title: "Programming Languages",
@@ -202,17 +215,26 @@ const Skills = () => {
 
   return (
     <motion.section
+      ref={sectionRef}
       className="skills-section"
       id="skills"
       initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
+      style={{
+        position: 'relative',
+        overflow: 'hidden'
+      }}
     >
+      <motion.div style={{ opacity: backgroundOpacity }}>
+        <SkillsBackground />
+      </motion.div>
       <div className="skills-container">
         <motion.h2
           className="skills-title"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          style={{ y: titleY }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
@@ -221,9 +243,10 @@ const Skills = () => {
 
         <motion.div
           className="skills-grid"
+          style={{ scale: gridScale }}
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, type: "spring", stiffness: 100, damping: 15 }}
         >
           {skillCards.map((card) => (
             <SkillCard key={card.title} {...card} />
