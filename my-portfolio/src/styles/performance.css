@@ -1,0 +1,30 @@
+/* Performance Optimizations */
+
+/* Content Visibility Optimizations */
+.off-screen-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Apply to specific sections */
+.projects-section:not(.section-visible),
+.skills-section:not(.section-visible),
+.about:not(.section-visible),
+.blog-section:not(.section-visible) {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+/* Optimize paint and layout operations */
+.performance-layer {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Optimize animations */
+@media (prefers-reduced-motion: no-preference) {
+  .optimize-animation {
+    will-change: transform, opacity;
+  }
+}

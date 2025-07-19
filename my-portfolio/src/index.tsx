@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles/theme.css';
 import './styles/accessibility.css';
+import './styles/performance.css';
 import './index.css';
 import App from './App';
 
