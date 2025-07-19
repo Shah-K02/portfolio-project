@@ -24,9 +24,15 @@
   
   /* System Colors */
   --white: #ffffff;
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --glass-blur: blur(10px);
+  
+  /* Modern UI Effects */
+  --hover-lift: translateY(-2px);
+  --card-border-radius: 16px;
+  --button-border-radius: 8px;
   
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, var(--neon-500), var(--electric-500));
@@ -155,7 +161,58 @@
 /* Global Transitions */
 * {
   transition: background-color 0.3s ease, color 0.3s ease,
-    border-color 0.3s ease, box-shadow 0.3s ease;
+    border-color 0.3s ease, box-shadow 0.3s ease,
+    transform 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Glass Morphism */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-card:hover {
+  transform: var(--hover-lift);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Modern Button */
+.modern-button {
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: var(--button-border-radius);
+  padding: var(--button-padding);
+  color: var(--button-text);
+  box-shadow: var(--button-shadow);
+  transition: all 0.3s ease;
+}
+
+.modern-button:hover {
+  transform: var(--hover-lift);
+  box-shadow: 0 8px 24px rgba(0, 102, 255, 0.25);
+}
+
+/* Glass Input */
+.glass-input {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--button-border-radius);
+  padding: var(--input-padding);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-muted);
+  outline: none;
 }
 
 /* Global Gradients */
