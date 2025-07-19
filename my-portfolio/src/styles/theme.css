@@ -32,11 +32,17 @@
   --gradient-primary: linear-gradient(135deg, var(--neon-500), var(--electric-500));
   --gradient-accent: linear-gradient(135deg, var(--accent-500), var(--accent-400));
 
-  /* Layout & Spacing System */
-  --container-width-sm: 640px;
-  --container-width-md: 768px;
-  --container-width-lg: 1024px;
-  --container-width-xl: 1200px;
+  /* Breakpoint System */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  
+  /* Container Sizes */
+  --container-width-sm: var(--breakpoint-sm);
+  --container-width-md: var(--breakpoint-md);
+  --container-width-lg: var(--breakpoint-lg);
+  --container-width-xl: var(--breakpoint-xl);
   
   /* 8px Grid System */
   --space-1: 0.25rem;   /* 4px */
@@ -178,4 +184,40 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Container Query Support */
+.container-responsive {
+  container-type: inline-size;
+  container-name: responsive;
+}
+
+@container responsive (min-width: 400px) {
+  .responsive-card {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--grid-gap);
+  }
+}
+
+@container responsive (min-width: 600px) {
+  .responsive-card {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Responsive Utilities */
+@media (max-width: var(--breakpoint-sm)) {
+  :root {
+    --card-padding: var(--space-4);
+    --section-spacing-sm: var(--space-6);
+    --grid-gap: var(--space-3);
+  }
+}
+
+@media (min-width: var(--breakpoint-lg)) {
+  :root {
+    --card-padding: var(--space-8);
+    --section-spacing-lg: var(--space-16);
+    --grid-gap-lg: var(--space-8);
+  }
 }
