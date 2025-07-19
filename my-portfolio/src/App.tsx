@@ -175,7 +175,7 @@ function AppContent() {
       </motion.div> */}
 
       <motion.div
-        ref={sectionRefs[6]}
+        ref={sectionRefs[4]}
         className="section"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
