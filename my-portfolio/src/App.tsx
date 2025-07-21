@@ -1,16 +1,18 @@
 import React, { useEffect, useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Introduction from "./components/Introduction";
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import { VisualEffects } from "./components/VisualEffects";
-import { useScrollNavigation } from "./hooks/useScrollNavigation";
+import { useSmoothSectionScroll } from "./hooks/useAdvancedScrollAnimation";
+import EnhancedSection from "./components/EnhancedSection";
 
 import { ScrollArrows } from "./components/Navigation/ScrollArrows";
 import { DotNavigation } from "./components/Navigation/DotNavigation";
 import { ScrollProgress } from "./components/Navigation/ScrollProgress";
+import SmoothScrollNav from "./components/Navigation/SmoothScrollNav";
 import { ThemeProvider } from "./context/ThemeContext";
 import { ThemeToggle } from "./components/Navigation/ThemeToggle";
 import PerformanceMonitor from "./components/PerformanceMonitor";
@@ -23,14 +25,30 @@ import {
 } from "./utils/performanceOptimizations";
 import { usePreload } from "./hooks/useLazyLoading";
 import "./App.css";
+import "./styles/enhancedScrolling.css";
 
 // Lazy load heavy components (currently unused)
 
 function AppContent() {
   const sectionCount = 5;
-  const { sectionRefs, currentSection, scrollProgress, hideUpArrow, hideDownArrow, scrollToSection } =
-    useScrollNavigation(sectionCount);
+  const { sectionRefs, currentSection, isScrolling, scrollToSection } = useSmoothSectionScroll(sectionCount);
   const perfMonitor = useMemo(() => new PerfMonitor(), []);
+  
+  // Calculate scroll progress for the progress bar
+  const [scrollProgress, setScrollProgress] = React.useState(0);
+  
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
+      setScrollProgress(progress);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Preload critical resources
   usePreload(
@@ -165,36 +183,78 @@ function AppContent() {
         }}
       />
 
-      <div style={{ scrollBehavior: "smooth" }}>
-        <div>
-          <div ref={sectionRefs[0]}>
+      <div className="smooth-scroll-container">
+        <AnimatePresence mode="wait">
+          <EnhancedSection
+            ref={sectionRefs[0]}
+            id="introduction"
+            animationType="fade"
+            direction="up"
+            staggerChildren={true}
+            staggerDelay={0.15}
+            background="gradient"
+            enableSnap={true}
+            className="introduction-section"
+          >
             <Introduction />
-          </div>
-        </div>
+          </EnhancedSection>
 
-        <div>
-          <div ref={sectionRefs[1]}>
+          <EnhancedSection
+            ref={sectionRefs[1]}
+            id="about"
+            animationType="slide"
+            direction="left"
+            staggerChildren={true}
+            staggerDelay={0.12}
+            parallaxIntensity={40}
+            enableSnap={true}
+            className="about-section"
+          >
             <About />
-          </div>
-        </div>
+          </EnhancedSection>
 
-        <div>
-          <div ref={sectionRefs[2]}>
+          <EnhancedSection
+            ref={sectionRefs[2]}
+            id="projects"
+            animationType="scale"
+            direction="up"
+            staggerChildren={true}
+            staggerDelay={0.1}
+            background="blur"
+            enableSnap={true}
+            className="projects-section"
+          >
             <Projects />
-          </div>
-        </div>
+          </EnhancedSection>
 
-        <div>
-          <div ref={sectionRefs[3]}>
+          <EnhancedSection
+            ref={sectionRefs[3]}
+            id="skills"
+            animationType="rotate"
+            direction="right"
+            staggerChildren={true}
+            staggerDelay={0.08}
+            parallaxIntensity={60}
+            enableSnap={true}
+            className="skills-section"
+          >
             <Skills />
-          </div>
-        </div>
+          </EnhancedSection>
 
-        <div>
-          <div ref={sectionRefs[4]}>
+          <EnhancedSection
+            ref={sectionRefs[4]}
+            id="contact"
+            animationType="magnetic"
+            direction="up"
+            staggerChildren={true}
+            staggerDelay={0.1}
+            background="gradient"
+            enableSnap={true}
+            className="contact-section"
+          >
             <Contact />
-          </div>
-        </div>
+          </EnhancedSection>
+        </AnimatePresence>
       </div>
 
       {/* <motion.div
@@ -233,21 +293,43 @@ function AppContent() {
 
 
 
-      <DotNavigation
-        sectionCount={sectionCount}
+      {/* Enhanced Navigation */}
+      <SmoothScrollNav
+        sections={[
+          { id: 'introduction', label: 'Home' },
+          { id: 'about', label: 'About' },
+          { id: 'projects', label: 'Projects' },
+          { id: 'skills', label: 'Skills' },
+          { id: 'contact', label: 'Contact' }
+        ]}
         currentSection={currentSection}
-        scrollToSection={scrollToSection}
+        onSectionChange={scrollToSection}
+        isScrolling={isScrolling}
+        showLabels={true}
+        position="right"
+        theme="auto"
       />
-
-      <ScrollArrows
-        hideUpArrow={hideUpArrow}
-        hideDownArrow={hideDownArrow}
-        scrollToSection={(direction) => {
-          const newIndex = direction === "down" 
-            ? Math.min(currentSection + 1, sectionCount - 1) 
-            : Math.max(currentSection - 1, 0);
-          scrollToSection(newIndex);
+      
+      {/* Scroll velocity indicator */}
+      <motion.div
+        className="scroll-velocity-indicator"
+        style={{
+          position: 'fixed',
+          top: '20px',
+          right: '20px',
+          width: '4px',
+          height: '60px',
+          background: 'linear-gradient(180deg, #64ffda, #7877c6)',
+          borderRadius: '2px',
+          transformOrigin: 'bottom',
+          zIndex: 1000,
+          opacity: isScrolling ? 1 : 0,
         }}
+        animate={{
+          scaleY: isScrolling ? 1 : 0,
+          opacity: isScrolling ? 1 : 0,
+        }}
+        transition={{ duration: 0.3 }}
       />
     </div>
   );

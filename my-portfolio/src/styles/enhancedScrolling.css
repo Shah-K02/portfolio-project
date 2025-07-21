@@ -1,0 +1,351 @@
+/* Enhanced Scrolling Styles - Modern, Smooth, Apple/Tesla-like */
+
+/* Smooth scrolling foundation */
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+/* Remove default scroll behavior for custom implementation */
+.smooth-scroll-container {
+  scroll-behavior: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Enhanced section base styles */
+.enhanced-section {
+  position: relative;
+  min-height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Section content wrapper */
+.section-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  transform-style: preserve-3d;
+}
+
+/* Staggered children animation */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.stagger-children.section-visible > *:nth-child(1) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
+}
+
+.stagger-children.section-visible > *:nth-child(2) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+.stagger-children.section-visible > *:nth-child(3) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+
+.stagger-children.section-visible > *:nth-child(4) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.4s;
+}
+
+.stagger-children.section-visible > *:nth-child(5) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.5s;
+}
+
+/* Parallax effects */
+.parallax-element {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.parallax-slow {
+  transform: translateY(var(--parallax-y, 0));
+}
+
+.parallax-fast {
+  transform: translateY(calc(var(--parallax-y, 0) * 1.5));
+}
+
+/* Magnetic scroll effects */
+.magnetic-section {
+  transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.magnetic-section:hover {
+  transform: translateY(-2px) scale(1.002);
+}
+
+/* Velocity-based animations */
+.velocity-high {
+  animation: velocityPulse 0.6s ease-out;
+}
+
+@keyframes velocityPulse {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.01);
+    filter: brightness(1.05);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+/* 3D depth layers */
+.depth-layer {
+  position: absolute;
+  background: linear-gradient(135deg, rgba(100, 255, 218, 0.02) 0%, rgba(120, 119, 198, 0.02) 100%);
+  border-radius: 20px;
+  transform: translateZ(-10px);
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+/* Scroll progress indicators */
+.scroll-progress-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #64ffda, #7877c6);
+  transform-origin: left;
+  z-index: 10;
+  transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Section reveal animations */
+.reveal-fade {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.reveal-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.8) rotateX(15deg);
+  transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1) rotateX(0deg);
+}
+
+.reveal-slide-left {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.reveal-slide-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-slide-right {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.reveal-slide-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-rotate {
+  opacity: 0;
+  transform: rotateY(-45deg) rotateX(15deg);
+  transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.reveal-rotate.visible {
+  opacity: 1;
+  transform: rotateY(0deg) rotateX(0deg);
+}
+
+/* Smooth snap scrolling */
+.snap-container {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar for modern look */
+.smooth-scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.smooth-scroll-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.smooth-scroll-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #64ffda, #7877c6);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.smooth-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #4fd1c7, #6366f1);
+}
+
+/* Performance optimizations */
+.enhanced-section,
+.section-content,
+.parallax-element {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .enhanced-section,
+  .section-content,
+  .parallax-element,
+  .reveal-fade,
+  .reveal-scale,
+  .reveal-slide-left,
+  .reveal-slide-right,
+  .reveal-rotate {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .scroll-progress-line {
+    background: currentColor;
+  }
+  
+  .depth-layer {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .enhanced-section {
+    scroll-snap-align: none;
+    min-height: auto;
+    padding: 1rem;
+  }
+  
+  .section-content {
+    padding: 1rem;
+  }
+  
+  .stagger-children > * {
+    transform: translateY(20px);
+  }
+  
+  /* Reduce parallax intensity on mobile */
+  .parallax-element {
+    transform: none !important;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .magnetic-section:hover {
+    transform: none;
+  }
+  
+  .enhanced-section {
+    scroll-snap-type: none;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .depth-layer {
+    background: linear-gradient(135deg, rgba(100, 255, 218, 0.03) 0%, rgba(120, 119, 198, 0.03) 100%);
+  }
+  
+  .smooth-scroll-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Loading states */
+.section-loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.section-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 2px solid transparent;
+  border-top: 2px solid #64ffda;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Focus management for accessibility */
+.enhanced-section:focus-within {
+  outline: 2px solid #64ffda;
+  outline-offset: 4px;
+}
+
+/* Intersection observer fallback */
+.no-intersection-observer .enhanced-section {
+  opacity: 1;
+  transform: none;
+}
