@@ -7,7 +7,19 @@ const resolveCSSVariable = (cssVar: string): string => {
     // Extract the variable name from var(--variable-name)
     const varName = cssVar.slice(4, -1);
     const computedValue = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-    return computedValue || cssVar;
+    
+    // Provide fallback colors if CSS variable is not available
+    if (!computedValue) {
+      const fallbacks: { [key: string]: string } = {
+        '--color-accent-1': '#38BDF8',
+         '--color-accent-2': '#FB7185',
+         '--color-detail': '#FACC15',
+        '--color-border': 'rgba(248, 250, 252, 0.1)'
+      };
+      return fallbacks[varName] || '#38BDF8';
+    }
+    
+    return computedValue;
   }
   return cssVar;
 };
@@ -49,31 +61,51 @@ const InteractiveParticles: React.FC<InteractiveParticlesProps> = ({
   const mouseRef = useRef({ x: 0, y: 0, isDown: false });
   const [isActive, setIsActive] = useState(false);
 
+  const [resolvedColors, setResolvedColors] = useState<string[]>([]);
+
   const colors = useMemo(() => {
     const baseColors = theme === 'dark' 
-      ? ['var(--color-accent-1)', 'var(--color-accent-2)', 'var(--color-detail)', '#4f46e5', '#10b981']
-      : ['var(--color-accent-1)', 'var(--color-accent-2)', 'var(--color-detail)', '#3b82f6', '#34d399'];
+      ? ['var(--color-accent-1)', 'var(--color-accent-2)', 'var(--color-detail)']
+      : ['var(--color-accent-1)', 'var(--color-accent-2)', 'var(--color-detail)'];
     
     // Resolve CSS variables to actual color values for Canvas compatibility
-    return baseColors.map(color => resolveCSSVariable(color));
+    const resolved = baseColors.map(color => resolveCSSVariable(color));
+    setResolvedColors(resolved);
+    return resolved;
+  }, [theme]);
+
+  // Re-resolve colors after component mounts to ensure CSS variables are available
+  useEffect(() => {
+    const timer = setTimeout(() => {
+       const baseColors = theme === 'dark' 
+         ? ['var(--color-accent-1)', 'var(--color-accent-2)', 'var(--color-detail)']
+         : ['var(--color-accent-1)', 'var(--color-accent-2)', 'var(--color-detail)'];
+       
+       const resolved = baseColors.map(color => resolveCSSVariable(color));
+       setResolvedColors(resolved);
+     }, 100); // Small delay to ensure CSS is loaded
+
+    return () => clearTimeout(timer);
   }, [theme]);
 
   const createParticle = useCallback((x?: number, y?: number, type: Particle['type'] = 'normal'): Particle => {
     const canvas = canvasRef.current;
     if (!canvas) return {} as Particle;
 
+    const colorArray = resolvedColors.length > 0 ? resolvedColors : colors;
+    
     return {
       x: x ?? Math.random() * canvas.width,
       y: y ?? Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * 2,
       vy: (Math.random() - 0.5) * 2,
       size: Math.random() * 3 + 1,
-      color: colors[Math.floor(Math.random() * colors.length)],
+      color: colorArray[Math.floor(Math.random() * colorArray.length)],
       life: type === 'spark' ? 30 : type === 'trail' ? 20 : 100,
       maxLife: type === 'spark' ? 30 : type === 'trail' ? 20 : 100,
       type
     };
-  }, [colors]);
+  }, [colors, resolvedColors]);
 
   const initParticles = useCallback(() => {
     particlesRef.current = Array.from({ length: particleCount }, () => createParticle());

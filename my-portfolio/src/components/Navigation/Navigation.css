@@ -48,8 +48,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--neon-cyan, #00f5ff), var(--electric-blue, #0066ff));
-  color: var(--rich-black, #000814);
+  background: var(--gradient-primary);
+  color: var(--color-bg);
   border: 1px solid var(--neon-cyan, #00f5ff);
   border-radius: 50%;
   cursor: pointer;
@@ -60,7 +60,7 @@
 }
 
 :root[data-theme="light"] .arrow-button {
-  background: linear-gradient(135deg, var(--yale-blue, #003566), var(--oxford-blue, #001d3d));
+  background: var(--gradient-primary);
   color: white;
   border: 1px solid var(--yale-blue, #003566);
   box-shadow: 0 4px 12px rgba(0, 29, 61, 0.2);
@@ -72,7 +72,7 @@
 }
 
 :root[data-theme="light"] .arrow-button:hover {
-  background: linear-gradient(135deg, var(--oxford-blue, #001d3d), var(--rich-black, #000814));
+  background: var(--gradient-primary);
   box-shadow: 0 6px 16px rgba(0, 29, 61, 0.3);
 }
 

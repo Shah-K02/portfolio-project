@@ -1,20 +1,11 @@
-export interface Project {
-    id: number;
-    title: string;
-    description: string;
-    fullDescription: string;
-    technologies: string[];
-    github: string;
-    image: string;
-  }
-  
-  export interface SkillCategory {
-    [key: string]: string[];
-  }
-  
-  export interface ContactInfo {
-    email: string;
-    location: string;
-    linkedin: string;
-    github: string;
-  }
+// Styles index - Export all style modules
+export * from './theme.css';
+export * from './typography.css';
+export * from './grid.css';
+export * from './semanticTokens.css';
+export * from './microAnimations.css';
+export * from './visualEffects.css';
+export * from './sectionAnimation.css';
+export * from './enhancedScrolling.css';
+export * from './accessibility.css';
+export * from './performance.css';

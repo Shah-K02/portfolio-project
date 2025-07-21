@@ -286,8 +286,8 @@
 .submit-button {
   padding: 0.8rem 1.5rem;
   border-radius: 25px;
-  background: linear-gradient(135deg, var(--neon-cyan, #00f5ff), var(--electric-blue, #0066ff));
-  color: var(--rich-black, #000814);
+  background: var(--gradient-primary);
+  color: var(--color-bg);
   font-family: "Inter", sans-serif;
   font-weight: 600;
   font-size: 1rem;
@@ -302,14 +302,14 @@
 }
 
 :root[data-theme="light"] .submit-button {
-  background: linear-gradient(135deg, var(--yale-blue, #003566), var(--oxford-blue, #001d3d));
+  background: var(--gradient-primary);
   color: white;
   border: 1px solid var(--yale-blue, #003566);
   box-shadow: 0 4px 12px var(--color-shadow);
 }
 
 :root[data-theme="light"] .submit-button:hover {
-  background: linear-gradient(135deg, var(--oxford-blue, #001d3d), var(--rich-black, #000814));
+  background: var(--gradient-primary);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px var(--color-shadow);
 }

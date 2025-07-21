@@ -436,5 +436,5 @@
   margin-right: 0.75rem;
 }
 .skills-list-text {
-  color: #374151;
+  color: var(--color-text);
 }

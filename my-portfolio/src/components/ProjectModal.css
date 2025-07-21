@@ -41,7 +41,7 @@
   border-radius: 50%;
   border: none;
   background: rgba(0, 0, 0, 0.1);
-  color: #4a5568;
+  color: var(--color-text);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -52,7 +52,7 @@
 
 .modal-close:hover {
   background: rgba(0, 0, 0, 0.15);
-  color: #2d3748;
+  color: var(--color-heading);
   transform: scale(1.05);
 }
 
@@ -98,7 +98,7 @@
 .modal-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #2d3748;
+  color: var(--color-heading);
   margin: 0;
   line-height: 1.2;
   letter-spacing: -0.02em;
@@ -115,17 +115,17 @@
 }
 
 .status-completed {
-  background: linear-gradient(135deg, #48bb78, #38a169);
+  background: var(--gradient-primary);
   color: white;
 }
 
 .status-in-progress {
-  background: linear-gradient(135deg, #ed8936, #dd6b20);
+  background: var(--gradient-primary);
   color: white;
 }
 
 .status-archived {
-  background: linear-gradient(135deg, #a0aec0, #718096);
+  background: var(--gradient-primary);
   color: white;
 }
 
@@ -193,7 +193,7 @@
 
 .tech-tag {
   padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  background: var(--gradient-primary);
   color: var(--text-on-accent);
   border-radius: 20px;
   font-size: 0.875rem;
@@ -383,12 +383,12 @@
 /* Focus States */
 .modal-close:focus-visible,
 .action-button:focus-visible {
-  outline: 2px solid #667eea;
+  outline: 2px solid var(--color-accent-1);
   outline-offset: 2px;
 }
 
 .modal-container:focus-visible {
-  outline: 2px solid #667eea;
+  outline: 2px solid var(--color-accent-1);
   outline-offset: -2px;
 }
 

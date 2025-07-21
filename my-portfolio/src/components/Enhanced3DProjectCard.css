@@ -105,14 +105,14 @@
   font-size: 0.8rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: var(--electric-blue, #0077be);
+  color: var(--color-accent-1);
   box-shadow: 0 0 20px currentColor;
   animation: statusPulse 2s ease-in-out infinite;
   z-index: 10;
 }
 
 :root[data-theme="light"] .status-indicator {
-  color: var(--oxford-blue, #001d3d);
+  color: var(--color-heading);
   background: var(--color-accent-2-light);
   box-shadow: 0 4px 12px var(--color-shadow);
   border: 1.5px solid var(--yale-blue, #003566);
@@ -147,7 +147,7 @@
 }
 
 .project-description-3d {
-  color: var(--light-gray, #e0e1dd);
+  color: var(--color-text);
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 1.8rem;
@@ -156,7 +156,7 @@
 }
 
 :root[data-theme="light"] .project-description-3d {
-  color: var(--yale-blue, #003566);
+  color: var(--color-accent-1);
   opacity: 0.85;
 }
 
@@ -178,7 +178,7 @@
   border: 1px solid var(--electric-blue, #0066ff);
   border-radius: 20px;
   font-size: 0.75rem;
-  color: var(--hologram-white, #f8fafc);
+  color: var(--color-text);
   backdrop-filter: blur(10px);
   box-shadow: 0 0 15px var(--color-accent-2-medium);
   text-align: center;
@@ -202,7 +202,7 @@
   bottom: 1rem;
   left: 1rem;
   padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, var(--quantum-purple, #6366f1), var(--electric-blue, #0066ff));
+  background: var(--gradient-primary);
   border-radius: 15px;
   font-weight: 600;
   color: white;
@@ -211,7 +211,7 @@
 }
 
 :root[data-theme="light"] .year-badge {
-  background: linear-gradient(135deg, var(--yale-blue, #003566), var(--oxford-blue, #001d3d));
+  background: var(--gradient-primary);
   color: white;
   box-shadow: 0 4px 12px var(--color-shadow);
 }
@@ -263,8 +263,8 @@
 }
 
 .action-btn.primary {
-  background: linear-gradient(135deg, var(--neon-cyan, #00f5ff), var(--electric-blue, #0066ff));
-  color: var(--rich-black, #000814);
+  background: var(--gradient-primary);
+  color: var(--color-bg);
   border: 1px solid var(--neon-cyan, #00f5ff);
 }
 
@@ -289,7 +289,7 @@
 }
 
 :root[data-theme="light"] .action-btn.primary:hover {
-  background: linear-gradient(135deg, var(--oxford-blue, #001d3d), var(--rich-black, #000814));
+  background: var(--gradient-primary);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px var(--color-shadow);
 }
@@ -333,7 +333,7 @@
   position: absolute;
   width: 4px;
   height: 4px;
-  background: var(--neon-cyan, #00f5ff);
+  background: var(--color-accent-1);
   border-radius: 50%;
   box-shadow: 0 0 10px var(--neon-cyan, #00f5ff);
   left: 50%;

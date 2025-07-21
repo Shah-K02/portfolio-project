@@ -1,26 +1,26 @@
 # Typography System Documentation
 
 ## Overview
-This typography system provides a consistent, scalable approach to text styling across the portfolio application. It includes semantic tokens, utility classes, and responsive design patterns.
+This document outlines the comprehensive typography system used throughout the portfolio application, ensuring consistent, accessible, and maintainable text styling across all components.
 
 ## 🔤 Font Stack
 
-| Role | Font | Fallbacks |
-|------|------|----------|
-| Headings | Sora | sans-serif |
-| Body | Inter | sans-serif |
-| Code/Tags | JetBrains Mono | monospace |
+| Role | Font | Fallbacks | CSS Variable |
+|------|------|----------|-------------|
+| Headings | Sora | sans-serif | `--font-heading` |
+| Body | Inter | sans-serif | `--font-body` |
+| Code/Tags | JetBrains Mono | monospace | `--font-code` |
 
 ## 📏 Font Sizes
 
-| Token | Size | Usage |
-|-------|------|-------|
-| `--text-xl` | 48px | Hero, main heading |
-| `--text-lg` | 36px | Section titles |
-| `--text-md` | 24px | Subheadings |
-| `--text-base` | 18px | Paragraphs, nav items |
-| `--text-sm` | 14px | Labels, buttons, captions |
-| `--text-code` | 16px | Tags, inline code |
+| Token | Size | Usage | Semantic Class |
+|-------|------|-------|---------------|
+| `--text-xl` | 48px | Hero, main heading | `.heading-hero` |
+| `--text-lg` | 36px | Section titles | `.heading-section` |
+| `--text-md` | 24px | Subheadings | `.heading-subsection` |
+| `--text-base` | 18px | Paragraphs, nav items | `.body-text` |
+| `--text-sm` | 14px | Labels, buttons, captions | `.body-small` |
+| `--text-code` | 16px | Tags, inline code | `.code-text` |
 
 ## 🔡 Line Height & Spacing
 
@@ -33,30 +33,50 @@ This typography system provides a consistent, scalable approach to text styling 
 
 ## 🎯 Usage Examples
 
-### CSS Custom Properties
-```css
-/* Using tokens directly */
-.hero-title {
-  font-size: var(--text-xl);
-  font-family: var(--font-heading);
-  line-height: var(--line-height-heading);
-  letter-spacing: var(--letter-spacing-heading);
-}
+### Semantic Typography Classes (Recommended)
+```html
+<!-- Use semantic classes for complete typography styling -->
+<h1 class="heading-hero">Portfolio Title</h1>
+<h2 class="heading-section">About Me</h2>
+<h3 class="heading-subsection">Skills & Experience</h3>
+<p class="body-text">This is a paragraph with proper body text styling.</p>
+<span class="body-small">Caption or small text</span>
+<code class="code-text">const example = 'code snippet';</code>
 ```
 
-### Utility Classes
+### Individual Utility Classes
 ```html
-<!-- Size-based classes -->
-<h1 class="text-xl">Hero Title</h1>
-<h2 class="text-lg">Section Title</h2>
-<p class="text-base">Body paragraph</p>
+<!-- Font families -->
+<h1 class="font-heading">Main Title</h1>
+<p class="font-body">Body content</p>
+<code class="font-code">console.log('hello')</code>
 
-<!-- Semantic classes -->
-<h1 class="heading-hero">Hero Title</h1>
-<h2 class="heading-section">Section Title</h2>
-<p class="body-text">Body paragraph</p>
-<span class="caption-text">Caption</span>
-<code class="code-text">Code snippet</code>
+<!-- Font sizes -->
+<h1 class="text-xl">Hero Heading</h1>
+<h2 class="text-lg">Section Title</h2>
+<p class="text-base">Regular paragraph</p>
+<span class="text-sm">Small caption</span>
+```
+
+### CSS Custom Properties
+```css
+/* Use semantic tokens in custom components */
+.custom-heading {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  color: var(--color-heading);
+}
+
+.custom-paragraph {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+  color: var(--color-text);
+}
 ```
 
 ### Font Weight Classes
@@ -76,16 +96,20 @@ The typography system automatically scales down on smaller screens:
 ## ✅ Best Practices
 
 ### Do:
-- Use `--text-base` and `--line-height-body` for all readable body content
-- Keep heading spacing tight and impactful
-- Use semantic classes (`heading-hero`, `body-text`) for consistent styling
-- Apply font weights appropriately (bold for heroes, medium for sections)
+- **Use semantic classes first**: Prefer `.heading-hero`, `.body-text`, etc. for complete styling
+- **Use semantic tokens**: Always use `--text-base`, `--line-height-body` for consistency
+- **Keep heading hierarchy**: Use appropriate heading levels (h1 → h2 → h3)
+- **Test across themes**: Ensure typography works in both light and dark modes
+- **Maintain accessibility**: Ensure sufficient color contrast and readable font sizes
+- **Use consistent spacing**: Apply `--letter-spacing-heading` for headings, `--letter-spacing-body` for body text
 
 ### Don't:
-- Mix multiple font families within the same context
-- Use headings for non-semantic decoration
-- Override line heights without considering readability
-- Use fixed pixel values instead of the token system
+- **Mix font families**: Stick to the defined font stack (Sora, Inter, JetBrains Mono)
+- **Use headings for styling**: Don't use `<h1>` just for large text - use semantic classes instead
+- **Override line-height arbitrarily**: Use semantic line-height tokens for consistency
+- **Use hardcoded values**: Always prefer semantic tokens over fixed pixel values
+- **Ignore responsive design**: Ensure typography scales appropriately on different devices
+- **Skip semantic meaning**: Use proper HTML elements with appropriate classes
 
 ## 🔧 Implementation Guide
 

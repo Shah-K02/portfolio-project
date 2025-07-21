@@ -313,7 +313,7 @@ class AdvancedAnalytics {
 
   private getSuggestedSections(): string[] {
     const visitedSections = this.session.pageViews.map(pv => pv.page);
-    const allSections = ['about', 'skills', 'projects', 'resume', 'contact'];
+    const allSections = ['about', 'skills', 'projects', 'contact'];
     
     return allSections.filter(section => !visitedSections.includes(section));
   }

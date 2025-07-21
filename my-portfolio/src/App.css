@@ -293,7 +293,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
   padding: 0.8rem 1.5rem;
   border-radius: 25px;
   text-decoration: none;
@@ -418,11 +418,11 @@ body {
 
 .btn-white {
   background: white;
-  color: #3b82f6;
+  color: var(--color-accent-1);
 }
 
 .btn-white:hover {
-  background: #f3f4f6;
+  background: var(--color-surface);
   transform: translateY(-2px);
 }
 
@@ -484,7 +484,7 @@ body {
   justify-content: center;
   min-height: 400px;
   color: var(--text-secondary);
-  font-family: var(--font-primary);
+  font-family: var(--font-body);
 }
 
 .loading-spinner {
@@ -536,7 +536,7 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
   .section {
-    padding: 60px 20px;
+    padding: 60px var(--spacing-lg);
   }
 
   .App {

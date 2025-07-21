@@ -359,25 +359,25 @@
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-sm);
   border: none;
 }
 
 .cta-button:not(.secondary) {
-  background: linear-gradient(135deg, var(--neon-cyan, #00f5ff), var(--electric-blue, #0066ff));
-  color: var(--rich-black, #000814);
+  background: var(--gradient-primary);
+  color: var(--color-bg);
   border: 1px solid var(--neon-cyan, #00f5ff);
 }
 
 :root[data-theme="light"] .cta-button:not(.secondary) {
-  background: linear-gradient(135deg, var(--yale-blue, #003566), var(--oxford-blue, #001d3d));
+  background: var(--gradient-primary);
   color: white;
   border: 1px solid var(--yale-blue, #003566);
   box-shadow: 0 4px 12px var(--color-shadow);
 }
 
 :root[data-theme="light"] .cta-button:not(.secondary):hover {
-  background: linear-gradient(135deg, var(--oxford-blue, #001d3d), var(--rich-black, #000814));
+  background: var(--gradient-primary);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px var(--color-shadow);
 }
@@ -389,13 +389,13 @@
 
 .cta-button.secondary {
   background: var(--color-accent-2-light);
-  color: var(--hologram-white, #f8fafc);
+  color: var(--color-text);
   border: 1px solid var(--electric-blue, #0066ff);
 }
 
 :root[data-theme="light"] .cta-button.secondary {
   background: var(--color-accent-2-light);
-  color: var(--oxford-blue, #001d3d);
+  color: var(--color-heading);
   border: 1.5px solid var(--yale-blue, #003566);
   box-shadow: 0 2px 8px var(--color-shadow);
 }

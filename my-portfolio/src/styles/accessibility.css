@@ -117,7 +117,7 @@
   left: 50%;
   transform: translateX(-50%);
   background: var(--color-background);
-  padding: 4px 12px;
+  padding: var(--spacing-xs) 12px;
   border-radius: 4px;
   font-size: 0.875rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -233,7 +233,7 @@ a:focus-visible {
   clip: auto;
   width: auto;
   height: auto;
-  padding: 8px;
+  padding: var(--spacing-sm);
   background: var(--color-background);
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

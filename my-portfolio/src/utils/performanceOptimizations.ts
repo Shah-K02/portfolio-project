@@ -154,12 +154,12 @@ export const calculateVisibleItems = (
 export const loadChunk = async <T = any>(chunkName: string): Promise<T> => {
   try {
     switch (chunkName) {
-      case 'blog':
-        return (await import('../components/Blog')).default as T;
-      case 'resume':
-        return (await import('../components/Resume')).default as T;
-      case 'enhanced-showcase':
-        return (await import('../components/EnhancedProjectShowcase')).default as T;
+      case 'projects':
+        return (await import('../components/Projects')).default as T;
+      case 'skills':
+        return (await import('../components/Skills')).default as T;
+      case 'contact':
+        return (await import('../components/Contact')).default as T;
       default:
         throw new Error(`Unknown chunk: ${chunkName}`);
     }
@@ -250,11 +250,8 @@ export class PerformanceMonitor {
   }
 
   logMetrics(): void {
-    console.group('Performance Metrics');
-    this.metrics.forEach((value, name) => {
-      console.log(`${name}: ${value.toFixed(2)}ms`);
-    });
-    console.groupEnd();
+    // Metrics logging removed for production
+    // Use browser dev tools for performance monitoring
   }
 
   cleanup(): void {
@@ -287,14 +284,14 @@ export const trackWebVitals = (): void => {
         const fidEntry = entry as any;
         if (fidEntry.processingStart) {
           const fid = fidEntry.processingStart - entry.startTime;
-          console.log('First Input Delay:', fid);
+          // FID tracking for internal metrics only
         }
       }
     });
     fidObserver.observe({ entryTypes: ['first-input'] });
 
     window.addEventListener('beforeunload', () => {
-      console.log('Cumulative Layout Shift:', clsValue);
+      // CLS tracking for internal metrics only
     });
   } catch (error) {
     console.error('Failed to track web vitals:', error);

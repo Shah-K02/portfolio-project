@@ -137,7 +137,6 @@ function AppContent() {
 
   return (
     <div className="app-container">
-      <ThemeToggle />
       <ScrollProgress scrollProgress={scrollProgress} />
       <PerformanceMonitor />
 
@@ -255,39 +254,7 @@ function AppContent() {
         </AnimatePresence>
       </div>
 
-      {/* <motion.div
-        ref={sectionRefs[4]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Suspense fallback={
-          <div className="loading-fallback">
-            <div className="loading-spinner"></div>
-            <p>Loading Resume...</p>
-          </div>
-        }>
-          <Resume />
-        </Suspense>
-      </motion.div> */}
 
-      {/* <motion.div
-        ref={sectionRefs[5]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Suspense fallback={
-          <div className="loading-fallback">
-            <div className="loading-spinner"></div>
-            <p>Loading Blog...</p>
-          </div>
-        }>
-          <Blog />
-        </Suspense>
-      </motion.div> */}
 
 
       {/* Enhanced Navigation - SmoothScrollNav includes dot and arrow navigation */}
@@ -319,7 +286,7 @@ function AppContent() {
           right: '20px',
           width: '4px',
           height: '60px',
-          background: 'linear-gradient(180deg, #64ffda, #7877c6)',
+          background: 'var(--gradient-primary)',
           borderRadius: '2px',
           transformOrigin: 'bottom',
           zIndex: 1000,

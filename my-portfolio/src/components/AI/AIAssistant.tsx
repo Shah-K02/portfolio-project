@@ -239,7 +239,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ portfolioData }) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         animate={{ 
-          backgroundColor: isOpen ? '#ef4444' : '#4f46e5',
+          backgroundColor: isOpen ? 'var(--color-accent-2)' : 'var(--color-accent-1)',
           rotate: isOpen ? 180 : 0
         }}
       >

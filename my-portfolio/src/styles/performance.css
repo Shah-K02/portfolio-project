@@ -10,8 +10,7 @@
 /* Section-specific optimizations */
 .projects-section:not(.section-visible),
 .skills-section:not(.section-visible),
-.about:not(.section-visible),
-.blog-section:not(.section-visible) {
+.about:not(.section-visible) {
   content-visibility: auto;
   contain-intrinsic-size: 0 500px;
   contain: layout style paint;
