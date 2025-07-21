@@ -11,13 +11,7 @@ import PageIndicators from "./PageIndicators";
 import ProjectFilter from "./ProjectFilter";
 import Enhanced3DProjectCard from "./Enhanced3DProjectCard";
 
-// Hooks
-import {
-  useResponsiveCardCount,
-  useCarousel,
-  useKeyboardNavigation,
-  useFLIPAnimation
-} from "../hooks";
+// Hooks - using built-in React hooks for simpler implementation
 
 // Types
 import { Project } from "../types/project";
@@ -76,7 +70,26 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
   onViewProject,
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const visibleCards = useResponsiveCardCount();
+  const [currentPage, setCurrentPage] = useState<number>(0);
+  
+  // Responsive card count based on screen size
+  const [visibleCards, setVisibleCards] = useState<number>(3);
+  
+  useEffect(() => {
+    const updateCardCount = () => {
+      if (window.innerWidth < 768) {
+        setVisibleCards(1);
+      } else if (window.innerWidth < 1024) {
+        setVisibleCards(2);
+      } else {
+        setVisibleCards(3);
+      }
+    };
+    
+    updateCardCount();
+    window.addEventListener('resize', updateCardCount);
+    return () => window.removeEventListener('resize', updateCardCount);
+  }, []);
 
   // Memoized filtered and sorted projects
   const filteredProjects = useMemo(() => {
@@ -93,60 +106,44 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
     return getUniqueCategories(projects);
   }, [projects]);
 
-  const {
-    currentPage,
-    totalPages,
-    visibleItems: visibleProjects,
-    goToNext,
-    goToPrevious,
-    goToPage,
-    canGoNext,
-    canGoPrevious,
-  } = useCarousel({
-    items: filteredProjects,
-    itemsPerPage: visibleCards,
-  });
+  // Pagination logic
+  const totalPages = Math.ceil(filteredProjects.length / visibleCards);
+  const visibleProjects = filteredProjects.slice(
+    currentPage * visibleCards,
+    (currentPage + 1) * visibleCards
+  );
+  
+  const canGoNext = currentPage < totalPages - 1;
+  const canGoPrevious = currentPage > 0;
+  
+  const goToNext = () => {
+    if (canGoNext) setCurrentPage(prev => prev + 1);
+  };
+  
+  const goToPrevious = () => {
+    if (canGoPrevious) setCurrentPage(prev => prev - 1);
+  };
+  
+  const goToPage = (page: number) => {
+    setCurrentPage(Math.max(0, Math.min(page, totalPages - 1)));
+  };
 
-  const { handleKeyPress } = useKeyboardNavigation({
-    onPrevious: goToPrevious,
-    onNext: goToNext,
-  });
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') goToPrevious();
+      if (e.key === 'ArrowRight') goToNext();
+    };
+    
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [canGoNext, canGoPrevious]);
 
   const gridRef = useRef<HTMLUListElement>(null);
-  const { recordPosition, playAnimation } = useFLIPAnimation({
-    duration: 0.6,
-    ease: "anticipate"
-  });
-
-  // Record positions before category change
-  useEffect(() => {
-    if (!gridRef.current) return;
-    
-    const cards = Array.from(gridRef.current.children);
-    cards.forEach((card, index) => {
-      if (card instanceof HTMLElement) {
-        recordPosition(`card-${index}`, card);
-      }
-    });
-  }, [selectedCategory, recordPosition]);
 
   const handleCategoryChange = (category: string) => {
-    // Record current positions
-    if (gridRef.current) {
-      const cards = Array.from(gridRef.current.children);
-      cards.forEach((card, index) => {
-        if (card instanceof HTMLElement) {
-          recordPosition(`card-${index}`, card);
-        }
-      });
-    }
-
     setSelectedCategory(category);
-
-    // Play FLIP animation after state update
-    requestAnimationFrame(() => {
-      playAnimation();
-    });
+    setCurrentPage(0); // Reset to first page when category changes
   };
 
   if (projects.length === 0) {
@@ -167,7 +164,7 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
 
       <div
         className="projects-carousel"
-        onKeyDown={handleKeyPress}
+ 
         tabIndex={0}
         role="region"
         aria-label="Projects carousel"

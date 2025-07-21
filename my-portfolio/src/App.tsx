@@ -25,7 +25,7 @@ import { usePreload } from "./hooks/useLazyLoading";
 import "./App.css";
 import "./styles/enhancedScrolling.css";
 
-// Lazy load heavy components (currently unused)
+
 
 function AppContent() {
   const sectionCount = 5;
@@ -91,49 +91,7 @@ function AppContent() {
 
 
 
-  useEffect(() => {
-    // Add font preloading with CDN sources
-    const style = document.createElement("style");
-    style.textContent = `
-      @font-face {
-        font-family: 'Inter';
-        src: url('https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-700-normal.woff2') format('woff2');
-        font-weight: 700;
-        font-style: normal;
-        font-display: swap;
-      }
-      @font-face {
-        font-family: 'JetBrains Mono';
-        src: url('https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.18/files/jetbrains-mono-latin-400-normal.woff2') format('woff2');
-        font-weight: 400;
-        font-style: normal;
-        font-display: swap;
-      }
-    `;
-    document.head.appendChild(style);
-
-    // Add preload links
-    const fontPreloadLinks = [
-      {
-        href: "https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/files/inter-latin-700-normal.woff2",
-        type: "font/woff2",
-      },
-      {
-        href: "https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.18/files/jetbrains-mono-latin-400-normal.woff2",
-        type: "font/woff2",
-      },
-    ];
-
-    fontPreloadLinks.forEach((font) => {
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "font";
-      link.href = font.href;
-      link.type = font.type;
-      link.crossOrigin = "anonymous";
-      document.head.appendChild(link);
-    });
-  }, []);
+  // Font preloading is handled via CSS @font-face declarations in theme.css
 
   return (
     <div className="app-container">
@@ -274,8 +232,7 @@ function AppContent() {
         theme="auto"
       />
       
-      {/* Scroll Progress Bar */}
-      <ScrollProgress scrollProgress={scrollProgress} />
+
       
       {/* Scroll velocity indicator */}
       <motion.div

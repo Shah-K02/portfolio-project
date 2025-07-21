@@ -164,9 +164,8 @@ export const loadChunk = async <T = any>(chunkName: string): Promise<T> => {
         throw new Error(`Unknown chunk: ${chunkName}`);
     }
   } catch (error) {
-    console.error(`Failed to load chunk ${chunkName}:`, error);
-    throw error;
-  }
+        throw error;
+      }
 };
 
 // Performance monitoring
@@ -214,7 +213,7 @@ export class PerformanceMonitor {
         lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
         this.observers.push(lcpObserver);
       } catch (error) {
-        console.error('Failed to initialize performance observers:', error);
+        // Performance observers initialization failed
       }
     }
   }
@@ -236,7 +235,7 @@ export class PerformanceMonitor {
           this.metrics.set(name, measure.duration);
         }
       } catch (error) {
-        console.error(`Failed to measure performance for ${name}:`, error);
+        // Performance measurement failed
       }
     }
   }
@@ -294,7 +293,7 @@ export const trackWebVitals = (): void => {
       // CLS tracking for internal metrics only
     });
   } catch (error) {
-    console.error('Failed to track web vitals:', error);
+    // Web vitals tracking failed
   }
 };
 
@@ -309,7 +308,6 @@ export const optimizeImage = (src: string, width?: number, height?: number, qual
     
     return url.toString();
   } catch (error) {
-    console.error('Failed to optimize image:', error);
     return src;
   }
 };
@@ -320,9 +318,9 @@ export const registerServiceWorker = async (): Promise<void> => {
 
   try {
     const registration = await navigator.serviceWorker.register('/sw.js');
-    console.log('Service Worker registered:', registration);
+    // Service Worker registered successfully
   } catch (error) {
-    console.error('Service Worker registration failed:', error);
+    // Service Worker registration failed
   }
 };
 
@@ -336,7 +334,6 @@ export const initializePerformanceOptimizations = (): PerformanceMonitor | null 
     registerServiceWorker();
     return new PerformanceMonitor();
   } catch (error) {
-    console.error('Failed to initialize performance optimizations:', error);
     return null;
   }
 };

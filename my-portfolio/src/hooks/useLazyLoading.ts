@@ -194,7 +194,6 @@ export const useLazyComponent = <T extends React.ComponentType<any>>(
     } catch (err) {
       setError('Failed to load component');
       setIsLoading(false);
-      console.error('Lazy component loading error:', err);
     }
   }, [importFunction, isLoading, Component]);
 

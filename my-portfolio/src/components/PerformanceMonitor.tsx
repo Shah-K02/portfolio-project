@@ -71,7 +71,7 @@ const PerformanceMonitorComponent: React.FC = () => {
         connectionInfo
       });
     } catch (error) {
-      console.error('Error collecting performance metrics:', error);
+      // Performance metrics collection failed
     } finally {
       setIsCollecting(false);
     }
