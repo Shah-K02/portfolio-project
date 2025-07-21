@@ -1,36 +1,52 @@
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useInView, useTransform, useScroll, MotionValue } from 'framer-motion';
+import { RefObject } from 'react';
 
-export const useScrollAnimation = (threshold = 0.3) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const elementRef = useRef<HTMLDivElement | null>(null);
+interface ScrollAnimationConfig {
+  amount?: number;
+  once?: boolean;
+  parallaxIntensity?: number;
+  margin?: string;
+};
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!elementRef.current) return;
+interface ScrollAnimationResult {
+  ref: RefObject<HTMLElement>;
+  inView: boolean;
+  parallaxY: MotionValue<string>;
+};
 
-      const element = elementRef.current;
-      const elementTop = element.offsetTop;
-      const elementBottom = elementTop + element.offsetHeight;
-      const windowHeight = window.innerHeight;
-      const scrollTop = window.pageYOffset;
-      
-      // Buffer zone: section becomes visible when it's `threshold` percent into viewport
-      const buffer = windowHeight * threshold;
-      const isInViewport = scrollTop < elementBottom + buffer && 
-                          scrollTop + windowHeight > elementTop - buffer;
-
-      setIsVisible(isInViewport);
-    };
-
-    // Check initial state
-    handleScroll();
-    
-    // Add scroll listener
-    window.addEventListener('scroll', handleScroll);
-    
-    // Cleanup
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [threshold]);
-
-  return { isVisible, elementRef };
+export const useScrollAnimation = ({
+  amount = 0.3,
+  once = true,
+  parallaxIntensity = 50,
+  margin = '-10% 0px'
+}: ScrollAnimationConfig = {}): ScrollAnimationResult => {
+  const ref = useRef<HTMLElement>(null);
+  
+  const inViewOptions = {
+    amount,
+    once,
+    margin: margin as any
+  };
+  
+  const inView = useInView(ref, inViewOptions);
+  
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start']
+  });
+  
+  const parallaxY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [`-${parallaxIntensity}px`, `${parallaxIntensity}px`]
+  );
+  
+  const typedRef = ref as RefObject<HTMLElement>;
+  
+  return {
+    ref: typedRef,
+    inView,
+    parallaxY
+  };
 };

@@ -38,7 +38,7 @@ interface Certification {
 
 const Resume: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'experience' | 'education' | 'certifications'>('experience');
-  const { isVisible, elementRef } = useScrollAnimation(0.2);
+  const { ref, inView } = useScrollAnimation({ amount: 0.2 });
 
   const experiences: Experience[] = [
     {
@@ -147,9 +147,9 @@ const Resume: React.FC = () => {
 
   return (
     <section 
-      ref={elementRef}
+      ref={ref}
       className={`resume-section section-animated fade-up ${
-        isVisible ? 'section-visible' : 'section-hidden'
+        inView ? 'section-visible' : 'section-hidden'
       }`}
     >
       <div className="resume-container">

@@ -11,13 +11,13 @@ import MagneticCursor from "./MagneticCursor";
 
 import InteractiveParticles from "./Interactive/InteractiveParticles";
 const Introduction: React.FC = () => {
-  const { isVisible, elementRef } = useScrollAnimation(0.2); // 20% threshold for early trigger
+  const { ref, inView } = useScrollAnimation({ amount: 0.2 }); // 20% threshold for early trigger
 
   return (
     <section
-      ref={elementRef}
+      ref={ref}
       className={`introduction section-animated fade-up ${
-        isVisible ? "section-visible" : "section-hidden"
+        inView ? "section-visible" : "section-hidden"
       }`}
       style={{ position: "relative", overflow: "hidden" }}
     >
@@ -32,14 +32,14 @@ const Introduction: React.FC = () => {
       <div className="container">
         <div
           className={`introduction-content stagger-children ${
-            isVisible ? "section-visible" : ""
+            inView ? "section-visible" : ""
           }`}
         >
           {/* Animated Profile Circle with my Picture */}
           <div className="profile-image stagger-item">
             <motion.div
               initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : 50 }}
+              animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : 50 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="profile-circle-container"
             >
@@ -57,10 +57,10 @@ const Introduction: React.FC = () => {
                 </div>
                 <motion.div
                   className="profile-circle-decoration"
-                  animate={{ rotate: isVisible ? 360 : 0 }}
+                  animate={{ rotate: inView ? 360 : 0 }}
                   transition={{
                     duration: 20,
-                    repeat: isVisible ? Infinity : 0,
+                    repeat: inView ? Infinity : 0,
                     ease: "linear",
                   }}
                 >
@@ -73,7 +73,7 @@ const Introduction: React.FC = () => {
           <motion.h1
             className="main-title stagger-item"
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
+            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
             Hi, I'm <span className="highlight">Shah Kar</span>
@@ -82,7 +82,7 @@ const Introduction: React.FC = () => {
           <motion.div
             className="subtitle-container stagger-item"
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
+            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
             <p className="subtitle-static">
@@ -113,7 +113,7 @@ const Introduction: React.FC = () => {
           <motion.div
             className="social-links stagger-item"
             initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 30 }}
+            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
             transition={{ duration: 0.8, delay: 0.9 }}
           >
             <MagneticCursor strength={0.2}>

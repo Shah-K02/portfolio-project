@@ -25,9 +25,9 @@ const Blog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { isVisible, elementRef } = useScrollAnimation(0.2);
+  const { ref, inView } = useScrollAnimation({ amount: 0.2 });
 
-  const blogPosts: BlogPost[] = useMemo(() => [
+  const blogPosts = useMemo<BlogPost[]>(() => [
     {
       id: 'post1',
       title: 'Building Scalable React Applications with TypeScript',
@@ -166,9 +166,9 @@ const Blog: React.FC = () => {
 
   return (
     <section 
-      ref={elementRef}
+      ref={ref}
       className={`blog-section section-animated fade-up ${
-        isVisible ? 'section-visible' : 'section-hidden'
+        inView ? 'section-visible' : 'section-hidden'
       }`}
     >
       <div className="blog-container">

@@ -6,8 +6,8 @@ import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import { VisualEffects } from "./components/VisualEffects";
-
 import { useScrollNavigation } from "./hooks/useScrollNavigation";
+
 import { ScrollArrows } from "./components/Navigation/ScrollArrows";
 import { DotNavigation } from "./components/Navigation/DotNavigation";
 import { ScrollProgress } from "./components/Navigation/ScrollProgress";
@@ -28,14 +28,8 @@ import "./App.css";
 
 function AppContent() {
   const sectionCount = 5;
-  const {
-    sectionRefs,
-    currentSection,
-    hideUpArrow,
-    hideDownArrow,
-    scrollToSection,
-    scrollProgress,
-  } = useScrollNavigation(sectionCount);
+  const { sectionRefs, currentSection, scrollProgress, hideUpArrow, hideDownArrow, scrollToSection } =
+    useScrollNavigation(sectionCount);
   const perfMonitor = useMemo(() => new PerfMonitor(), []);
 
   // Preload critical resources
@@ -77,15 +71,9 @@ function AppContent() {
       perfMonitor.cleanup();
       analytics.stopTracking();
     };
-  }, [perfMonitor]);
+  }, []);
 
-  const handleScrollDirection = (direction: "up" | "down") => {
-    const newIndex =
-      direction === "down"
-        ? Math.min(currentSection + 1, sectionCount - 1)
-        : Math.max(currentSection - 1, 0);
-    scrollToSection(newIndex);
-  };
+
 
   useEffect(() => {
     // Add font preloading with CDN sources
@@ -169,59 +157,45 @@ function AppContent() {
           ],
           experience: [
             {
-              company: "Tech Solutions Inc.",
-              role: "Senior Full Stack Developer",
-              duration: "2022-Present",
-            },
-            {
-              company: "Digital Innovations",
-              role: "Frontend Developer",
-              duration: "2020-2022",
-            },
-          ],
+              role: "Senior Frontend Developer",
+              company: "Tech Company",
+              duration: "2022-Present"
+            }
+          ]
         }}
       />
-      <motion.div
-        ref={sectionRefs[0]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Introduction />
-      </motion.div>
 
-      <motion.div
-        ref={sectionRefs[1]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-      >
-        <About />
-      </motion.div>
+      <div style={{ scrollBehavior: "smooth" }}>
+        <div>
+          <div ref={sectionRefs[0]}>
+            <Introduction />
+          </div>
+        </div>
 
-      <motion.div
-        ref={sectionRefs[2]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Projects />
-      </motion.div>
+        <div>
+          <div ref={sectionRefs[1]}>
+            <About />
+          </div>
+        </div>
 
-      <motion.div
-        ref={sectionRefs[3]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Skills />
-      </motion.div>
+        <div>
+          <div ref={sectionRefs[2]}>
+            <Projects />
+          </div>
+        </div>
+
+        <div>
+          <div ref={sectionRefs[3]}>
+            <Skills />
+          </div>
+        </div>
+
+        <div>
+          <div ref={sectionRefs[4]}>
+            <Contact />
+          </div>
+        </div>
+      </div>
 
       {/* <motion.div
         ref={sectionRefs[4]}
@@ -257,15 +231,7 @@ function AppContent() {
         </Suspense>
       </motion.div> */}
 
-      <motion.div
-        ref={sectionRefs[4]}
-        className="section"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <Contact />
-      </motion.div>
+
 
       <DotNavigation
         sectionCount={sectionCount}
@@ -276,7 +242,12 @@ function AppContent() {
       <ScrollArrows
         hideUpArrow={hideUpArrow}
         hideDownArrow={hideDownArrow}
-        scrollToSection={handleScrollDirection}
+        scrollToSection={(direction) => {
+          const newIndex = direction === "down" 
+            ? Math.min(currentSection + 1, sectionCount - 1) 
+            : Math.max(currentSection - 1, 0);
+          scrollToSection(newIndex);
+        }}
       />
     </div>
   );

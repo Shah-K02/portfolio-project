@@ -2,19 +2,19 @@ import React from "react";
 import "./About.css";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 const About: React.FC = () => {
-  const { isVisible, elementRef } = useScrollAnimation(0.1); // 10% threshold
+  const { ref, inView } = useScrollAnimation({ amount: 0.2 });
 
   return (
     <section
-      ref={elementRef}
+      ref={ref}
       className={`about section-animated fade-up ${
-        isVisible ? "section-visible" : "section-hidden"
+        inView ? "section-visible" : "section-hidden"
       }`}
     >
       <div className="container">
         <h2
           className={`section-title stagger-item ${
-            isVisible ? "section-visible" : ""
+            inView ? "section-visible" : ""
           }`}
         >
           About Me
@@ -22,7 +22,7 @@ const About: React.FC = () => {
 
         <div
           className={`about-content stagger-children ${
-            isVisible ? "section-visible" : ""
+            inView ? "section-visible" : ""
           }`}
         >
           <div className="about-image stagger-item">
