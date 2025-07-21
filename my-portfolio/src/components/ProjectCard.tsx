@@ -5,11 +5,11 @@ import { Project } from "../types/project";
 
 // Card colors for project cards
 const CARD_COLORS = [
-  "#003566", // dark blue
-  "#ffd60a", // yellow
-  "#0a0f2f", // dark blue
-  "#ffc300", // gold
-  "#001f4d", // oxford tint
+  "var(--color-accent-1)", // accent 1
+  "var(--color-detail)", // detail color
+  "var(--color-accent-2)", // accent 2
+  "var(--color-detail)", // detail color
+  "var(--color-surface)", // surface color
 ] as const;
 
 interface ProjectCardProps {

@@ -65,10 +65,10 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
   
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'var(--matrix-green, #00ff88)';
-      case 'in-progress': return 'var(--electric-blue, #0066ff)';
-      case 'archived': return 'var(--quantum-purple, #6366f1)';
-      default: return 'var(--neon-cyan, #00f5ff)';
+      case 'completed': return 'var(--color-detail)';
+    case 'in-progress': return 'var(--color-accent-1)';
+    case 'archived': return 'var(--color-accent-2)';
+    default: return 'var(--color-accent-1)';
     }
   };
   
@@ -137,7 +137,7 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
               style={{
                 transform: `translateZ(${titleZ.get()}px)`,
                 textShadow: isHovered 
-                  ? '0 0 20px var(--neon-cyan, #00f5ff), 0 0 40px var(--neon-cyan, #00f5ff)' 
+                  ? '0 0 20px var(--color-accent-1), 0 0 40px var(--color-accent-1)' 
                   : '0 0 0px transparent'
               }}
               animate={{ 

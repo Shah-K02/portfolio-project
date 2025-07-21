@@ -1,0 +1,111 @@
+/* Semantic Design Tokens for Dynamic Theming */
+
+:root {
+  /* Typography System */
+  /* Font Families */
+  --font-heading: 'Sora', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-code: 'JetBrains Mono', monospace;
+  
+  /* Font Sizes */
+  --text-xl: 48px;      /* Hero, main heading */
+  --text-lg: 36px;      /* Section titles */
+  --text-md: 24px;      /* Subheadings */
+  --text-base: 18px;    /* Paragraphs, nav items */
+  --text-sm: 14px;      /* Labels, buttons, captions */
+  --text-code: 16px;    /* Tags, inline code */
+  
+  /* Line Heights */
+  --line-height-heading: 1.2;
+  --line-height-body: 1.6;
+  
+  /* Letter Spacing */
+  --letter-spacing-heading: -0.5px;
+  --letter-spacing-body: 0;
+  
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  /* Light Theme Colors */
+  --color-bg: #F8FAFC;           /* 248, 250, 252 - Page background */
+  --color-surface: #FFFFFF;      /* 255, 255, 255 - Cards, panels */
+  --color-text: #0F172A;         /* 15, 23, 42 - Body text */
+  --color-heading: #1E293B;      /* 30, 41, 59 - Headings */
+  --color-accent-1: #38BDF8;     /* 56, 189, 248 - CTAs, highlights */
+  --color-accent-2: #FB7185;     /* 251, 113, 133 - Buttons, icons */
+  --color-detail: #FACC15;       /* 250, 204, 21 - Highlights, borders, tags */
+  
+  /* Gradient */
+  --gradient-primary: linear-gradient(135deg, #38BDF8 0%, #FB7185 100%);
+  
+  /* RGB values for alpha transparency usage */
+  --color-bg-rgb: 248, 250, 252;
+  --color-surface-rgb: 255, 255, 255;
+  --color-text-rgb: 15, 23, 42;
+  --color-heading-rgb: 30, 41, 59;
+  --color-accent-1-rgb: 56, 189, 248;
+  --color-accent-2-rgb: 251, 113, 133;
+  --color-detail-rgb: 250, 204, 21;
+}
+
+[data-theme="dark"] {
+  /* Dark Theme Colors */
+  --color-bg: #0F172A;           /* 15, 23, 42 - Page background */
+  --color-surface: #1E293B;      /* 30, 41, 59 - Cards, panels */
+  --color-text: #F8FAFC;         /* 248, 250, 252 - Body text */
+  --color-heading: #E2E8F0;      /* 226, 232, 240 - Headings */
+  --color-accent-1: #38BDF8;     /* 56, 189, 248 - CTAs, highlights */
+  --color-accent-2: #FB7185;     /* 251, 113, 133 - Buttons, icons */
+  --color-detail: #FACC15;       /* 250, 204, 21 - Highlights, borders, tags */
+  
+  /* RGB values for alpha transparency usage */
+  --color-bg-rgb: 15, 23, 42;
+  --color-surface-rgb: 30, 41, 59;
+  --color-text-rgb: 248, 250, 252;
+  --color-heading-rgb: 226, 232, 240;
+  --color-accent-1-rgb: 56, 189, 248;
+  --color-accent-2-rgb: 251, 113, 133;
+  --color-detail-rgb: 250, 204, 21;
+}
+
+/* Additional semantic tokens for common use cases */
+:root {
+  /* Surface variations */
+  --color-surface-elevated: rgba(var(--color-surface-rgb), 0.95);
+  --color-surface-overlay: rgba(var(--color-surface-rgb), 0.1);
+  --color-surface-hover: rgba(var(--color-surface-rgb), 0.05);
+  
+  /* Text variations */
+  --color-text-secondary: rgba(var(--color-text-rgb), 0.8);
+  --color-text-tertiary: rgba(var(--color-text-rgb), 0.6);
+  --color-text-disabled: rgba(var(--color-text-rgb), 0.4);
+  
+  /* Accent variations with transparency */
+  --color-accent-1-light: rgba(var(--color-accent-1-rgb), 0.1);
+  --color-accent-1-medium: rgba(var(--color-accent-1-rgb), 0.2);
+  --color-accent-1-strong: rgba(var(--color-accent-1-rgb), 0.3);
+  
+  --color-accent-2-light: rgba(var(--color-accent-2-rgb), 0.1);
+  --color-accent-2-medium: rgba(var(--color-accent-2-rgb), 0.2);
+  --color-accent-2-strong: rgba(var(--color-accent-2-rgb), 0.3);
+  
+  --color-detail-light: rgba(var(--color-detail-rgb), 0.1);
+  --color-detail-medium: rgba(var(--color-detail-rgb), 0.2);
+  --color-detail-strong: rgba(var(--color-detail-rgb), 0.3);
+  
+  /* Shadow and border tokens */
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --color-shadow-strong: rgba(0, 0, 0, 0.2);
+  --color-border: rgba(var(--color-text-rgb), 0.1);
+  --color-border-strong: rgba(var(--color-text-rgb), 0.2);
+}
+
+[data-theme="dark"] {
+  /* Dark theme shadow adjustments */
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-shadow-strong: rgba(0, 0, 0, 0.5);
+}

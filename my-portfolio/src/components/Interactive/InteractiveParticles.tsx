@@ -1,6 +1,17 @@
 import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import './InteractiveParticles.css';
 
+// Utility function to resolve CSS variables to actual color values
+const resolveCSSVariable = (cssVar: string): string => {
+  if (cssVar.startsWith('var(')) {
+    // Extract the variable name from var(--variable-name)
+    const varName = cssVar.slice(4, -1);
+    const computedValue = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    return computedValue || cssVar;
+  }
+  return cssVar;
+};
+
 interface Particle {
   x: number;
   y: number;
@@ -25,7 +36,7 @@ interface InteractiveParticlesProps {
 
 const InteractiveParticles: React.FC<InteractiveParticlesProps> = ({
   particleCount = 100,
-  color = '#64ffda',
+  color = 'var(--color-accent-1)',
   connectionDistance = 150,
   className = '',
   interactive = true,
@@ -38,11 +49,14 @@ const InteractiveParticles: React.FC<InteractiveParticlesProps> = ({
   const mouseRef = useRef({ x: 0, y: 0, isDown: false });
   const [isActive, setIsActive] = useState(false);
 
-  const colors = useMemo(() => 
-    theme === 'dark' 
-      ? ['#4f46e5', '#7c3aed', '#ec4899', '#f59e0b', '#10b981']
-      : ['#3b82f6', '#8b5cf6', '#f472b6', '#fbbf24', '#34d399']
-  , [theme]);
+  const colors = useMemo(() => {
+    const baseColors = theme === 'dark' 
+      ? ['var(--color-accent-1)', 'var(--color-accent-2)', 'var(--color-detail)', '#4f46e5', '#10b981']
+      : ['var(--color-accent-1)', 'var(--color-accent-2)', 'var(--color-detail)', '#3b82f6', '#34d399'];
+    
+    // Resolve CSS variables to actual color values for Canvas compatibility
+    return baseColors.map(color => resolveCSSVariable(color));
+  }, [theme]);
 
   const createParticle = useCallback((x?: number, y?: number, type: Particle['type'] = 'normal'): Particle => {
     const canvas = canvasRef.current;
@@ -121,7 +135,7 @@ const InteractiveParticles: React.FC<InteractiveParticlesProps> = ({
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     // Draw connections
-    ctx.strokeStyle = theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+    ctx.strokeStyle = resolveCSSVariable('var(--color-border)');
     ctx.lineWidth = 1;
     
     for (let i = 0; i < particlesRef.current.length; i++) {

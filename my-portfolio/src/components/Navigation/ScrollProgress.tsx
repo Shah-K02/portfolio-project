@@ -15,7 +15,7 @@ export const ScrollProgress: React.FC<ScrollProgressProps> = ({ scrollProgress }
         left: 0,
         right: 0,
         height: '4px',
-        background: 'rgba(255, 255, 255, 0.1)',
+        background: 'var(--color-surface-overlay)',
         zIndex: 9999,
         backdropFilter: 'blur(10px)',
       }}
@@ -27,10 +27,10 @@ export const ScrollProgress: React.FC<ScrollProgressProps> = ({ scrollProgress }
         className="scroll-progress-bar"
         style={{
           height: '100%',
-          background: 'linear-gradient(90deg, #64ffda, #7877c6, #ff6b6b)',
+          background: 'var(--gradient-primary)',
           borderRadius: '0 2px 2px 0',
           transformOrigin: 'left',
-          boxShadow: '0 0 10px rgba(100, 255, 218, 0.5)',
+          boxShadow: '0 0 10px var(--color-accent-1-strong)',
         }}
         animate={{
           width: `${Math.max(0, Math.min(100, scrollProgress))}%`,
@@ -49,9 +49,9 @@ export const ScrollProgress: React.FC<ScrollProgressProps> = ({ scrollProgress }
           transform: 'translateY(-50%)',
           width: '8px',
           height: '8px',
-          background: '#64ffda',
+          background: 'var(--color-accent-1)',
           borderRadius: '50%',
-          boxShadow: '0 0 8px rgba(100, 255, 218, 0.8)',
+          boxShadow: '0 0 8px var(--color-accent-1-strong)',
         }}
         animate={{
           left: `${Math.max(0, Math.min(100, scrollProgress))}%`,

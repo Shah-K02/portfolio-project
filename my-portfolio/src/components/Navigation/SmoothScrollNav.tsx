@@ -101,12 +101,12 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
     inactive: {
       scale: 1,
       opacity: 0.4,
-      backgroundColor: 'rgba(255, 255, 255, 0.3)'
+      backgroundColor: 'var(--color-surface-overlay)'
     },
     active: {
       scale: 1.2,
       opacity: 1,
-      backgroundColor: '#64ffda'
+      backgroundColor: 'var(--color-accent-1)'
     },
     hover: {
       scale: 1.4,
@@ -143,11 +143,11 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
           flexDirection: 'column',
           gap: '1rem',
           padding: '1.5rem 1rem',
-          background: 'rgba(0, 0, 0, 0.1)',
+          background: 'var(--color-surface-overlay)',
           backdropFilter: 'blur(20px)',
           borderRadius: '2rem',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+          border: '1px solid var(--color-border)',
+          boxShadow: '0 8px 32px var(--color-shadow-strong)',
         }}
       >
         {/* Velocity indicator */}
@@ -159,7 +159,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
             left: 0,
             right: 0,
             height: '2px',
-            background: 'linear-gradient(90deg, #64ffda, #7877c6)',
+            background: 'var(--gradient-primary)',
             borderRadius: '1px',
             transformOrigin: 'left',
           }}
@@ -194,7 +194,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
                 width: '12px',
                 height: '12px',
                 borderRadius: '50%',
-                border: '2px solid rgba(255, 255, 255, 0.3)',
+                border: '2px solid var(--color-border-strong)',
                 position: 'relative',
                 overflow: 'hidden',
               }}
@@ -204,7 +204,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
                 style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'linear-gradient(45deg, #64ffda, #7877c6)',
+                  background: 'var(--gradient-primary)',
                   borderRadius: '50%',
                 }}
                 animate={{
@@ -220,7 +220,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
                   style={{
                     position: 'absolute',
                     inset: '-50%',
-                    background: 'rgba(100, 255, 218, 0.3)',
+                    background: 'var(--color-accent-1-strong)',
                     borderRadius: '50%',
                   }}
                   animate={{
@@ -249,7 +249,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
                     position: 'absolute',
                     [position === 'right' ? 'right' : 'left']: '100%',
                     [position === 'right' ? 'marginRight' : 'marginLeft']: '1rem',
-                    background: 'rgba(0, 0, 0, 0.8)',
+                    background: 'var(--color-surface-elevated)',
                     color: 'white',
                     padding: '0.5rem 1rem',
                     borderRadius: '0.5rem',
@@ -257,7 +257,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
                     fontWeight: '500',
                     whiteSpace: 'nowrap',
                     backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    border: '1px solid var(--color-border)',
                   }}
                 >
                   {section.label}
@@ -273,7 +273,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
                       height: 0,
                       borderTop: '6px solid transparent',
                       borderBottom: '6px solid transparent',
-                      [position === 'right' ? 'borderLeft' : 'borderRight']: '6px solid rgba(0, 0, 0, 0.8)',
+                      [position === 'right' ? 'borderLeft' : 'borderRight']: '6px solid var(--color-surface-elevated)',
                     }}
                   />
                 </motion.div>
@@ -291,7 +291,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
             top: '1.5rem',
             bottom: '1.5rem',
             width: '2px',
-            background: 'rgba(255, 255, 255, 0.1)',
+            background: 'var(--color-surface-overlay)',
             borderRadius: '1px',
           }}
         >
@@ -301,7 +301,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
               top: 0,
               left: 0,
               right: 0,
-              background: 'linear-gradient(180deg, #64ffda, #7877c6)',
+              background: 'var(--gradient-primary)',
               borderRadius: '1px',
               transformOrigin: 'top',
             }}
@@ -336,9 +336,9 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
           onClick={() => handleSectionClick(Math.max(0, currentSection - 1))}
           disabled={currentSection === 0 || isScrolling}
           style={{
-            background: 'rgba(0, 0, 0, 0.1)',
+            background: 'var(--color-surface-overlay)',
             backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            border: '1px solid var(--color-border)',
             borderRadius: '50%',
             width: '48px',
             height: '48px',
@@ -348,7 +348,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
             cursor: 'pointer',
             color: 'white',
           }}
-          whileHover={{ scale: 1.1, backgroundColor: 'rgba(100, 255, 218, 0.2)' }}
+          whileHover={{ scale: 1.1, backgroundColor: 'var(--color-accent-1-medium)' }}
           whileTap={{ scale: 0.95 }}
           animate={{
             opacity: currentSection === 0 ? 0.3 : 1,
@@ -363,9 +363,9 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
           onClick={() => handleSectionClick(Math.min(sections.length - 1, currentSection + 1))}
           disabled={currentSection === sections.length - 1 || isScrolling}
           style={{
-            background: 'rgba(0, 0, 0, 0.1)',
+            background: 'var(--color-surface-overlay)',
             backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            border: '1px solid var(--color-border)',
             borderRadius: '50%',
             width: '48px',
             height: '48px',
@@ -375,7 +375,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
             cursor: 'pointer',
             color: 'white',
           }}
-          whileHover={{ scale: 1.1, backgroundColor: 'rgba(100, 255, 218, 0.2)' }}
+          whileHover={{ scale: 1.1, backgroundColor: 'var(--color-accent-1-medium)' }}
           whileTap={{ scale: 0.95 }}
           animate={{
             opacity: currentSection === sections.length - 1 ? 0.3 : 1,

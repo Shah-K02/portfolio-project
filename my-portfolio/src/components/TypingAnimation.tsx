@@ -65,7 +65,7 @@ const TypingAnimation: React.FC<TypingAnimationProps> = ({
         animate={{ opacity: showCursor ? 1 : 0 }}
         transition={{ duration: 0.1 }}
         style={{
-          color: 'var(--neon-cyan, #00f5ff)',
+          color: 'var(--color-accent-1)',
           fontWeight: 'normal'
         }}
       >

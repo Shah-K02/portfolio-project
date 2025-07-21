@@ -24,7 +24,7 @@ const Introduction: React.FC = () => {
       <div className="intro-background">
         <InteractiveParticles
           particleCount={50}
-          color="#64ffda"
+          color="var(--color-accent-1)"
           connectionDistance={100}
         />
       </div>
@@ -124,8 +124,8 @@ const Introduction: React.FC = () => {
                 className="social-link github enhanced"
                 whileHover={{
                   scale: 1.1,
-                  boxShadow: "0 0 25px var(--neon-cyan, #00f5ff)",
-                  backgroundColor: "rgba(0, 245, 255, 0.1)",
+                  boxShadow: "0 0 25px var(--color-accent-1)",
+                  backgroundColor: "var(--color-accent-1-light)",
                 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -141,8 +141,8 @@ const Introduction: React.FC = () => {
                 className="social-link linkedin enhanced"
                 whileHover={{
                   scale: 1.1,
-                  boxShadow: "0 0 25px var(--electric-blue, #0066ff)",
-                  backgroundColor: "rgba(0, 102, 255, 0.1)",
+                  boxShadow: "0 0 25px var(--color-accent-1)",
+                  backgroundColor: "var(--color-accent-1-light)",
                 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -155,7 +155,7 @@ const Introduction: React.FC = () => {
                 className="cta-button"
                 whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 0 30px var(--quantum-purple, #6366f1)",
+                  boxShadow: "0 0 30px var(--color-accent-2)",
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {

@@ -10,7 +10,7 @@
 
 .progress-bar {
   height: 100%;
-  background: linear-gradient(to right, #4a90e2, #67b26f);
+  background: var(--gradient-primary);
   transform-origin: left;
   transition: transform 0.1s ease-out;
   will-change: transform;
@@ -19,7 +19,7 @@
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .scroll-progress-container {
-    background-color: rgba(17, 24, 39, 0.2);
+    background-color: var(--color-surface-overlay);
   }
 }
 

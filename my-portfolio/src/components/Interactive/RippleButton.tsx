@@ -15,7 +15,7 @@ interface Ripple {
 
 const RippleButton: React.FC<RippleButtonProps> = ({
   children,
-  color = 'rgba(255, 255, 255, 0.3)',
+  color = 'var(--color-surface-overlay)',
   duration = 500,
   loading = false,
   className = '',

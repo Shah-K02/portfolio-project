@@ -17,8 +17,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+  background: radial-gradient(circle at 20% 80%, var(--color-accent-2-light) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, var(--color-accent-1-light) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
 }
@@ -85,7 +85,7 @@
   background: var(--glass-bg);
   border-radius: 24px;
   border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px var(--color-shadow);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(20px);
   position: relative;
@@ -105,7 +105,7 @@
 
 .contact-item:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15), 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 60px var(--color-accent-2-light), 0 8px 32px var(--color-shadow);
   border-color: var(--primary-400);
 }
 
@@ -139,7 +139,7 @@
 .contact-icon:hover {
   transform: translateY(-4px) scale(1.05);
   color: var(--text-primary);
-  box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+  box-shadow: 0 20px 40px var(--color-accent-1-medium);
 }
 
 .contact-icon:hover::before {
@@ -204,7 +204,7 @@
   padding: 2.5rem;
   backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px var(--color-shadow);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -222,7 +222,7 @@
 }
 
 .contact-form-container:hover {
-  box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15), 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 60px var(--color-accent-2-light), 0 8px 32px var(--color-shadow);
   border-color: var(--primary-400);
   transform: translateY(-4px);
 }
@@ -273,8 +273,8 @@
 .form-textarea:focus {
   outline: none;
   border-color: var(--primary-400);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px var(--color-accent-2-light);
+  background: var(--color-surface-elevated);
   transform: translateY(-2px);
 }
 
@@ -305,18 +305,18 @@
   background: linear-gradient(135deg, var(--yale-blue, #003566), var(--oxford-blue, #001d3d));
   color: white;
   border: 1px solid var(--yale-blue, #003566);
-  box-shadow: 0 4px 12px rgba(0, 29, 61, 0.2);
+  box-shadow: 0 4px 12px var(--color-shadow);
 }
 
 :root[data-theme="light"] .submit-button:hover {
   background: linear-gradient(135deg, var(--oxford-blue, #001d3d), var(--rich-black, #000814));
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 29, 61, 0.3);
+  box-shadow: 0 6px 16px var(--color-shadow);
 }
 
 .submit-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 245, 255, 0.3);
+  box-shadow: 0 8px 20px var(--color-accent-1-medium);
 }
 
 .submit-button:active {

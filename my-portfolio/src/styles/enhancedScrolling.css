@@ -121,7 +121,7 @@ html {
 /* 3D depth layers */
 .depth-layer {
   position: absolute;
-  background: linear-gradient(135deg, rgba(100, 255, 218, 0.02) 0%, rgba(120, 119, 198, 0.02) 100%);
+  background: linear-gradient(135deg, var(--color-accent-1-light) 0%, var(--color-accent-2-light) 100%);
   border-radius: 20px;
   transform: translateZ(-10px);
   filter: blur(1px);
@@ -134,7 +134,7 @@ html {
   top: 0;
   left: 0;
   height: 2px;
-  background: linear-gradient(90deg, #64ffda, #7877c6);
+  background: var(--gradient-primary);
   transform-origin: left;
   z-index: 10;
   transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -215,18 +215,18 @@ html {
 }
 
 .smooth-scroll-container::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface-overlay);
   border-radius: 3px;
 }
 
 .smooth-scroll-container::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #64ffda, #7877c6);
+  background: var(--gradient-primary);
   border-radius: 3px;
   transition: all 0.3s ease;
 }
 
 .smooth-scroll-container::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #4fd1c7, #6366f1);
+  background: linear-gradient(180deg, var(--color-accent-1), var(--color-accent-2));
 }
 
 /* Performance optimizations */
@@ -265,7 +265,7 @@ html {
   }
   
   .depth-layer {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--color-surface-overlay);
   }
 }
 
@@ -305,11 +305,11 @@ html {
 /* Dark mode enhancements */
 @media (prefers-color-scheme: dark) {
   .depth-layer {
-    background: linear-gradient(135deg, rgba(100, 255, 218, 0.03) 0%, rgba(120, 119, 198, 0.03) 100%);
+    background: linear-gradient(135deg, var(--color-accent-1-light) 0%, var(--color-accent-2-light) 100%);
   }
   
   .smooth-scroll-container::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--color-shadow);
   }
 }
 
@@ -328,7 +328,7 @@ html {
   height: 40px;
   margin: -20px 0 0 -20px;
   border: 2px solid transparent;
-  border-top: 2px solid #64ffda;
+  border-top: 2px solid var(--color-accent-1);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -340,7 +340,7 @@ html {
 
 /* Focus management for accessibility */
 .enhanced-section:focus-within {
-  outline: 2px solid #64ffda;
+  outline: 2px solid var(--color-accent-1);
   outline-offset: 4px;
 }
 

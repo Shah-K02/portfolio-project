@@ -174,13 +174,13 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
         case "gradient":
           return {
             background:
-              "linear-gradient(135deg, rgba(100, 255, 218, 0.05) 0%, rgba(120, 119, 198, 0.05) 100%)",
+              "linear-gradient(135deg, var(--color-accent-1-light) 0%, var(--color-accent-2-light) 100%)",
             backdropFilter: "blur(10px)",
           };
         case "blur":
           return {
             backdropFilter: "blur(20px)",
-            background: "rgba(255, 255, 255, 0.02)",
+            background: "var(--color-surface-overlay)",
           };
         default:
           return {};
@@ -246,7 +246,7 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
             top: 0,
             left: 0,
             height: "2px",
-            background: "linear-gradient(90deg, #64ffda, #7877c6)",
+            background: "var(--gradient-primary)",
             transformOrigin: "left",
             zIndex: 10,
           }}
@@ -283,7 +283,7 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
               right: 0,
               bottom: 0,
               pointerEvents: "none",
-              background: `radial-gradient(circle at 50% 50%, rgba(100, 255, 218, ${
+              background: `radial-gradient(circle at 50% 50%, rgba(var(--color-accent-1-rgb), ${
                 velocity * 0.02
               }) 0%, transparent 70%)`,
             }}
@@ -304,7 +304,7 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
             right: "10%",
             bottom: "10%",
             background:
-              "linear-gradient(135deg, rgba(100, 255, 218, 0.02) 0%, rgba(120, 119, 198, 0.02) 100%)",
+              "linear-gradient(135deg, var(--color-accent-1-light) 0%, var(--color-accent-2-light) 100%)",
             borderRadius: "20px",
             transform: "translateZ(-10px)",
             filter: "blur(1px)",
