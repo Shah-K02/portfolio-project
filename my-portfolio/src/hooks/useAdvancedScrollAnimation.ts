@@ -205,22 +205,52 @@ export const useSmoothSectionScroll = (sectionCount: number) => {
   const [isScrolling, setIsScrolling] = useState(false);
   const sectionRefs = useRef<Array<RefObject<HTMLElement | null>>>([]);
 
-  // Initialize refs
+  // Initialize refs - only create new refs if count changes
   useEffect(() => {
+    if (sectionRefs.current.length !== sectionCount) {
+      sectionRefs.current = Array(sectionCount)
+        .fill(null)
+        .map((_, index) => {
+          // Preserve existing refs if they exist
+          return sectionRefs.current[index] || React.createRef<HTMLElement | null>();
+        });
+    }
+  }, [sectionCount]);
+
+  // Initialize refs immediately if empty
+  if (sectionRefs.current.length === 0) {
     sectionRefs.current = Array(sectionCount)
       .fill(null)
       .map(() => React.createRef<HTMLElement | null>());
-  }, [sectionCount]);
+  }
 
   const scrollToSection = useCallback((index: number, behavior: 'smooth' | 'instant' = 'smooth') => {
-    const targetRef = sectionRefs.current[index];
-    if (!targetRef?.current) return;
+    // Define section IDs that match the ones in App.tsx
+    const sectionIds = ['introduction', 'about', 'projects', 'skills', 'contact'];
+    const targetId = sectionIds[index];
+    
+    if (!targetId) {
+      return;
+    }
+
+    // Try to find element by ID first
+    let targetElement = document.getElementById(targetId);
+    
+    // If not found by ID, try using the ref
+    if (!targetElement) {
+      const targetRef = sectionRefs.current[index];
+      targetElement = targetRef?.current;
+    }
+    
+    if (!targetElement) {
+      return;
+    }
 
     setIsScrolling(true);
     setCurrentSection(index);
-
+    
     // Use modern scroll API with better control
-    targetRef.current.scrollIntoView({
+    targetElement.scrollIntoView({
       behavior: behavior as ScrollBehavior,
       block: 'start',
       inline: 'nearest'
@@ -287,6 +317,8 @@ export const useSmoothSectionScroll = (sectionCount: number) => {
     
     return () => window.removeEventListener('scroll', throttledScroll);
   }, [isScrolling]);
+
+
 
   return {
     sectionRefs: sectionRefs.current,

@@ -9,8 +9,6 @@ import { VisualEffects } from "./components/VisualEffects";
 import { useSmoothSectionScroll } from "./hooks/useAdvancedScrollAnimation";
 import EnhancedSection from "./components/EnhancedSection";
 
-import { ScrollArrows } from "./components/Navigation/ScrollArrows";
-import { DotNavigation } from "./components/Navigation/DotNavigation";
 import { ScrollProgress } from "./components/Navigation/ScrollProgress";
 import SmoothScrollNav from "./components/Navigation/SmoothScrollNav";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -292,11 +290,10 @@ function AppContent() {
       </motion.div> */}
 
 
-
-      {/* Enhanced Navigation */}
+      {/* Enhanced Navigation - SmoothScrollNav includes dot and arrow navigation */}
       <SmoothScrollNav
         sections={[
-          { id: 'introduction', label: 'Home' },
+          { id: 'introduction', label: 'Introduction' },
           { id: 'about', label: 'About' },
           { id: 'projects', label: 'Projects' },
           { id: 'skills', label: 'Skills' },
@@ -309,6 +306,9 @@ function AppContent() {
         position="right"
         theme="auto"
       />
+      
+      {/* Scroll Progress Bar */}
+      <ScrollProgress scrollProgress={scrollProgress} />
       
       {/* Scroll velocity indicator */}
       <motion.div
