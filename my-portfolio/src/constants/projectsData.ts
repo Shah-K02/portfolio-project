@@ -9,8 +9,8 @@ export const PROJECTS_DATA: Project[] = [
     longDescription:
       "A full-stack fitness platform built with React and Express, featuring user authentication, meal tracking, progress analytics, and social sharing. The platform supports multiple fitness devices.",
     link: "https://example.com/project-one",
-    repositoryUrl: "https://github.com/user/fitness-platform",
-    demoUrl: "https://demo.fitness-platform.com",
+    repositoryUrl: "https://github.com/Shah-K02/Fitness-Tool-Project",
+    demoUrl: "https://playful-frangollo-b0eee6.netlify.app/",
     technologies: ["React", "Express", "Node.js", "SQL", "CSS", "Restful API", "JWT", "Axios"],
     screenshots: [
       "https://via.placeholder.com/800x500/667eea/ffffff?text=Homepage",
@@ -28,7 +28,7 @@ export const PROJECTS_DATA: Project[] = [
     longDescription:
       "A comprehensive application that enables users to find and modify car parts easily. Features include a user-friendly interface, real-time inventory updates, and integration with various car part suppliers. Built with modern web technologies for optimal performance.",
     link: "https://example.com/project-two",
-    repositoryUrl: "https://github.com/user/auto-mods",
+    repositoryUrl: "https://github.com/Shah-K02/AutoMods",
     demoUrl: "https://demo.auto-mods.com",
     technologies: [
       "React",
@@ -51,7 +51,7 @@ export const PROJECTS_DATA: Project[] = [
     description: "Fulll-stack ecommerce platform for sports gear.",
     longDescription:
       "A comprehensive ecommerce platform that connects sports enthusiasts with the gear they need. Features include user authentication, product reviews, and a seamless checkout process.",
-    repositoryUrl: "https://github.com/user/sports4us",
+    repositoryUrl: "https://github.com/Shah-K02/Sports4Us",
     technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redux", "Express"],
     screenshots: [
       "https://via.placeholder.com/800x500/4ecdc4/ffffff?text=Sports4Us+Homepage",
@@ -67,7 +67,7 @@ export const PROJECTS_DATA: Project[] = [
     longDescription:
       "A robust API built with Node.js for managing tasks. Features include user authentication, task creation, updating, and deletion, with admin capabilities for managing users and tasks.",
     demoUrl: "https://task-manager-demo.com",
-    repositoryUrl: "https://github.com/user/task-manager",
+    repositoryUrl: "https://github.com/Shah-K02/Task-Manager-API",
     technologies: ["Node.js", "Express", "MongoDB", "JWT", "Mongoose"],
     screenshots: [
       "https://via.placeholder.com/400x800/ff6b6b/ffffff?text=Home+Screen",
@@ -76,5 +76,20 @@ export const PROJECTS_DATA: Project[] = [
     status: "completed",
     category: "API Development",
     year: 2025,
+  },
+  {
+    id: "project-5",
+    title: "Portfolio Project",
+    description: "Personal portfolio website showcasing projects and skills.",
+    longDescription:
+      "A modern, responsive portfolio website built with React and TypeScript. Features include interactive project showcases, smooth animations, theme switching, and optimized performance. Demonstrates proficiency in modern web development practices.",
+    repositoryUrl: "https://github.com/Shah-K02/portfolio-project",
+    technologies: ["React", "TypeScript", "CSS3", "HTML5", "Responsive Design"],
+    screenshots: [
+      "https://via.placeholder.com/800x500/6c5ce7/ffffff?text=Portfolio+Homepage",
+    ],
+    status: "in-progress",
+    category: "Web Development",
+    year: 2024,
   },
 ];
