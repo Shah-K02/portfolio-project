@@ -1,8 +1,8 @@
 // Intersection Observer for scroll-triggered animations
 const createScrollObserver = (options = {}) => {
   const defaultOptions = {
-    threshold: 0.2,
-    rootMargin: '0px',
+    threshold: 0.05,
+    rootMargin: '-30% 0px -30% 0px',
     ...options
   };
 

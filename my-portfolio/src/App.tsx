@@ -149,6 +149,8 @@ function AppContent() {
             background="gradient"
             enableSnap={true}
             className="introduction-section"
+            currentSection={currentSection}
+            sectionIndex={0}
           >
             <Introduction />
           </EnhancedSection>
@@ -164,6 +166,8 @@ function AppContent() {
             parallaxIntensity={40}
             enableSnap={true}
             className="about-section"
+            currentSection={currentSection}
+            sectionIndex={1}
           >
             <About />
           </EnhancedSection>
@@ -179,6 +183,8 @@ function AppContent() {
             background="blur"
             enableSnap={true}
             className="projects-section"
+            currentSection={currentSection}
+            sectionIndex={2}
           >
             <Projects />
           </EnhancedSection>
@@ -194,6 +200,8 @@ function AppContent() {
             parallaxIntensity={60}
             enableSnap={true}
             className="skills-section"
+            currentSection={currentSection}
+            sectionIndex={3}
           >
             <Skills />
           </EnhancedSection>
@@ -209,6 +217,8 @@ function AppContent() {
             background="gradient"
             enableSnap={true}
             className="contact-section"
+            currentSection={currentSection}
+            sectionIndex={4}
           >
             <Contact />
           </EnhancedSection>

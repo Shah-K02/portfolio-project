@@ -19,6 +19,8 @@ interface EnhancedSectionProps {
   enableSnap?: boolean;
   background?: "transparent" | "gradient" | "blur";
   id?: string;
+  currentSection?: number;
+  sectionIndex?: number;
 }
 
 const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
@@ -34,6 +36,8 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
       enableSnap = false,
       background = "transparent",
       id,
+      currentSection,
+      sectionIndex,
     },
     forwardedRef
   ) => {
@@ -48,8 +52,8 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
       velocity,
       direction: scrollDirection,
     } = useAdvancedScrollAnimation({
-      threshold: 0.1,
-      rootMargin: "-5% 0px -5% 0px",
+      threshold: 0.05,
+      rootMargin: "-30% 0px -30% 0px",
       triggerOnce: false,
       parallaxIntensity,
       enableVelocityTracking: true,
@@ -235,7 +239,7 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
         style={getDynamicStyles()}
         variants={getAnimationVariants()}
         initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
+        animate={(currentSection !== undefined && sectionIndex !== undefined && currentSection === sectionIndex) ? "visible" : "hidden"}
         viewport={{ once: false, amount: 0.1 }}
       >
         {/* Scroll progress indicator */}

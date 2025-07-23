@@ -7,7 +7,6 @@ import "../styles/sectionAnimation.css";
 // Components
 import ProjectModal from "./ProjectModal";
 import CarouselNavigation from "./CarouselNavigation";
-import PageIndicators from "./PageIndicators";
 import ProjectFilter from "./ProjectFilter";
 import Enhanced3DProjectCard from "./Enhanced3DProjectCard";
 
@@ -88,7 +87,7 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
         setVisibleCards(3);
         setIsMobile(false);
       } else {
-        setVisibleCards(4);
+        setVisibleCards(3); // Changed from 4 to 3 to ensure pagination works
         setIsMobile(false);
       }
     };
@@ -246,20 +245,16 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
           </motion.ul>
         </div>
 
-        {isMobile ? (
+        {isMobile && (
           <div className="project-counter">
             <span className="counter-text">
               {currentPage + 1} of {filteredProjects.length}
             </span>
           </div>
-        ) : (
-          <PageIndicators
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={goToPage}
-          />
         )}
       </div>
+      
+      {/* Navigation dots removed - using arrow buttons and touch gestures only */}
     </div>
   );
 };
@@ -293,8 +288,8 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
     offset: ["start end", "end start"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
+  const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 1]);
+  const scale = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0.98, 1, 1, 1]);
 
   const handleViewProject = (project: Project) => {
     setSelectedProject(project);
