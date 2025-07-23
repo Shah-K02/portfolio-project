@@ -1,5 +1,5 @@
+import React, { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef } from "react";
 import "./Skills.css";
 import SkillsBackground from "./SkillsBackground";
 import {
@@ -29,7 +29,30 @@ import {
   SiExpress,
 } from "react-icons/si";
 
-const skillIcons = {
+interface Skill {
+  name: string;
+  icon: React.ReactElement;
+}
+
+interface SkillCardProps {
+  title: string;
+  items: Skill[] | string[];
+  icon: React.ReactElement;
+  color: string;
+  delay?: number;
+  isList?: boolean;
+}
+
+interface SkillCategory {
+  title: string;
+  items: Skill[] | string[];
+  icon: React.ReactElement;
+  color: string;
+  delay: number;
+  isList?: boolean;
+}
+
+const skillIcons: Record<string, React.ReactElement> = {
   Java: <FaJava />,
   JavaScript: <FaJsSquare />,
   Python: <FaPython />,
@@ -73,7 +96,7 @@ const skills = {
   ],
 };
 
-const SkillCard = ({
+const SkillCard: React.FC<SkillCardProps> = ({
   title,
   items,
   icon,
@@ -103,9 +126,9 @@ const SkillCard = ({
     </div>
     {isList ? (
       <ul className="skills-ul">
-        {items.map((item, index) => (
+        {(items as string[]).map((item, index) => (
           <motion.li
-            key={item}
+            key={`${title}-${index}-${item}`}
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -116,9 +139,9 @@ const SkillCard = ({
       </ul>
     ) : (
       <div className="skills-list">
-        {items.map((skill, index) => (
+        {(items as Skill[]).map((skill, index) => (
           <motion.div
-            key={skill.name}
+            key={`${title}-${index}-${skill.name}`}
             className="skills-list-item"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -134,9 +157,9 @@ const SkillCard = ({
   </motion.div>
 );
 
-const Skills = () => {
-  const sectionRef = useRef(null);
-  const gridRef = useRef(null);
+const Skills: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
@@ -168,7 +191,7 @@ const Skills = () => {
             // Trigger staggered animation for child elements
             const children = entry.target.children;
             Array.from(children).forEach((child, index) => {
-              child.style.animationDelay = `${index * 0.1}s`;
+              (child as HTMLElement).style.animationDelay = `${index * 0.1}s`;
             });
             observer.unobserve(entry.target);
           }
@@ -202,7 +225,7 @@ const Skills = () => {
     };
   }, []);
 
-  const skillCards = [
+  const skillCards: SkillCategory[] = [
     {
       title: "Programming Languages",
       items: skills.languages,

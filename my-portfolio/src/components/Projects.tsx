@@ -73,16 +73,23 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
   const [currentPage, setCurrentPage] = useState<number>(0);
   
   // Responsive card count based on screen size
-  const [visibleCards, setVisibleCards] = useState<number>(3);
+  const [visibleCards, setVisibleCards] = useState<number>(4);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   
   useEffect(() => {
     const updateCardCount = () => {
       if (window.innerWidth < 768) {
         setVisibleCards(1);
+        setIsMobile(true);
       } else if (window.innerWidth < 1024) {
         setVisibleCards(2);
-      } else {
+        setIsMobile(false);
+      } else if (window.innerWidth < 1400) {
         setVisibleCards(3);
+        setIsMobile(false);
+      } else {
+        setVisibleCards(4);
+        setIsMobile(false);
       }
     };
     
@@ -139,6 +146,33 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [canGoNext, canGoPrevious]);
 
+  // Touch/swipe navigation for mobile
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe && canGoNext) {
+      goToNext();
+    }
+    if (isRightSwipe && canGoPrevious) {
+      goToPrevious();
+    }
+  };
+
   const gridRef = useRef<HTMLUListElement>(null);
 
   const handleCategoryChange = (category: string) => {
@@ -176,7 +210,12 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
           canNavigateNext={canGoNext}
         />
 
-        <div className="carousel-viewport">
+        <div 
+          className="carousel-viewport"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <motion.ul
             ref={gridRef}
             className="projects-grid"
@@ -207,11 +246,19 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
           </motion.ul>
         </div>
 
-        <PageIndicators
-          totalPages={totalPages}
-          currentPage={currentPage}
-          onPageChange={goToPage}
-        />
+        {isMobile ? (
+          <div className="project-counter">
+            <span className="counter-text">
+              {currentPage + 1} of {filteredProjects.length}
+            </span>
+          </div>
+        ) : (
+          <PageIndicators
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={goToPage}
+          />
+        )}
       </div>
     </div>
   );

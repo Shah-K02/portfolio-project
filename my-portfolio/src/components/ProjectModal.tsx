@@ -124,7 +124,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 <div className="modal-screenshots">
                   <div className="screenshots-grid">
                     {project.screenshots.map((screenshot, index) => (
-                      <div key={index} className="screenshot-container">
+                      <div key={`${project.id}-screenshot-${index}`} className="screenshot-container">
                         <img
                           src={screenshot}
                           alt={`${project.title} screenshot ${index + 1}`}
@@ -148,7 +148,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                   <h3>Technologies Used</h3>
                   <div className="tech-tags">
                     {project.technologies.map((tech, index) => (
-                      <span key={index} className="tech-tag">
+                      <span key={`${project.id}-tech-${index}`} className="tech-tag">
                         {tech}
                       </span>
                     ))}

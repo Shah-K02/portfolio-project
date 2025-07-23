@@ -158,7 +158,7 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
             >
               {project.technologies?.slice(0, 4).map((tech, techIndex) => (
                 <motion.span
-                  key={tech}
+                  key={`${project.id}-tech-orbit-${techIndex}`}
                   className="tech-orb"
                   animate={{
                     scale: isHovered ? 1.1 : 1,
@@ -238,7 +238,7 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
             
             <div className="all-technologies">
               {project.technologies?.map((tech, techIndex) => (
-                <span key={tech} className="tech-tag-3d">
+                <span key={`${project.id}-tech-all-${techIndex}`} className="tech-tag-3d">
                   {tech}
                 </span>
               ))}
@@ -251,7 +251,7 @@ const Enhanced3DProjectCard: React.FC<Enhanced3DProjectCardProps> = ({
           <div className="floating-particles">
             {[...Array(6)].map((_, i) => (
               <motion.div
-                key={i}
+                key={`${project.id}-particle-${i}`}
                 className="particle"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ 

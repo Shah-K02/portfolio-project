@@ -326,7 +326,7 @@ const AIAssistant: React.FC<AIAssistantProps> = ({ portfolioData }) => {
                   <div className="ai-assistant-suggestions">
                     {suggestions.map((suggestion, index) => (
                       <motion.button
-                        key={index}
+                        key={`suggestion-${index}-${suggestion.slice(0, 10)}`}
                         className="suggestion-btn"
                         onClick={() => handleSendMessage(suggestion)}
                         whileHover={{ scale: 1.02 }}

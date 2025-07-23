@@ -8,13 +8,11 @@ import Contact from "./components/Contact";
 import { VisualEffects } from "./components/VisualEffects";
 import { useSmoothSectionScroll } from "./hooks/useAdvancedScrollAnimation";
 import EnhancedSection from "./components/EnhancedSection";
-
 import { ScrollProgress } from "./components/Navigation/ScrollProgress";
 import SmoothScrollNav from "./components/Navigation/SmoothScrollNav";
 import { ThemeProvider } from "./context/ThemeContext";
 import { ThemeToggle } from "./components/Navigation/ThemeToggle";
 import PerformanceMonitor from "./components/PerformanceMonitor";
-
 import AIAssistant from "./components/AI/AIAssistant";
 import analytics from "./utils/advancedAnalytics";
 import {
@@ -141,6 +139,7 @@ function AppContent() {
       <div className="smooth-scroll-container">
         <AnimatePresence mode="wait">
           <EnhancedSection
+            key="introduction-section"
             ref={sectionRefs[0]}
             id="introduction"
             animationType="fade"
@@ -155,6 +154,7 @@ function AppContent() {
           </EnhancedSection>
 
           <EnhancedSection
+            key="about-section"
             ref={sectionRefs[1]}
             id="about"
             animationType="slide"
@@ -169,6 +169,7 @@ function AppContent() {
           </EnhancedSection>
 
           <EnhancedSection
+            key="projects-section"
             ref={sectionRefs[2]}
             id="projects"
             animationType="scale"
@@ -183,6 +184,7 @@ function AppContent() {
           </EnhancedSection>
 
           <EnhancedSection
+            key="skills-section"
             ref={sectionRefs[3]}
             id="skills"
             animationType="rotate"
@@ -197,6 +199,7 @@ function AppContent() {
           </EnhancedSection>
 
           <EnhancedSection
+            key="contact-section"
             ref={sectionRefs[4]}
             id="contact"
             animationType="magnetic"

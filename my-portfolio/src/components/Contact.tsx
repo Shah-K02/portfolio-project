@@ -1,8 +1,9 @@
+import React from "react";
 import { motion } from "framer-motion";
 import { GitHubIcon, LinkedInIcon, EmailIcon, LocationIcon } from "./Icons";
 import "./Contact.css";
 
-const ContactSection = () => {
+const ContactSection: React.FC = () => {
   return (
     <section id="contact" className="contact-section">
       <div className="contact-container">
