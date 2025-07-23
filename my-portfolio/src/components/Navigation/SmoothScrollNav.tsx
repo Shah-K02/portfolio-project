@@ -100,17 +100,17 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
   const dotVariants = {
     inactive: {
       scale: 1,
-      opacity: 0.4,
-      backgroundColor: 'var(--color-surface-overlay)'
+      opacity: 0.7,
+      backgroundColor: 'var(--color-text-secondary)'
     },
     active: {
-      scale: 1.2,
+      scale: 1.3,
       opacity: 1,
       backgroundColor: 'var(--color-accent-1)'
     },
     hover: {
-      scale: 1.4,
-      opacity: 0.8
+      scale: 1.5,
+      opacity: 0.9
     }
   };
 
@@ -141,13 +141,14 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
           zIndex: 1000,
           display: 'flex',
           flexDirection: 'column',
-          gap: '1rem',
-          padding: '1.5rem 1rem',
-          background: 'var(--color-surface-overlay)',
-          backdropFilter: 'blur(20px)',
+          alignItems: 'center',
+          gap: '1.2rem',
+          padding: '2rem 1.2rem',
+          background: 'rgba(var(--color-surface-rgb), 0.95)',
+          backdropFilter: 'blur(15px)',
           borderRadius: '2rem',
-          border: '1px solid var(--color-border)',
-          boxShadow: '0 8px 32px var(--color-shadow-strong)',
+          border: '2px solid var(--color-accent-1)',
+          boxShadow: '0 12px 40px rgba(0, 0, 0, 0.2)',
         }}
       >
         {/* Velocity indicator */}
@@ -191,12 +192,14 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
               animate={currentSection === index ? 'active' : 'inactive'}
               whileHover="hover"
               style={{
-                width: '12px',
-                height: '12px',
+                width: '16px',
+                height: '16px',
                 borderRadius: '50%',
-                border: '2px solid var(--color-border-strong)',
+                border: '3px solid var(--color-accent-1)',
                 position: 'relative',
                 overflow: 'hidden',
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+                cursor: 'pointer',
               }}
             >
               {/* Active indicator */}

@@ -249,15 +249,40 @@ export const useSmoothSectionScroll = (sectionCount: number) => {
     setIsScrolling(true);
     setCurrentSection(index);
     
-    // Use modern scroll API with better control
-    targetElement.scrollIntoView({
-      behavior: behavior as ScrollBehavior,
-      block: 'start',
-      inline: 'nearest'
-    });
-
-    // Reset scrolling state after animation
-    setTimeout(() => setIsScrolling(false), behavior === 'smooth' ? 1000 : 100);
+    // Calculate the target position manually for better control
+    const targetPosition = targetElement.offsetTop;
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    const duration = behavior === 'smooth' ? 800 : 0;
+    
+    if (behavior === 'instant' || duration === 0) {
+      window.scrollTo(0, targetPosition);
+      setIsScrolling(false);
+      return;
+    }
+    
+    // Smooth scroll animation
+    let startTime: number | null = null;
+    
+    const animateScroll = (currentTime: number) => {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const ease = (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      const easedProgress = ease(progress);
+      
+      window.scrollTo(0, startPosition + distance * easedProgress);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll);
+      } else {
+        setIsScrolling(false);
+      }
+    };
+    
+    requestAnimationFrame(animateScroll);
   }, []);
 
   // Keyboard navigation
