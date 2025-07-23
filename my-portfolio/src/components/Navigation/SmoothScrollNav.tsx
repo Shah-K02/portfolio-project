@@ -250,7 +250,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
                     [position === 'right' ? 'right' : 'left']: '100%',
                     [position === 'right' ? 'marginRight' : 'marginLeft']: '1rem',
                     background: 'var(--color-surface-elevated)',
-                    color: 'white',
+                    color: 'var(--text-primary)',
                     padding: '0.5rem 1rem',
                     borderRadius: '0.5rem',
                     fontSize: '0.875rem',

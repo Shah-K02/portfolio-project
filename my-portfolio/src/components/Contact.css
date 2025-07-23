@@ -72,9 +72,20 @@
 
 /* Contact Info Styles */
 .contact-info {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .contact-info {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    max-width: 600px;
+  }
 }
 
 .contact-item {

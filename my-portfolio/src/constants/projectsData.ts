@@ -83,6 +83,7 @@ export const PROJECTS_DATA: Project[] = [
     description: "Personal portfolio website showcasing projects and skills.",
     longDescription:
       "A modern, responsive portfolio website built with React and TypeScript. Features include interactive project showcases, smooth animations, theme switching, and optimized performance. Demonstrates proficiency in modern web development practices.",
+    demoUrl: "https://dreamy-trifle-37880e.netlify.app/",
     repositoryUrl: "https://github.com/Shah-K02/portfolio-project",
     technologies: ["React", "TypeScript", "CSS3", "HTML5", "Responsive Design"],
     screenshots: [
@@ -90,6 +91,6 @@ export const PROJECTS_DATA: Project[] = [
     ],
     status: "in-progress",
     category: "Web Development",
-    year: 2024,
+    year: 2025,
   },
 ];
