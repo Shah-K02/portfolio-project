@@ -46,6 +46,15 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   transition: var(--transition-normal);
+  /* Hide scrollbar for webkit browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+/* Hide scrollbar for webkit browsers */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 h1, h2 {

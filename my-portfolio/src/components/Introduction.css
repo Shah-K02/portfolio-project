@@ -411,6 +411,19 @@
   box-shadow: 0 8px 20px var(--color-accent-2-medium);
 }
 
+/* Clicked state for visual feedback */
+.cta-button.clicked {
+  transform: scale(0.95) !important;
+  box-shadow: 0 4px 12px var(--color-accent-1-strong) !important;
+  background: var(--color-accent-2) !important;
+  transition: all 0.1s ease !important;
+}
+
+:root[data-theme="light"] .cta-button.clicked {
+  background: var(--gradient-primary) !important;
+  box-shadow: 0 2px 8px var(--color-shadow) !important;
+}
+
 /* Enhanced responsive design */
 @media (max-width: 768px) {
   .main-title {

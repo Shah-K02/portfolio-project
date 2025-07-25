@@ -10,7 +10,7 @@ export const PROJECTS_DATA: Project[] = [
       "A full-stack fitness platform built with React and Express, featuring user authentication, meal tracking, progress analytics, and social sharing. The platform supports multiple fitness devices.",
     link: "https://example.com/project-one",
     repositoryUrl: "https://github.com/Shah-K02/Fitness-Tool-Project",
-    demoUrl: "https://playful-frangollo-b0eee6.netlify.app/",
+    demoUrl: "https://personal-fitness-assistant.netlify.app/",
     technologies: ["React", "Express", "Node.js", "SQL", "CSS", "Restful API", "JWT", "Axios"],
     screenshots: [
       "https://via.placeholder.com/800x500/667eea/ffffff?text=Homepage",
@@ -83,7 +83,7 @@ export const PROJECTS_DATA: Project[] = [
     description: "Personal portfolio website showcasing projects and skills.",
     longDescription:
       "A modern, responsive portfolio website built with React and TypeScript. Features include interactive project showcases, smooth animations, theme switching, and optimized performance. Demonstrates proficiency in modern web development practices.",
-    demoUrl: "https://dreamy-trifle-37880e.netlify.app/",
+    demoUrl: "https://shah-kar.netlify.app/",
     repositoryUrl: "https://github.com/Shah-K02/portfolio-project",
     technologies: ["React", "TypeScript", "CSS3", "HTML5", "Responsive Design"],
     screenshots: [

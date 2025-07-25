@@ -156,13 +156,38 @@ const Introduction: React.FC = () => {
                 whileHover={{
                   scale: 1.05,
                   boxShadow: "0 0 30px var(--color-accent-2)",
+                  backgroundColor: "var(--color-accent-2)",
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
+                  // Enhanced scroll functionality with multiple fallbacks
                   const projectsSection = document.querySelector(
                     '[data-section="projects"]'
-                  );
-                  projectsSection?.scrollIntoView({ behavior: "smooth" });
+                  ) || document.querySelector('#projects') || document.querySelector('.projects-section');
+                  
+                  if (projectsSection) {
+                    // Add visual feedback
+                    const button = document.querySelector('.cta-button');
+                    if (button) {
+                      button.classList.add('clicked');
+                      setTimeout(() => button.classList.remove('clicked'), 300);
+                    }
+                    
+                    // Smooth scroll with offset for better positioning
+                    const offsetTop = projectsSection.getBoundingClientRect().top + window.pageYOffset - 80;
+                    window.scrollTo({
+                      top: offsetTop,
+                      behavior: 'smooth'
+                    });
+                    
+                    // Fallback for older browsers
+                    setTimeout(() => {
+                      projectsSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }, 100);
+                  }
                 }}
               >
                 View My Work
