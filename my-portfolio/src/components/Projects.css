@@ -2,7 +2,7 @@
 
 /* Main Projects Section */
 .projects-section {
-  padding: 4rem 2rem;
+  padding: 6rem 2rem;
   position: relative;
   overflow: hidden;
   min-height: 100vh;
@@ -10,6 +10,9 @@
   align-items: center;
   justify-content: center;
   background: var(--bg-primary);
+  /* Ensure section is clearly visible during scroll */
+  scroll-margin-top: 2rem;
+  scroll-margin-bottom: 2rem;
 }
 
 .projects-section::before {
@@ -36,7 +39,8 @@
 /* Projects Header */
 .projects-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
+  margin-top: 2rem;
 }
 
 .projects-title {

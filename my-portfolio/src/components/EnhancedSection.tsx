@@ -41,24 +41,50 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
     },
     forwardedRef
   ) => {
+    // Adjust intersection observer settings based on section type
+    const getIntersectionSettings = () => {
+      // For Projects section (sectionIndex 2), disable intersection observer entirely
+      if (sectionIndex === 2) {
+        return {
+          threshold: 0,
+          rootMargin: "0px 0px 0px 0px",
+        };
+      }
+      // Default settings for other sections
+      return {
+        threshold: 0.05,
+        rootMargin: "-30% 0px -30% 0px",
+      };
+    };
+
+    const intersectionSettings = getIntersectionSettings();
+
     const {
       ref,
       isInView,
-      scrollProgress,
       parallaxY,
-      scale,
-      rotation,
-      opacity,
       velocity,
       direction: scrollDirection,
     } = useAdvancedScrollAnimation({
-      threshold: 0.05,
-      rootMargin: "-30% 0px -30% 0px",
+      threshold: intersectionSettings.threshold,
+      rootMargin: intersectionSettings.rootMargin,
       triggerOnce: false,
       parallaxIntensity,
       enableVelocityTracking: true,
       snapToSection: enableSnap,
     });
+
+    // Enhanced visibility logic for Projects section
+    const shouldBeVisible = React.useMemo(() => {
+      // For Projects section (index 2), be generous with visibility
+      if (sectionIndex === 2) {
+        // Show when currentSection is 1 (About) or 2 (Projects) or when intersection observer sees it
+        return currentSection === 1 || currentSection === 2 || isInView;
+      }
+      // For other sections, use intersection observer
+      return isInView;
+    }, [isInView, currentSection, sectionIndex]);
+
 
     // Animation variants based on type
     const getAnimationVariants = (): Variants => {
@@ -239,7 +265,7 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
         style={getDynamicStyles()}
         variants={getAnimationVariants()}
         initial="hidden"
-        animate={(currentSection !== undefined && sectionIndex !== undefined && currentSection === sectionIndex) ? "visible" : "hidden"}
+        animate={shouldBeVisible ? "visible" : "hidden"}
         viewport={{ once: false, amount: 0.1 }}
       >
         {/* Scroll progress indicator */}

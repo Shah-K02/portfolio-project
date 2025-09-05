@@ -196,6 +196,36 @@ a:hover {
 html {
   scroll-behavior: smooth;
 }
+
+/* Fix Framer Motion container positioning */
+.app-container,
+.smooth-scroll-container {
+  position: relative;
+}
+
+/* Performance optimizations - selective hardware acceleration */
+.motion-optimized {
+  /* Hardware acceleration for better performance */
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+}
+
+/* Optimize will-change for animated elements */
+.motion-div,
+.enhanced-section,
+.profile-circle-decoration,
+.projects-card {
+  will-change: transform, opacity;
+}
+
+/* Remove will-change after animations complete */
+.animation-complete {
+  will-change: auto;
+}
+
 html,
 body {
   height: 100%;

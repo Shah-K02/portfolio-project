@@ -176,12 +176,17 @@
   transform: translateY(0);
 }
 
-/* Dynamic stagger delays */
-@for $i from 1 through 10 {
-  .stagger-children.section-visible .stagger-item:nth-child($i) {
-    transition-delay: calc(0.1s * $i);
-  }
-}
+/* Dynamic stagger delays - CSS doesn't support SCSS @for loops */
+.stagger-children.section-visible .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+.stagger-children.section-visible .stagger-item:nth-child(2) { transition-delay: 0.2s; }
+.stagger-children.section-visible .stagger-item:nth-child(3) { transition-delay: 0.3s; }
+.stagger-children.section-visible .stagger-item:nth-child(4) { transition-delay: 0.4s; }
+.stagger-children.section-visible .stagger-item:nth-child(5) { transition-delay: 0.5s; }
+.stagger-children.section-visible .stagger-item:nth-child(6) { transition-delay: 0.6s; }
+.stagger-children.section-visible .stagger-item:nth-child(7) { transition-delay: 0.7s; }
+.stagger-children.section-visible .stagger-item:nth-child(8) { transition-delay: 0.8s; }
+.stagger-children.section-visible .stagger-item:nth-child(9) { transition-delay: 0.9s; }
+.stagger-children.section-visible .stagger-item:nth-child(10) { transition-delay: 1.0s; }
 
 /* Scroll-triggered animations */
 .scroll-trigger {

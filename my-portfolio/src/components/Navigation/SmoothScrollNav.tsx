@@ -49,10 +49,15 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
 
       lastY = currentY;
       lastTime = currentTime;
-      rafId = requestAnimationFrame(updateVelocity);
+      // Reduce frequency to 30fps for better performance
+      setTimeout(() => {
+        rafId = requestAnimationFrame(updateVelocity);
+      }, 33);
     };
 
-    rafId = requestAnimationFrame(updateVelocity);
+    setTimeout(() => {
+      rafId = requestAnimationFrame(updateVelocity);
+    }, 33);
     return () => cancelAnimationFrame(rafId);
   }, []);
 
@@ -101,12 +106,12 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
     inactive: {
       scale: 1,
       opacity: 0.7,
-      backgroundColor: 'var(--color-text-secondary)'
+      backgroundColor: '#64748b' // concrete color instead of CSS variable
     },
     active: {
       scale: 1.3,
       opacity: 1,
-      backgroundColor: 'var(--color-accent-1)'
+      backgroundColor: '#38bdf8' // concrete color instead of CSS variable
     },
     hover: {
       scale: 1.5,
@@ -351,7 +356,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
             cursor: 'pointer',
             color: 'white',
           }}
-          whileHover={{ scale: 1.1, backgroundColor: 'var(--color-accent-1-medium)' }}
+          whileHover={{ scale: 1.1, backgroundColor: '#0ea5e9' }}
           whileTap={{ scale: 0.95 }}
           animate={{
             opacity: currentSection === 0 ? 0.3 : 1,
@@ -378,7 +383,7 @@ const SmoothScrollNav: React.FC<SmoothScrollNavProps> = ({
             cursor: 'pointer',
             color: 'white',
           }}
-          whileHover={{ scale: 1.1, backgroundColor: 'var(--color-accent-1-medium)' }}
+          whileHover={{ scale: 1.1, backgroundColor: '#0ea5e9' }}
           whileTap={{ scale: 0.95 }}
           animate={{
             opacity: currentSection === sections.length - 1 ? 0.3 : 1,

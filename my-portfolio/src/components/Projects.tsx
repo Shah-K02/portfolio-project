@@ -278,7 +278,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
   });
 
   useEffect(() => {
-    return scrollYProgress.onChange((latest) => {
+    return scrollYProgress.on("change", (latest) => {
       scrollProgress.set(latest);
     });
   }, [scrollYProgress, scrollProgress]);

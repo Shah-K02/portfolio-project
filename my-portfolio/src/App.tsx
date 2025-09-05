@@ -46,15 +46,15 @@ function AppContent() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Preload critical resources
-  usePreload(
-    [
-      "/fonts/inter.woff2",
-      "/fonts/jetbrains-mono.woff2",
-      "/images/hero-bg.webp",
-    ],
-    { delay: 1000 }
-  );
+  // Preload critical resources (disabled to avoid warnings)
+  // usePreload(
+  //   [
+  //     "/fonts/inter.woff2",
+  //     "/fonts/jetbrains-mono.woff2",
+  //     "/images/hero-bg.webp",
+  //   ],
+  //   { delay: 1000 }
+  // );
 
   useEffect(() => {
     // Preload critical resources
@@ -137,7 +137,7 @@ function AppContent() {
       />
 
       <div className="smooth-scroll-container">
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           <EnhancedSection
             key="introduction-section"
             ref={sectionRefs[0]}
@@ -176,11 +176,11 @@ function AppContent() {
             key="projects-section"
             ref={sectionRefs[2]}
             id="projects"
-            animationType="scale"
+            animationType="fade"
             direction="up"
             staggerChildren={true}
             staggerDelay={0.1}
-            background="blur"
+            background="transparent"
             enableSnap={true}
             className="projects-section"
             currentSection={currentSection}

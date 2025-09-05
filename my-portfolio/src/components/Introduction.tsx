@@ -8,10 +8,12 @@ import "../styles/sectionAnimation.css";
 import ParticleBackground from "./ParticleBackground";
 import TypingAnimation from "./TypingAnimation";
 import MagneticCursor from "./MagneticCursor";
+import { usePerformanceDetection } from "../utils/performanceDetection";
 
 import InteractiveParticles from "./Interactive/InteractiveParticles";
 const Introduction: React.FC = () => {
   const { ref, inView } = useScrollAnimation({ amount: 0.2 }); // 20% threshold for early trigger
+  const { config, isLowEnd } = usePerformanceDetection();
 
   return (
     <section
@@ -21,14 +23,16 @@ const Introduction: React.FC = () => {
       }`}
       style={{ position: "relative", overflow: "hidden" }}
     >
-      <div className="intro-background">
-        <InteractiveParticles
-          particleCount={50}
-          color="var(--color-accent-1)"
-          connectionDistance={100}
-        />
-      </div>
-      <ParticleBackground count={2000} />
+      {config.features.particles && (
+        <div className="intro-background">
+          <InteractiveParticles
+            particleCount={config.particles.interactive}
+            color="var(--color-accent-1)"
+            connectionDistance={isLowEnd ? 60 : 80}
+          />
+        </div>
+      )}
+      {config.features.particles && <ParticleBackground count={config.particles.background} />}
       <div className="container">
         <div
           className={`introduction-content stagger-children ${
@@ -40,7 +44,7 @@ const Introduction: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : 50 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              transition={{ duration: config.durations.fast, delay: 0.1 }}
               className="profile-circle-container"
             >
               <div className="profile-circle-outer">
@@ -57,11 +61,12 @@ const Introduction: React.FC = () => {
                 </div>
                 <motion.div
                   className="profile-circle-decoration"
-                  animate={{ rotate: inView ? 360 : 0 }}
+                  animate={{ rotate: (inView && config.features.infiniteRotations) ? 360 : 0 }}
                   transition={{
-                    duration: 20,
-                    repeat: inView ? Infinity : 0,
+                    duration: isLowEnd ? 4 : 8,
+                    repeat: (inView && config.features.infiniteRotations) ? Infinity : 0,
                     ease: "linear",
+                    repeatType: "loop",
                   }}
                 >
                   <Code className="profile-icon" />
@@ -74,7 +79,7 @@ const Introduction: React.FC = () => {
             className="main-title stagger-item"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            transition={{ duration: config.durations.fast, delay: 0.2 }}
           >
             Hi, I'm <span className="highlight">Shah Kar</span>
           </motion.h1>
@@ -83,7 +88,7 @@ const Introduction: React.FC = () => {
             className="subtitle-container stagger-item"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
+            transition={{ duration: config.durations.fast, delay: 0.3 }}
           >
             <p className="subtitle-static">
               I am a passionate Computer Science graduate specialising in{" "}
@@ -114,10 +119,11 @@ const Introduction: React.FC = () => {
             className="social-links stagger-item"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
+            transition={{ duration: config.durations.fast, delay: 0.4 }}
           >
-            <MagneticCursor strength={0.2}>
-              <motion.a
+            {config.features.magneticCursor ? (
+              <MagneticCursor strength={0.2}>
+                <motion.a
                 href="https://github.com/Shah-K02"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -130,27 +136,53 @@ const Introduction: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 <GitHubIcon />
+                </motion.a>
+              </MagneticCursor>
+            ) : (
+              <motion.a
+                href="https://github.com/Shah-K02"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link github enhanced"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <GitHubIcon />
               </motion.a>
-            </MagneticCursor>
+            )}
 
-            <MagneticCursor strength={0.2}>
+            {config.features.magneticCursor ? (
+              <MagneticCursor strength={0.2}>
+                <motion.a
+                  href="https://www.linkedin.com/in/shah-kar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-link linkedin enhanced"
+                  whileHover={{
+                    scale: 1.1,
+                    boxShadow: "0 0 25px var(--color-accent-1)",
+                    backgroundColor: "var(--color-accent-1-light)",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <LinkedInIcon />
+                </motion.a>
+              </MagneticCursor>
+            ) : (
               <motion.a
                 href="https://www.linkedin.com/in/shah-kar"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="social-link linkedin enhanced"
-                whileHover={{
-                  scale: 1.1,
-                  boxShadow: "0 0 25px var(--color-accent-1)",
-                  backgroundColor: "var(--color-accent-1-light)",
-                }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <LinkedInIcon />
               </motion.a>
-            </MagneticCursor>
+            )}
 
-            <MagneticCursor strength={0.2}>
+            {config.features.magneticCursor ? (
+              <MagneticCursor strength={0.2}>
               <motion.button
                 className="cta-button"
                 whileHover={{
@@ -192,7 +224,50 @@ const Introduction: React.FC = () => {
               >
                 View My Work
               </motion.button>
-            </MagneticCursor>
+              </MagneticCursor>
+            ) : (
+              <motion.button
+                className="cta-button"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 0 30px var(--color-accent-2)",
+                  backgroundColor: "var(--color-accent-2)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  // Enhanced scroll functionality with multiple fallbacks
+                  const projectsSection = document.querySelector(
+                    '[data-section="projects"]'
+                  ) || document.querySelector('#projects') || document.querySelector('.projects-section');
+                  
+                  if (projectsSection) {
+                    // Add visual feedback
+                    const button = document.querySelector('.cta-button');
+                    if (button) {
+                      button.classList.add('clicked');
+                      setTimeout(() => button.classList.remove('clicked'), 300);
+                    }
+                    
+                    // Smooth scroll with offset for better positioning
+                    const offsetTop = projectsSection.getBoundingClientRect().top + window.pageYOffset - 80;
+                    window.scrollTo({
+                      top: offsetTop,
+                      behavior: 'smooth'
+                    });
+                    
+                    // Fallback for older browsers
+                    setTimeout(() => {
+                      projectsSection.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }, 100);
+                  }
+                }}
+              >
+                View My Work
+              </motion.button>
+            )}
           </motion.div>
         </div>
       </div>

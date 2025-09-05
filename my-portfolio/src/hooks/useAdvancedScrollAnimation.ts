@@ -325,19 +325,41 @@ export const useSmoothSectionScroll = (sectionCount: number) => {
     if (isScrolling) return;
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      const scrollTop = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const scrollBottom = scrollTop + viewportHeight;
+      
+      // Find the section that has the most visible area
+      let maxVisibleArea = 0;
+      let mostVisibleIndex = 0;
       
       sectionRefs.current.forEach((ref, index) => {
         if (ref.current) {
           const { offsetTop, offsetHeight } = ref.current;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setCurrentSection(index);
+          const sectionBottom = offsetTop + offsetHeight;
+          
+          // Calculate visible area of this section
+          const visibleTop = Math.max(scrollTop, offsetTop);
+          const visibleBottom = Math.min(scrollBottom, sectionBottom);
+          const visibleArea = Math.max(0, visibleBottom - visibleTop);
+          
+          // Use percentage of section that's visible for better detection
+          const visibilityPercentage = visibleArea / Math.min(offsetHeight, viewportHeight);
+          
+          // Special handling for projects section (index 2)
+          const threshold = index === 2 ? 0.2 : 0.3; // Lower threshold for projects
+          
+          if (visibilityPercentage > threshold && visibleArea > maxVisibleArea) {
+            maxVisibleArea = visibleArea;
+            mostVisibleIndex = index;
           }
         }
       });
+      
+      setCurrentSection(mostVisibleIndex);
     };
 
-    const throttledScroll = throttle(handleScroll, 16); // ~60fps
+    const throttledScroll = throttle(handleScroll, 33); // ~30fps for better performance
     window.addEventListener('scroll', throttledScroll, { passive: true });
     
     return () => window.removeEventListener('scroll', throttledScroll);

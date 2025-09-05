@@ -23,6 +23,18 @@ html {
   will-change: transform, opacity;
   backface-visibility: hidden;
   perspective: 1000px;
+  /* Ensure Framer Motion can properly calculate scroll measurements */
+  contain: layout;
+}
+
+/* Ensure all sections have proper positioning for Framer Motion */
+.introduction,
+.about-section,
+.projects-section,
+.skills-section,
+.contact-section {
+  position: relative;
+  contain: layout;
 }
 
 /* Section content wrapper */
@@ -277,6 +289,12 @@ html {
     padding: 1rem;
   }
   
+  /* Projects section needs special handling on mobile */
+  .enhanced-section.projects-section {
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  
   .section-content {
     padding: 1rem;
   }
@@ -342,6 +360,20 @@ html {
 .enhanced-section:focus-within {
   outline: 2px solid var(--color-accent-1);
   outline-offset: 4px;
+}
+
+/* Projects section specific rules */
+.enhanced-section.projects-section {
+  /* Ensure projects section is always fully visible when in view */
+  scroll-margin-top: 80px;
+  scroll-margin-bottom: 80px;
+}
+
+/* Make projects section more responsive to intersection */
+.projects-section .section-content {
+  min-height: calc(100vh - 8rem);
+  justify-content: flex-start;
+  padding-top: 4rem;
 }
 
 /* Intersection observer fallback */
