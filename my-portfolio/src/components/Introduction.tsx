@@ -11,9 +11,27 @@ import MagneticCursor from "./MagneticCursor";
 import { usePerformanceDetection } from "../utils/performanceDetection";
 
 import InteractiveParticles from "./Interactive/InteractiveParticles";
+import NeuralNetworkBackground from "./Interactive/NeuralNetworkBackground";
 const Introduction: React.FC = () => {
   const { ref, inView } = useScrollAnimation({ amount: 0.2 }); // 20% threshold for early trigger
   const { config, isLowEnd } = usePerformanceDetection();
+
+  // Neural Network data representing your learning journey
+  const learningData = {
+    skills: [
+      "React", "TypeScript", "Node.js", "Python", "JavaScript",
+      "Express", "MongoDB", "PostgreSQL", "CSS3", "HTML5",
+      "JWT", "RESTful APIs", "Git", "Responsive Design"
+    ],
+    projects: [
+      "Personal Fitness Platform", "AutoMods", "Sports4Us", 
+      "Task Manager API", "Portfolio Project"
+    ],
+    experiences: [
+      "Frontend Development", "Full-Stack Engineering", "API Development",
+      "Database Design", "UI/UX Implementation", "Performance Optimization"
+    ]
+  };
 
   return (
     <section
@@ -24,15 +42,16 @@ const Introduction: React.FC = () => {
       style={{ position: "relative", overflow: "hidden" }}
     >
       {config.features.particles && (
-        <div className="intro-background">
-          <InteractiveParticles
-            particleCount={config.particles.interactive}
-            color="var(--color-accent-1)"
-            connectionDistance={isLowEnd ? 60 : 80}
+        <div className="intro-background" style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
+          <NeuralNetworkBackground
+            className="intro-neural-network"
+            nodeCount={isLowEnd ? 30 : 50}
+            maxConnections={isLowEnd ? 2 : 3}
+            learningData={learningData}
+            interactive={!isLowEnd}
           />
         </div>
       )}
-      {config.features.particles && <ParticleBackground count={config.particles.background} />}
       <div className="container">
         <div
           className={`introduction-content stagger-children ${

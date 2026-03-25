@@ -1,0 +1,461 @@
+/* Holographic Project Card Styles */
+
+.holographic-card {
+  position: relative;
+  width: 350px;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Holographic background layer */
+.holo-background {
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  opacity: 0.8;
+  filter: blur(1px);
+  z-index: -1;
+  animation: holo-shift 8s linear infinite;
+}
+
+@keyframes holo-shift {
+  0% { filter: blur(1px) hue-rotate(0deg); }
+  25% { filter: blur(0.5px) hue-rotate(90deg); }
+  50% { filter: blur(1.5px) hue-rotate(180deg); }
+  75% { filter: blur(0.8px) hue-rotate(270deg); }
+  100% { filter: blur(1px) hue-rotate(360deg); }
+}
+
+/* Iridescent overlay */
+.iridescent-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Holographic particles */
+.holo-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.holo-particle {
+  position: absolute;
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(78, 205, 196, 0.6) 30%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(0.5px);
+  mix-blend-mode: screen;
+}
+
+/* Reflection layer */
+.reflection-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Card content */
+.card-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  z-index: 10;
+  background: rgba(0, 8, 20, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Project image container */
+.project-image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.holo-image-border {
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(
+    from 0deg,
+    #ff6b6b,
+    #4ecdc4,
+    #45b7d1,
+    #96ceb4,
+    #feca57,
+    #ff9ff3,
+    #54a0ff,
+    #ff6b6b
+  );
+  border-radius: 14px;
+  z-index: -1;
+  animation: border-rotate 3s linear infinite;
+}
+
+@keyframes border-rotate {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.02); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+  filter: saturate(1.1) contrast(1.1);
+}
+
+.image-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(78, 205, 196, 0.2) 0%,
+    transparent 70%
+  );
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.holographic-card:hover .image-glow {
+  opacity: 1;
+}
+
+/* Project info */
+.project-info {
+  flex: 1;
+  transform-style: preserve-3d;
+}
+
+.project-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #fff, #4ecdc4, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(78, 205, 196, 0.3));
+}
+
+.project-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1rem;
+}
+
+/* Tech stack */
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tech-tag {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-tag::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.tech-tag:hover::before {
+  left: 100%;
+}
+
+.tech-tag:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(78, 205, 196, 0.5);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Card actions */
+.card-actions {
+  display: flex;
+  gap: 0.8rem;
+  transform-style: preserve-3d;
+  margin-top: auto;
+}
+
+/* Holographic buttons */
+.holo-button {
+  position: relative;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  transform-style: preserve-3d;
+}
+
+.holo-button.primary {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+  border: 1px solid rgba(78, 205, 196, 0.5);
+  box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+.holo-button.secondary {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+  border: 1px solid rgba(255, 107, 107, 0.5);
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.holo-button.tertiary {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.button-text {
+  position: relative;
+  z-index: 2;
+}
+
+.button-glow {
+  position: absolute;
+  inset: -2px;
+  background: inherit;
+  border-radius: 27px;
+  opacity: 0;
+  filter: blur(8px);
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.holo-button:hover .button-glow {
+  opacity: 0.7;
+}
+
+.holo-button:hover {
+  transform: translateY(-3px) translateZ(10px);
+  box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+}
+
+.holo-button.secondary:hover {
+  box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+}
+
+.holo-button.tertiary:hover {
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Glitch overlay */
+.glitch-overlay {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    rgba(255, 0, 150, 0.1) 2px,
+    rgba(0, 255, 255, 0.1) 4px,
+    transparent 6px
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* Floating data visualization */
+.floating-data {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 60px;
+  height: 40px;
+  pointer-events: none;
+  z-index: 12;
+}
+
+.data-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(78, 205, 196, 0.8) 20%,
+    rgba(78, 205, 196, 0.8) 80%,
+    transparent 100%
+  );
+}
+
+.data-points {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.data-point {
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #4ecdc4, transparent);
+  border-radius: 50%;
+  filter: blur(0.5px);
+}
+
+/* Edge glow effect */
+.edge-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .holographic-card {
+    width: 300px;
+    height: 450px;
+  }
+  
+  .card-content {
+    padding: 1.2rem;
+  }
+  
+  .project-image-container {
+    height: 160px;
+  }
+  
+  .project-title {
+    font-size: 1.3rem;
+  }
+  
+  .project-description {
+    font-size: 0.9rem;
+  }
+  
+  .card-actions {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  
+  .holo-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .holographic-card {
+    width: 280px;
+    height: 420px;
+  }
+  
+  .card-content {
+    padding: 1rem;
+  }
+  
+  .project-image-container {
+    height: 140px;
+  }
+}
+
+/* Performance optimizations */
+.holographic-card * {
+  will-change: transform, opacity;
+}
+
+/* Reduce animations on low-end devices */
+@media (prefers-reduced-motion: reduce) {
+  .holo-background,
+  .holo-particle,
+  .holo-image-border {
+    animation: none;
+  }
+  
+  .holographic-card {
+    transform: none;
+  }
+  
+  .tech-tag::before {
+    display: none;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: light) {
+  .card-content {
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+  }
+  
+  .project-description {
+    color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .tech-tag {
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.8);
+    border-color: rgba(0, 0, 0, 0.2);
+  }
+  
+  .holo-button.tertiary {
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.8);
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+}

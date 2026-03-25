@@ -8,7 +8,7 @@ import "../styles/sectionAnimation.css";
 import ProjectModal from "./ProjectModal";
 import CarouselNavigation from "./CarouselNavigation";
 import ProjectFilter from "./ProjectFilter";
-import Enhanced3DProjectCard from "./Enhanced3DProjectCard";
+import HolographicProjectCard from "./Cards/HolographicProjectCard";
 
 // Hooks - using built-in React hooks for simpler implementation
 
@@ -235,7 +235,7 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
                    layout
                    style={{ listStyle: 'none' }}
                  >
-                   <Enhanced3DProjectCard
+                   <HolographicProjectCard
                      project={project}
                      index={idx}
                      onViewProject={onViewProject}

@@ -10,7 +10,10 @@ export const PROJECTS_DATA: Project[] = [
       "A full-stack fitness platform built with React and Express, featuring user authentication, meal tracking, progress analytics, and social sharing. The platform supports multiple fitness devices.",
     link: "https://example.com/project-one",
     repositoryUrl: "https://github.com/Shah-K02/Fitness-Tool-Project",
+    githubUrl: "https://github.com/Shah-K02/Fitness-Tool-Project",
+    liveUrl: "https://personal-fitness-assistant.netlify.app/",
     demoUrl: "https://personal-fitness-assistant.netlify.app/",
+    image: "https://via.placeholder.com/800x500/667eea/ffffff?text=Fitness+Platform",
     technologies: ["React", "Express", "Node.js", "SQL", "CSS", "Restful API", "JWT", "Axios"],
     screenshots: [
       "https://via.placeholder.com/800x500/667eea/ffffff?text=Homepage",
@@ -29,7 +32,10 @@ export const PROJECTS_DATA: Project[] = [
       "A comprehensive application that enables users to find and modify car parts easily. Features include a user-friendly interface, real-time inventory updates, and integration with various car part suppliers. Built with modern web technologies for optimal performance.",
     link: "https://example.com/project-two",
     repositoryUrl: "https://github.com/Shah-K02/AutoMods",
+    githubUrl: "https://github.com/Shah-K02/AutoMods",
+    liveUrl: "https://demo.auto-mods.com",
     demoUrl: "https://demo.auto-mods.com",
+    image: "https://via.placeholder.com/800x500/48bb78/ffffff?text=AutoMods+Platform",
     technologies: [
       "React",
       "TypeScript",
@@ -48,10 +54,12 @@ export const PROJECTS_DATA: Project[] = [
   {
     id: "project-3",
     title: "Sports4Us",
-    description: "Fulll-stack ecommerce platform for sports gear.",
+    description: "Full-stack ecommerce platform for sports gear.",
     longDescription:
       "A comprehensive ecommerce platform that connects sports enthusiasts with the gear they need. Features include user authentication, product reviews, and a seamless checkout process.",
     repositoryUrl: "https://github.com/Shah-K02/Sports4Us",
+    githubUrl: "https://github.com/Shah-K02/Sports4Us",
+    image: "https://via.placeholder.com/800x500/4ecdc4/ffffff?text=Sports4Us+Platform",
     technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redux", "Express"],
     screenshots: [
       "https://via.placeholder.com/800x500/4ecdc4/ffffff?text=Sports4Us+Homepage",
@@ -66,8 +74,11 @@ export const PROJECTS_DATA: Project[] = [
     description: "API for task management.",
     longDescription:
       "A robust API built with Node.js for managing tasks. Features include user authentication, task creation, updating, and deletion, with admin capabilities for managing users and tasks.",
+    liveUrl: "https://task-manager-demo.com",
     demoUrl: "https://task-manager-demo.com",
     repositoryUrl: "https://github.com/Shah-K02/Task-Manager-API",
+    githubUrl: "https://github.com/Shah-K02/Task-Manager-API",
+    image: "https://via.placeholder.com/800x500/ff6b6b/ffffff?text=Task+Manager+API",
     technologies: ["Node.js", "Express", "MongoDB", "JWT", "Mongoose"],
     screenshots: [
       "https://via.placeholder.com/400x800/ff6b6b/ffffff?text=Home+Screen",
@@ -83,8 +94,11 @@ export const PROJECTS_DATA: Project[] = [
     description: "Personal portfolio website showcasing projects and skills.",
     longDescription:
       "A modern, responsive portfolio website built with React and TypeScript. Features include interactive project showcases, smooth animations, theme switching, and optimized performance. Demonstrates proficiency in modern web development practices.",
+    liveUrl: "https://shah-kar.netlify.app/",
     demoUrl: "https://shah-kar.netlify.app/",
     repositoryUrl: "https://github.com/Shah-K02/portfolio-project",
+    githubUrl: "https://github.com/Shah-K02/portfolio-project",
+    image: "https://via.placeholder.com/800x500/6c5ce7/ffffff?text=Portfolio+Website",
     technologies: ["React", "TypeScript", "CSS3", "HTML5", "Responsive Design"],
     screenshots: [
       "https://via.placeholder.com/800x500/6c5ce7/ffffff?text=Portfolio+Homepage",

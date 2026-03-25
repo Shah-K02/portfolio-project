@@ -1,0 +1,169 @@
+/* Experimental Showcase Styles */
+
+.experimental-showcase {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 8, 20, 1) 0%,
+    rgba(0, 20, 40, 0.95) 50%,
+    rgba(0, 8, 20, 1) 100%
+  );
+}
+
+.neural-background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: auto;
+}
+
+.main-neural-net {
+  width: 100%;
+  height: 100%;
+}
+
+.main-navigation {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+.showcase-content {
+  position: relative;
+  z-index: 10;
+}
+
+.showcase-section {
+  position: relative;
+  scroll-snap-align: start;
+  scroll-behavior: smooth;
+}
+
+/* Smooth scrolling for the entire page */
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+/* Hero section specific styles */
+.hero-section {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Projects section grid adjustments */
+.projects-section .holographic-card {
+  margin: 0 auto;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .main-navigation {
+    right: 1rem;
+    transform: translateY(-50%) scale(0.9);
+  }
+  
+  .showcase-section {
+    padding: 3rem 1.5rem;
+  }
+  
+  .projects-section {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-navigation {
+    position: fixed;
+    bottom: 2rem;
+    right: 50%;
+    top: auto;
+    transform: translateX(50%) scale(0.8);
+  }
+  
+  .showcase-section {
+    padding: 2rem 1rem;
+    min-height: 90vh;
+  }
+  
+  .hero-section h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem) !important;
+  }
+  
+  .projects-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .projects-section h2,
+  .neural-section h2,
+  .liquid-section h2 {
+    font-size: 2.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .showcase-section {
+    padding: 1.5rem 1rem;
+  }
+  
+  .hero-section {
+    padding: 1rem;
+  }
+  
+  .projects-section,
+  .neural-section,
+  .liquid-section,
+  .contact-section {
+    padding: 2rem 1rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .experimental-showcase,
+  .showcase-content,
+  .showcase-section {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  .experimental-showcase {
+    background: #000;
+  }
+  
+  .showcase-section {
+    background: rgba(0, 0, 0, 0.9) !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .neural-background-container,
+  .main-navigation {
+    display: none;
+  }
+  
+  .showcase-section {
+    page-break-inside: avoid;
+    margin-bottom: 2rem;
+  }
+}

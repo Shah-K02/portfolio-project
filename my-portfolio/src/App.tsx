@@ -9,7 +9,7 @@ import { VisualEffects } from "./components/VisualEffects";
 import { useSmoothSectionScroll } from "./hooks/useAdvancedScrollAnimation";
 import EnhancedSection from "./components/EnhancedSection";
 import { ScrollProgress } from "./components/Navigation/ScrollProgress";
-import SmoothScrollNav from "./components/Navigation/SmoothScrollNav";
+import LiquidMorphNavigation from "./components/Navigation/LiquidMorphNavigation";
 import { ThemeProvider } from "./context/ThemeContext";
 import { ThemeToggle } from "./components/Navigation/ThemeToggle";
 import PerformanceMonitor from "./components/PerformanceMonitor";
@@ -19,7 +19,7 @@ import {
   PerformanceMonitor as PerfMonitor,
   preloadResource,
 } from "./utils/performanceOptimizations";
-import { usePreload } from "./hooks/useLazyLoading";
+import { PROJECTS_DATA } from "./constants/projectsData";
 import "./App.css";
 import "./styles/enhancedScrolling.css";
 
@@ -94,43 +94,41 @@ function AppContent() {
   return (
     <div className="app-container">
       <ScrollProgress scrollProgress={scrollProgress} />
-      <PerformanceMonitor />
+      {process.env.NODE_ENV === 'development' && <PerformanceMonitor />}
 
       <AIAssistant
         portfolioData={{
-          name: "Portfolio Owner",
+          name: "Shah Kar",
           skills: [
             "React",
             "TypeScript",
             "Node.js",
+            "JavaScript",
             "Python",
-            "AWS",
+            "Java",
+            "C#",
+            "Spring Boot",
+            "Express",
             "MongoDB",
+            "MySQL",
+            "PostgreSQL",
+            "HTML",
+            "CSS",
+            "Tailwind CSS",
+            "Git",
+            "RESTful APIs",
+            "JWT",
           ],
-          projects: [
-            {
-              title: "E-commerce Platform",
-              description:
-                "Full-stack e-commerce solution with React and Node.js",
-              technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-            },
-            {
-              title: "Task Management App",
-              description:
-                "Collaborative task management with real-time updates",
-              technologies: ["React", "Socket.io", "Express", "PostgreSQL"],
-            },
-            {
-              title: "Data Visualization Dashboard",
-              description: "Interactive analytics dashboard with D3.js",
-              technologies: ["React", "D3.js", "Python", "FastAPI"],
-            },
-          ],
+          projects: PROJECTS_DATA.map(p => ({
+            title: p.title,
+            description: p.longDescription || p.description,
+            technologies: p.technologies,
+          })),
           experience: [
             {
-              role: "Senior Frontend Developer",
-              company: "Tech Company",
-              duration: "2022-Present"
+              role: "Computer Science Graduate",
+              company: "Aston University, Birmingham",
+              duration: "2021-2024"
             }
           ]
         }}
@@ -228,46 +226,23 @@ function AppContent() {
 
 
 
-      {/* Enhanced Navigation - SmoothScrollNav includes dot and arrow navigation */}
-      <SmoothScrollNav
-        sections={[
-          { id: 'introduction', label: 'Introduction' },
-          { id: 'about', label: 'About' },
-          { id: 'projects', label: 'Projects' },
-          { id: 'skills', label: 'Skills' },
-          { id: 'contact', label: 'Contact' }
+      {/* Enhanced Navigation - LiquidMorphNavigation with fluid animations */}
+      <LiquidMorphNavigation
+        items={[
+          { id: 'introduction', label: 'Home', section: 'introduction' },
+          { id: 'about', label: 'About', section: 'about' },
+          { id: 'projects', label: 'Projects', section: 'projects' },
+          { id: 'skills', label: 'Skills', section: 'skills' },
+          { id: 'contact', label: 'Contact', section: 'contact' }
         ]}
         currentSection={currentSection}
         onSectionChange={scrollToSection}
-        isScrolling={isScrolling}
-        showLabels={true}
-        position="right"
-        theme="auto"
+        className="main-liquid-nav"
       />
       
 
       
-      {/* Scroll velocity indicator */}
-      <motion.div
-        className="scroll-velocity-indicator"
-        style={{
-          position: 'fixed',
-          top: '20px',
-          right: '20px',
-          width: '4px',
-          height: '60px',
-          background: 'var(--gradient-primary)',
-          borderRadius: '2px',
-          transformOrigin: 'bottom',
-          zIndex: 1000,
-          opacity: isScrolling ? 1 : 0,
-        }}
-        animate={{
-          scaleY: isScrolling ? 1 : 0,
-          opacity: isScrolling ? 1 : 0,
-        }}
-        transition={{ duration: 0.3 }}
-      />
+      {/* Scroll velocity indicator removed — ScrollProgress bar covers this UX need */
     </div>
   );
 }

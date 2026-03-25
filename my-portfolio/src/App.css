@@ -515,6 +515,22 @@ body {
   z-index: 1000;
 }
 
+/* Experimental Components Integration */
+.main-liquid-nav {
+  z-index: 1001; /* Ensure it's above other elements */
+}
+
+.intro-neural-network {
+  opacity: 0.8;
+  pointer-events: auto;
+}
+
+/* Holographic project cards spacing */
+.projects-grid .holographic-card {
+  margin: 0 auto;
+  max-width: 100%;
+}
+
 /* Loading Fallback Styles */
 .loading-fallback {
   display: flex;
