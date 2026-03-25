@@ -4,30 +4,41 @@ import { GitHubIcon, LinkedInIcon, EmailIcon, LocationIcon } from "./Icons";
 import "./Contact.css";
 
 const ContactSection: React.FC = () => {
-  const [formState, setFormState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formState, setFormState] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormState('sending');
+    setFormState("sending");
     try {
-      const res = await fetch('https://formspree.io/f/xdkodgjg', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      const res = await fetch("https://formspree.io/f/xkopnbro", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify(formData),
       });
       if (res.ok) {
-        setFormState('success');
-        setFormData({ name: '', email: '', message: '' });
+        setFormState("success");
+        setFormData({ name: "", email: "", message: "" });
       } else {
-        setFormState('error');
+        setFormState("error");
       }
     } catch {
-      setFormState('error');
+      setFormState("error");
     }
   };
 
@@ -59,7 +70,9 @@ const ContactSection: React.FC = () => {
               </div>
               <div>
                 <h3 className="contact-title">Email</h3>
-                <a href="mailto:shahkar0215@gmail.com" className="contact-link">shahkar0215@gmail.com</a>
+                <a href="mailto:shahkar0215@gmail.com" className="contact-link">
+                  shahkar0215@gmail.com
+                </a>
               </div>
             </div>
 
@@ -120,7 +133,9 @@ const ContactSection: React.FC = () => {
             <h3 className="form-heading">Send a Message</h3>
 
             <div className="form-group">
-              <label htmlFor="contact-name" className="form-label">Name</label>
+              <label htmlFor="contact-name" className="form-label">
+                Name
+              </label>
               <input
                 id="contact-name"
                 type="text"
@@ -130,12 +145,14 @@ const ContactSection: React.FC = () => {
                 placeholder="Your name"
                 required
                 className="form-input"
-                disabled={formState === 'sending' || formState === 'success'}
+                disabled={formState === "sending" || formState === "success"}
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="contact-email" className="form-label">Email</label>
+              <label htmlFor="contact-email" className="form-label">
+                Email
+              </label>
               <input
                 id="contact-email"
                 type="email"
@@ -145,12 +162,14 @@ const ContactSection: React.FC = () => {
                 placeholder="your@email.com"
                 required
                 className="form-input"
-                disabled={formState === 'sending' || formState === 'success'}
+                disabled={formState === "sending" || formState === "success"}
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="contact-message" className="form-label">Message</label>
+              <label htmlFor="contact-message" className="form-label">
+                Message
+              </label>
               <textarea
                 id="contact-message"
                 name="message"
@@ -160,16 +179,16 @@ const ContactSection: React.FC = () => {
                 required
                 rows={5}
                 className="form-input form-textarea"
-                disabled={formState === 'sending' || formState === 'success'}
+                disabled={formState === "sending" || formState === "success"}
               />
             </div>
 
-            {formState === 'success' && (
+            {formState === "success" && (
               <p className="form-status form-success">
                 ✅ Message sent! I'll get back to you soon.
               </p>
             )}
-            {formState === 'error' && (
+            {formState === "error" && (
               <p className="form-status form-error">
                 ❌ Something went wrong. Please try emailing me directly.
               </p>
@@ -178,11 +197,15 @@ const ContactSection: React.FC = () => {
             <motion.button
               type="submit"
               className="form-submit"
-              disabled={formState === 'sending' || formState === 'success'}
-              whileHover={{ scale: formState === 'idle' ? 1.03 : 1 }}
+              disabled={formState === "sending" || formState === "success"}
+              whileHover={{ scale: formState === "idle" ? 1.03 : 1 }}
               whileTap={{ scale: 0.97 }}
             >
-              {formState === 'sending' ? 'Sending…' : formState === 'success' ? 'Sent!' : 'Send Message'}
+              {formState === "sending"
+                ? "Sending…"
+                : formState === "success"
+                  ? "Sent!"
+                  : "Send Message"}
             </motion.button>
           </motion.form>
         </div>
