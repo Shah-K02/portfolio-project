@@ -6,7 +6,7 @@ A stunning, responsive portfolio website built with cutting-edge web technologie
 
 ## 🚀 Live Demo
 
-**[View Portfolio →](https://shah-kar-portfolio.netlify.app/)**
+**[View Portfolio →](https://shah-kar.netlify.app/)**
 
 ## 📁 Project Structure
 
