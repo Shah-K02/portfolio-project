@@ -20,6 +20,15 @@ const About: React.FC = () => {
           About Me
         </h2>
 
+        {/* Personal Bio */}
+        <p className={`about-bio stagger-item ${inView ? "section-visible" : ""}` }>
+          I'm a Computer Science graduate from Aston University with a passion for building elegant,
+          high-performance web applications. I love turning complex problems into simple, intuitive
+          experiences — whether that's architecting a RESTful API, crafting pixel-perfect UIs, or
+          optimising a database query. I'm multilingual, detail-oriented, and always eager to
+          learn whatever the project demands.
+        </p>
+
         <div
           className={`about-content stagger-children ${
             inView ? "section-visible" : ""
@@ -53,14 +62,25 @@ const About: React.FC = () => {
               <div className="education-content">
                 <p className="degree">Bachelor of Computer Science</p>
                 <p className="university">
-                  Aston University, Birmingham, UK 2021-2024
+                  Aston University, Birmingham, UK 2021–2024
                 </p>
                 <p className="modules">
                   Relevant modules: Object-Oriented Programming, Data Structures
-                  & Algorithms, Software Engineering, Database Design, Team
+                  &amp; Algorithms, Software Engineering, Database Design, Team
                   Projects, Individual Project
                 </p>
               </div>
+            </div>
+
+            <div className="info-card interests-card stagger-item">
+              <h3 className="card-title">Interests &amp; Languages</h3>
+              <ul className="strengths-list">
+                <li>🌍 Languages: English, Pashto, Dari, Urdu</li>
+                <li>🎨 UI/UX Design &amp; Interaction Design</li>
+                <li>🤖 Artificial Intelligence &amp; Machine Learning</li>
+                <li>📊 Data Visualisation &amp; Analytics</li>
+                <li>⚽ Sport &amp; Fitness</li>
+              </ul>
             </div>
           </div>
         </div>

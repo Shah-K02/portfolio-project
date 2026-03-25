@@ -122,7 +122,7 @@ function AppContent() {
           projects: PROJECTS_DATA.map(p => ({
             title: p.title,
             description: p.longDescription || p.description,
-            technologies: p.technologies,
+            technologies: p.technologies ?? [],
           })),
           experience: [
             {
@@ -242,7 +242,7 @@ function AppContent() {
       
 
       
-      {/* Scroll velocity indicator removed — ScrollProgress bar covers this UX need */
+      {/* Scroll velocity indicator removed — ScrollProgress bar covers this UX need */}
     </div>
   );
 }

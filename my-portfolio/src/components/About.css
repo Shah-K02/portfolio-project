@@ -2,6 +2,31 @@
   padding: 5rem 0;
 }
 
+/* Personal bio paragraph */
+.about-bio {
+  max-width: 760px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* Interests card — matches existing card styles */
+.interests-card {
+  background: var(--card-background);
+  background: radial-gradient(
+    circle at center,
+    var(--card-background-light),
+    var(--card-background)
+  );
+  color: var(--text-primary);
+}
+
+.interests-card .card-title {
+  color: var(--accent);
+}
+
 .section-title {
   text-align: center;
   margin-bottom: 4rem;

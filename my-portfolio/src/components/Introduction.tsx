@@ -16,6 +16,28 @@ const Introduction: React.FC = () => {
   const { ref, inView } = useScrollAnimation({ amount: 0.2 }); // 20% threshold for early trigger
   const { config, isLowEnd } = usePerformanceDetection();
 
+  // Extracted once — used by both magnetic and non-magnetic CTA button variants
+  const handleViewWork = () => {
+    const projectsSection =
+      document.querySelector('[data-section="projects"]') ||
+      document.querySelector('#projects') ||
+      document.querySelector('.projects-section');
+
+    if (projectsSection) {
+      const button = document.querySelector('.cta-button');
+      if (button) {
+        button.classList.add('clicked');
+        setTimeout(() => button.classList.remove('clicked'), 300);
+      }
+      const offsetTop =
+        projectsSection.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+      setTimeout(() => {
+        projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  };
+
   // Neural Network data representing your learning journey
   const learningData = {
     skills: [
@@ -146,6 +168,7 @@ const Introduction: React.FC = () => {
                 href="https://github.com/Shah-K02"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="View Shah Kar's GitHub profile"
                 className="social-link github enhanced"
                 whileHover={{
                   scale: 1.1,
@@ -162,6 +185,7 @@ const Introduction: React.FC = () => {
                 href="https://github.com/Shah-K02"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="View Shah Kar's GitHub profile"
                 className="social-link github enhanced"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -176,6 +200,7 @@ const Introduction: React.FC = () => {
                   href="https://www.linkedin.com/in/shah-kar"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Connect with Shah Kar on LinkedIn"
                   className="social-link linkedin enhanced"
                   whileHover={{
                     scale: 1.1,
@@ -192,6 +217,7 @@ const Introduction: React.FC = () => {
                 href="https://www.linkedin.com/in/shah-kar"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Connect with Shah Kar on LinkedIn"
                 className="social-link linkedin enhanced"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -210,36 +236,7 @@ const Introduction: React.FC = () => {
                   backgroundColor: "var(--color-accent-2)",
                 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  // Enhanced scroll functionality with multiple fallbacks
-                  const projectsSection = document.querySelector(
-                    '[data-section="projects"]'
-                  ) || document.querySelector('#projects') || document.querySelector('.projects-section');
-                  
-                  if (projectsSection) {
-                    // Add visual feedback
-                    const button = document.querySelector('.cta-button');
-                    if (button) {
-                      button.classList.add('clicked');
-                      setTimeout(() => button.classList.remove('clicked'), 300);
-                    }
-                    
-                    // Smooth scroll with offset for better positioning
-                    const offsetTop = projectsSection.getBoundingClientRect().top + window.pageYOffset - 80;
-                    window.scrollTo({
-                      top: offsetTop,
-                      behavior: 'smooth'
-                    });
-                    
-                    // Fallback for older browsers
-                    setTimeout(() => {
-                      projectsSection.scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                      });
-                    }, 100);
-                  }
-                }}
+                onClick={handleViewWork}
               >
                 View My Work
               </motion.button>
@@ -253,40 +250,23 @@ const Introduction: React.FC = () => {
                   backgroundColor: "var(--color-accent-2)",
                 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  // Enhanced scroll functionality with multiple fallbacks
-                  const projectsSection = document.querySelector(
-                    '[data-section="projects"]'
-                  ) || document.querySelector('#projects') || document.querySelector('.projects-section');
-                  
-                  if (projectsSection) {
-                    // Add visual feedback
-                    const button = document.querySelector('.cta-button');
-                    if (button) {
-                      button.classList.add('clicked');
-                      setTimeout(() => button.classList.remove('clicked'), 300);
-                    }
-                    
-                    // Smooth scroll with offset for better positioning
-                    const offsetTop = projectsSection.getBoundingClientRect().top + window.pageYOffset - 80;
-                    window.scrollTo({
-                      top: offsetTop,
-                      behavior: 'smooth'
-                    });
-                    
-                    // Fallback for older browsers
-                    setTimeout(() => {
-                      projectsSection.scrollIntoView({ 
-                        behavior: 'smooth',
-                        block: 'start'
-                      });
-                    }, 100);
-                  }
-                }}
+                onClick={handleViewWork}
               >
                 View My Work
               </motion.button>
             )}
+
+            {/* CV Download Button */}
+            <motion.a
+              href="/ShahKar-CV.pdf"
+              download="ShahKar-CV.pdf"
+              className="cv-download-btn"
+              aria-label="Download Shah Kar's CV"
+              whileHover={{ scale: 1.05, boxShadow: "0 0 30px var(--color-accent-1)" }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Download CV
+            </motion.a>
           </motion.div>
         </div>
       </div>

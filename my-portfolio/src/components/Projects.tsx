@@ -137,6 +137,10 @@ const ProjectsCarousel: React.FC<ProjectsCarouselProps> = ({
   // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
+      // Don't intercept arrow keys when the user is typing in an input or textarea
+      const tag = (document.activeElement as HTMLElement)?.tagName?.toLowerCase();
+      if (tag === 'input' || tag === 'textarea') return;
+
       if (e.key === 'ArrowLeft') goToPrevious();
       if (e.key === 'ArrowRight') goToNext();
     };

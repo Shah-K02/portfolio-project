@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import "./Skills.css";
 import SkillsBackground from "./SkillsBackground";
 import {
@@ -103,7 +103,10 @@ const SkillCard: React.FC<SkillCardProps> = ({
   color,
   delay = 0,
   isList = false,
-}) => (
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
   <motion.div
     initial={{ opacity: 0, y: 50 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -116,8 +119,8 @@ const SkillCard: React.FC<SkillCardProps> = ({
       {icon && (
         <motion.span
           className={`skills-card-icon skills-card-icon-${color}`}
-          animate={{ rotate: [0, 360] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+          animate={shouldReduceMotion ? {} : { rotate: [0, 360] }}
+          transition={{ duration: 2, repeat: shouldReduceMotion ? 0 : Infinity, ease: "linear" }}
         >
           {icon}
         </motion.span>
@@ -156,6 +159,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
     )}
   </motion.div>
 );
+};
 
 const Skills: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
