@@ -1,111 +1,96 @@
+/* ============================================================
+   INDEX.CSS — Base reset and foundational styles
+   Imports the single source of truth design tokens.
+   ============================================================ */
 @import './styles/semanticTokens.css';
 
-:root {
-  /* Base Typography */
-  font-family: var(--font-body);
-  line-height: var(--line-height-body);
-  font-weight: var(--font-weight-normal);
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: var(--background);
-  color: var(--text-primary);
-}
-
-* {
+/* ─── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Ensure smooth transitions for theme changes */
-:root,
-[data-theme='light'],
-[data-theme='dark'] {
-  transition: all 0.3s ease-in-out;
+/* ─── Root ───────────────────────────────────────────────── */
+html {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-normal);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  /* Hide scrollbar for webkit browsers */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-html,
+html::-webkit-scrollbar {
+  display: none;
+}
+
 body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background-color: var(--background);
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
 #root {
   min-height: 100vh;
-  background-color: var(--background);
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.section {
-  padding: var(--spacing-section-y) 0;
-  background-color: var(--section-background);
-}
-
-/* Typography System */
+/* ─── Typography ───────────────────────────────────────────── */
 h1 {
   font-family: var(--font-heading);
   font-size: var(--text-xl);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-heading);
-  letter-spacing: var(--letter-spacing-heading);
+  font-weight: var(--fw-extrabold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
   color: var(--color-heading);
 }
 
 h2 {
   font-family: var(--font-heading);
   font-size: var(--text-lg);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-heading);
-  letter-spacing: var(--letter-spacing-heading);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-snug);
   color: var(--color-heading);
 }
 
 h3 {
   font-family: var(--font-heading);
   font-size: var(--text-md);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-heading);
-  letter-spacing: var(--letter-spacing-heading);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
   color: var(--color-heading);
 }
 
 h4 {
   font-family: var(--font-heading);
   font-size: var(--text-base);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-heading);
-  letter-spacing: var(--letter-spacing-heading);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
   color: var(--color-heading);
 }
 
 p {
   font-family: var(--font-body);
   font-size: var(--text-base);
-  font-weight: var(--font-weight-normal);
-  line-height: var(--line-height-body);
-  letter-spacing: var(--letter-spacing-body);
+  font-weight: var(--fw-normal);
+  line-height: var(--lh-normal);
   color: var(--color-text);
 }
 
 a {
   font-family: var(--font-body);
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--fw-medium);
   color: var(--color-accent-1);
   text-decoration: none;
-  transition: all 0.2s ease;
-  position: relative;
+  transition:
+    color var(--duration-fast) var(--ease-out);
 }
 
 a:hover {
@@ -114,50 +99,33 @@ a:hover {
 
 code, pre {
   font-family: var(--font-code);
-  font-size: var(--text-code);
-  font-weight: var(--font-weight-normal);
-  line-height: var(--line-height-body);
-  background: var(--surface-hover);
-  padding: 0.2em 0.4em;
-  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
 }
 
-/* Buttons */
-button {
-  background-color: var(--button-background);
-  color: var(--button-text);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* ─── Container ─────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-width, 1200px);
+  margin: 0 auto;
+  padding: 0 var(--container-px, 1.25rem);
 }
 
-button:hover {
-  background-color: var(--button-hover);
-  transform: translateY(-1px);
+/* ─── Section spacing ───────────────────────────────────────── */
+.section {
+  padding: var(--section-padding, 5rem) 0;
+  background-color: var(--color-bg);
 }
 
-/* Cards */
-.card {
-  background-color: var(--card-background);
-  border-radius: 0.5rem;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px var(--shadow-color);
-  transition: all 0.3s ease;
+/* ─── Scrollbar hide ────────────────────────────────────────── */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
-.card:hover {
-  box-shadow: 0 8px 12px var(--shadow-hover);
-  transform: translateY(-2px);
-}
-
-/* Icons */
-.icon {
-  color: var(--icon-color);
-  transition: color 0.3s ease;
-}
-
-.icon:hover {
-  color: var(--accent-color);
+/* ─── Reduced motion ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

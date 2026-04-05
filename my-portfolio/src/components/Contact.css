@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   padding: 8rem 2rem;
-  background: var(--bg-primary);
-  color: var(--text-primary);
+  background: var(--color-bg);
+  color: var(--color-text);
   position: relative;
   overflow: hidden;
 }
@@ -130,7 +130,7 @@
 .contact-item:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 60px var(--color-accent-2-light), 0 8px 32px var(--color-shadow);
-  border-color: var(--primary-400);
+  border-color: var(--color-accent-1);
 }
 
 .contact-icon {
@@ -194,15 +194,15 @@
 }
 
 .contact-link {
-  color: var(--primary-400);
+  color: var(--color-accent-1);
   text-decoration: none;
   font-weight: 500;
-  transition: all 0.2s ease;
+  transition: color 200ms var(--ease-out), transform 200ms var(--ease-out);
   position: relative;
 }
 
 .contact-link:hover {
-  color: var(--primary-300);
+  color: var(--color-accent-2);
   transform: translateX(2px);
 }
 
@@ -324,9 +324,9 @@
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: var(--primary-400);
-  box-shadow: 0 0 0 3px var(--color-accent-2-light);
-  background: var(--color-surface-elevated);
+  border-color: var(--color-accent-1);
+  box-shadow: 0 0 0 3px var(--color-accent-1-light);
+  background: var(--color-surface);
   transform: translateY(-2px);
 }
 
@@ -380,16 +380,16 @@
 }
 
 .submit-button {
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
+  padding: 0.875rem 2rem;
+  border-radius: 999px;
   background: var(--gradient-primary);
-  color: var(--color-bg);
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
   font-size: 1rem;
-  border: 1px solid var(--neon-cyan, #00f5ff);
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
   align-self: flex-start;
   backdrop-filter: blur(10px);
   position: relative;
@@ -397,22 +397,9 @@
   letter-spacing: 0.025em;
 }
 
-:root[data-theme="light"] .submit-button {
-  background: var(--gradient-primary);
-  color: white;
-  border: 1px solid var(--yale-blue, #003566);
-  box-shadow: 0 4px 12px var(--color-shadow);
-}
-
-:root[data-theme="light"] .submit-button:hover {
-  background: var(--gradient-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px var(--color-shadow);
-}
-
 .submit-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px var(--color-accent-1-medium);
+  box-shadow: var(--shadow-lg);
 }
 
 .submit-button:active {

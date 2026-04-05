@@ -9,32 +9,24 @@
   text-align: center;
   font-size: clamp(1rem, 2vw, 1.15rem);
   line-height: 1.8;
-  color: var(--text-secondary);
+  color: var(--color-text);
 }
 
-/* Interests card — matches existing card styles */
+/* Interests card */
 .interests-card {
-  background: var(--card-background);
-  background: radial-gradient(
-    circle at center,
-    var(--card-background-light),
-    var(--card-background)
-  );
-  color: var(--text-primary);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--color-text);
 }
 
 .interests-card .card-title {
-  color: var(--accent);
+  color: var(--color-accent-1);
 }
 
 .section-title {
   text-align: center;
   margin-bottom: 4rem;
-  background-color: var(--text-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+  color: var(--color-heading);
 }
 
 .about-content {
@@ -76,67 +68,63 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--card-background);
+  background-color: var(--color-bg-subtle);
   border-radius: 50%;
   padding: 0.5rem;
   width: 50px;
   height: 50px;
   margin-bottom: 1rem;
-  box-shadow: 0 4px 6px var(--shadow-color);
-  transition: all 0.3s ease;
-}
-
-:root[data-theme="dark"] .strength-icon,
-:root[data-theme="dark"] .edu-icon {
-  background-color: var(--button-hover);
+  box-shadow: var(--shadow-sm);
+  transition: transform 200ms var(--ease-out);
 }
 
 .strength-icon img,
 .edu-icon img {
   width: 24px;
   height: 24px;
-  color: var(--text-primary);
+  color: var(--color-text);
 }
 
 .strengths-list {
   list-style: none;
-  color: var(--text-on-accent);
+  color: var(--color-text);
 }
 
 .strengths-list li {
   padding: 0.5rem 0;
   position: relative;
   padding-left: 1.5rem;
+  color: var(--color-text);
 }
 
 .strengths-list li::before {
-  content: "•";
-  color: var(--accent-light);
+  content: "\2022";
+  color: var(--color-accent-1);
   font-weight: bold;
   position: absolute;
   left: 0;
 }
 
 .education-content {
-  color: var(--text-primary);
+  color: var(--color-text);
 }
 
 .degree {
   font-weight: 600;
   font-size: 1.1rem;
   margin-bottom: 0.5rem;
-  color: var(--text-primary);
+  color: var(--color-heading);
 }
 
 .university {
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: var(--color-text-muted);
   margin-bottom: 1rem;
 }
 
 .coursework {
   line-height: 1.6;
-  color: var(--text-secondary);
+  color: var(--color-text);
 }
 
 @media (max-width: 767px) {
@@ -352,40 +340,39 @@
 
 .info-card {
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px var(--shadow-color);
+  border-radius: var(--card-radius, 1.25rem);
+  box-shadow: var(--shadow-md);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
 }
 
 .strengths-card {
-  background: var(--card-background);
-  background: radial-gradient(
-    circle at center,
-    var(--accent-light),
-    var(--accent)
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-1-light),
+    var(--color-accent-2-light)
   );
-  color: var(--text-on-accent);
+  border: 1px solid var(--color-accent-1-medium);
+  color: var(--color-text);
 }
 
 .education-card {
-  background: var(--card-background);
-  background: radial-gradient(
-    circle at center,
-    var(--card-background-light),
-    var(--card-background)
-  );
-  color: var(--text-primary);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--color-text);
 }
 
 .card-title {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   margin-bottom: 1rem;
+  color: var(--color-heading);
 }
 
 .strengths-card .card-title {
-  color: var(--text-on-accent);
+  color: var(--color-heading);
 }
 
 .education-card .card-title {
-  color: var(--accent);
+  color: var(--color-accent-1);
 }

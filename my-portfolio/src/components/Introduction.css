@@ -19,12 +19,11 @@
   align-items: center;
   justify-content: center;
   padding: 0 2rem;
-  background: var(--bg-primary);
+  background: var(--color-bg);
   background-image: var(--bg-gradient);
-  color: var(--text-primary);
+  color: var(--color-text);
   position: relative;
   overflow: hidden;
-  /* Ensure proper positioning for Framer Motion scroll measurement */
   contain: layout;
 }
 
@@ -192,14 +191,13 @@
 }
 
 .main-title {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-heading);
   font-size: clamp(3rem, 6vw, 5rem);
-  font-weight: 800;
+  font-weight: var(--fw-extrabold);
   margin-bottom: 1.5rem;
-  color: var(--text-primary);
+  color: var(--color-heading);
   line-height: 1.1;
   letter-spacing: -0.02em;
-  transition: all 0.3s ease;
 }
 
 .highlight {
@@ -340,111 +338,64 @@
   transform: scale(1.1);
 }
 
-/* CTA Buttons */
-.cta-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 2rem 0;
-}
-
+/* CTA Buttons — visible in both themes */
 .cta-button {
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
-  font-weight: 600;
+  padding: 0.8rem 1.75rem;
+  border-radius: 999px;
+  font-weight: var(--fw-semibold);
   font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
   backdrop-filter: blur(10px);
-  letter-spacing: 0.5px;
+  letter-spacing: 0.02em;
   position: relative;
   overflow: hidden;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 0.5rem;
   border: none;
-}
-
-.cta-button:not(.secondary) {
   background: var(--gradient-primary);
-  color: var(--color-bg);
-  border: 1px solid var(--neon-cyan, #00f5ff);
+  /* Ensure text is always white on the gradient — gradient is always colourful */
+  color: #FFFFFF !important;
+  box-shadow: var(--button-shadow);
+  transition:
+    transform    200ms var(--ease-out),
+    box-shadow   200ms var(--ease-out),
+    background   200ms var(--ease-out);
 }
 
-:root[data-theme="light"] .cta-button:not(.secondary) {
-  background: var(--gradient-primary);
-  color: white;
-  border: 1px solid var(--yale-blue, #003566);
-  box-shadow: 0 4px 12px var(--color-shadow);
-}
-
-:root[data-theme="light"] .cta-button:not(.secondary):hover {
-  background: var(--gradient-primary);
+.cta-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px var(--color-shadow);
+  box-shadow: var(--shadow-lg);
 }
 
-.cta-button:not(.secondary):hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px var(--color-accent-1-medium);
-}
-
-.cta-button.secondary {
-  background: var(--color-accent-2-light);
-  color: var(--color-text);
-  border: 1px solid var(--electric-blue, #0066ff);
-}
-
-:root[data-theme="light"] .cta-button.secondary {
-  background: var(--color-accent-2-light);
-  color: var(--color-heading);
-  border: 1.5px solid var(--yale-blue, #003566);
-  box-shadow: 0 2px 8px var(--color-shadow);
-}
-
-:root[data-theme="light"] .cta-button.secondary:hover {
-  background: var(--color-accent-2-medium);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--color-shadow);
-}
-
-.cta-button.secondary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px var(--color-accent-2-medium);
-}
-
-/* Clicked state for visual feedback */
+/* Clicked state */
 .cta-button.clicked {
   transform: scale(0.95) !important;
-  box-shadow: 0 4px 12px var(--color-accent-1-strong) !important;
-  background: var(--color-accent-2) !important;
-  transition: all 0.1s ease !important;
+  transition: transform 100ms var(--ease-out) !important;
 }
 
-:root[data-theme="light"] .cta-button.clicked {
-  background: var(--gradient-primary) !important;
-  box-shadow: 0 2px 8px var(--color-shadow) !important;
-}
-
-/* CV Download Button */
+/* CV Download Button — unified tokens, works in both themes */
 .cv-download-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
-  font-weight: 600;
+  padding: 0.8rem 1.75rem;
+  border-radius: 999px;
+  font-weight: var(--fw-semibold);
   font-size: 1rem;
   cursor: pointer;
   text-decoration: none;
-  letter-spacing: 0.5px;
-  border: 2px solid var(--primary-400, #667eea);
+  letter-spacing: 0.02em;
+  border: 2px solid var(--color-accent-1);
   background: transparent;
-  color: var(--primary-400, #667eea);
-  transition: all 0.3s ease;
+  color: var(--color-accent-1);
+  transition:
+    background   200ms var(--ease-out),
+    color        200ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    transform    200ms var(--ease-out),
+    box-shadow   200ms var(--ease-out);
   backdrop-filter: blur(10px);
 }
 
@@ -453,19 +404,7 @@
   color: #fff;
   border-color: transparent;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px var(--color-accent-1-medium);
-}
-
-:root[data-theme="light"] .cv-download-btn {
-  border-color: var(--yale-blue, #003566);
-  color: var(--yale-blue, #003566);
-}
-
-:root[data-theme="light"] .cv-download-btn:hover {
-  background: var(--gradient-primary);
-  color: white;
-  border-color: transparent;
-  box-shadow: 0 8px 20px var(--color-shadow);
+  box-shadow: var(--shadow-lg);
 }
 
 

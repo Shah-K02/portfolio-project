@@ -1,117 +1,296 @@
-/* Semantic Design Tokens for Dynamic Theming */
+/* ============================================================
+   SEMANTIC DESIGN TOKENS — Single Source of Truth
+   All colour, typography, spacing, and effect tokens live here.
+   Components should ONLY reference the tokens in this file.
+   ============================================================ */
 
 :root {
-  /* Typography System */
-  /* Spacing Tokens */
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 32px;
-  --spacing-xl: 64px;
-  --spacing-section-y: 80px;
+  /* ─── Typography ─────────────────────────────────────────── */
+  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-code:    'JetBrains Mono', 'Fira Code', monospace;
 
-  /* Grid System */
-  --grid-max-width: 1200px;
-  --grid-columns: 12;
-  --grid-gutter: 24px;
-  --grid-gutter-mobile: 16px;
-  --grid-gutter-tablet: 20px;
-
-  /* Breakpoints */
-  --breakpoint-mobile: 480px;
-  --breakpoint-tablet: 768px;
-  --breakpoint-desktop: 1200px;
-
-  /* Typography Tokens */
-  --font-heading: 'Sora', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-code: 'JetBrains Mono', monospace;
-  
   /* Font Sizes */
-  --text-xl: 48px;      /* Hero, main heading */
-  --text-lg: 36px;      /* Section titles */
-  --text-md: 24px;      /* Subheadings */
-  --text-base: 18px;    /* Paragraphs, nav items */
-  --text-sm: 14px;      /* Labels, buttons, captions */
-  --text-code: 16px;    /* Tags, inline code */
-  
-  /* Line Heights */
-  --line-height-heading: 1.2;
-  --line-height-body: 1.6;
-  
-  /* Letter Spacing */
-  --letter-spacing-heading: -0.5px;
-  --letter-spacing-body: 0;
-  
+  --text-xl:   clamp(2.75rem, 5vw, 4.5rem);
+  --text-lg:   clamp(2rem, 3.5vw, 3rem);
+  --text-md:   clamp(1.375rem, 2.5vw, 2rem);
+  --text-base: clamp(1rem, 1.5vw, 1.125rem);
+  --text-sm:   0.875rem;
+  --text-xs:   0.75rem;
+
   /* Font Weights */
-  --font-weight-light: 300;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  --font-weight-extrabold: 800;
-  
-  /* 🔆 Light Theme Colors */
-  --color-bg: #F8FAFC;        /* Page background */
-  --color-surface: #FFFFFF;   /* Cards, panels */
-  --color-text: #0F172A;      /* Body text */
-  --color-heading: #1E293B;   /* Headings */
-  --color-accent-1: #38BDF8;  /* CTAs, highlights */
-  --color-accent-2: #FB7185;  /* Buttons, icons */
-  --color-detail: #FACC15;    /* Highlights, borders, tags */
-  
-  /* RGB values for alpha variations */
-  --color-bg-rgb: 248, 250, 252;
-  --color-surface-rgb: 255, 255, 255;
-  --color-text-rgb: 15, 23, 42;
-  --color-heading-rgb: 30, 41, 59;
+  --fw-light:     300;
+  --fw-normal:    400;
+  --fw-medium:    500;
+  --fw-semibold:  600;
+  --fw-bold:      700;
+  --fw-extrabold: 800;
+
+  /* Line Heights */
+  --lh-tight:  1.1;
+  --lh-snug:   1.3;
+  --lh-normal: 1.6;
+
+  /* Letter Spacing */
+  --ls-tight: -0.02em;
+  --ls-snug:  -0.01em;
+  --ls-wide:   0.05em;
+
+  /* ─── Spacing ────────────────────────────────────────────── */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* ─── Layout ─────────────────────────────────────────────── */
+  --max-width:       1200px;
+  --section-padding: 5rem;
+  --radius-sm:   0.375rem;
+  --radius-md:   0.75rem;
+  --radius-lg:   1.25rem;
+  --radius-xl:   2rem;
+  --radius-full: 9999px;
+
+  /* ─── Breakpoints ────────────────────────────────────────── */
+  --bp-sm:  640px;
+  --bp-md:  768px;
+  --bp-lg:  1024px;
+  --bp-xl:  1280px;
+
+  /* ─── Z-index ────────────────────────────────────────────── */
+  --z-base:    1;
+  --z-raised:  10;
+  --z-nav:     100;
+  --z-overlay: 200;
+  --z-modal:   300;
+  --z-toast:   400;
+  --z-top:     9999;
+
+  /* ─── Transitions ────────────────────────────────────────── */
+  --ease-out:    cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast:   150ms;
+  --duration-normal: 250ms;
+  --duration-slow:   400ms;
+
+  /* ─── Palette (raw values — don't use directly in components) */
+  --palette-sky-400:   #38BDF8;
+  --palette-sky-500:   #0EA5E9;
+  --palette-rose-400:  #FB7185;
+  --palette-rose-500:  #F43F5E;
+  --palette-amber-400: #FACC15;
+  --palette-amber-500: #EAB308;
+  --palette-slate-50:  #F8FAFC;
+  --palette-slate-100: #F1F5F9;
+  --palette-slate-200: #E2E8F0;
+  --palette-slate-300: #CBD5E1;
+  --palette-slate-400: #94A3B8;
+  --palette-slate-500: #64748B;
+  --palette-slate-600: #475569;
+  --palette-slate-700: #334155;
+  --palette-slate-800: #1E293B;
+  --palette-slate-900: #0F172A;
+  --palette-slate-950: #020617;
+
+  /* ─── LIGHT THEME (default) ─────────────────────────────── */
+
+  /* Backgrounds */
+  --color-bg:         var(--palette-slate-50);
+  --color-bg-subtle:  var(--palette-slate-100);
+  --color-surface:    #FFFFFF;
+  --color-surface-raised: #FFFFFF;
+
+  /* Legacy aliases */
+  --bg-primary:  var(--color-bg);
+  --bg-gradient: linear-gradient(135deg, var(--palette-slate-50) 0%, var(--palette-slate-100) 100%);
+
+  /* Text */
+  --color-text:         var(--palette-slate-800);
+  --color-heading:      var(--palette-slate-900);
+  --color-text-muted:   var(--palette-slate-500);
+  --color-text-faint:   var(--palette-slate-400);
+
+  /* Legacy aliases */
+  --text-primary:   var(--color-heading);
+  --text-secondary: var(--color-text);
+  --text-tertiary:  var(--color-text-muted);
+
+  /* Accents */
+  --color-accent-1:      var(--palette-sky-400);
+  --color-accent-2:      var(--palette-rose-400);
+  --color-detail:        var(--palette-amber-400);
+
+  /* Accent alpha variants */
   --color-accent-1-rgb: 56, 189, 248;
   --color-accent-2-rgb: 251, 113, 133;
-  --color-detail-rgb: 250, 204, 21;
-  
-  /* Alpha variations */
-  --color-accent-1-light: rgba(var(--color-accent-1-rgb), 0.1);
-  --color-accent-1-medium: rgba(var(--color-accent-1-rgb), 0.2);
-  --color-accent-1-strong: rgba(var(--color-accent-1-rgb), 0.3);
-  
-  --color-accent-2-light: rgba(var(--color-accent-2-rgb), 0.1);
-  --color-accent-2-medium: rgba(var(--color-accent-2-rgb), 0.2);
-  --color-accent-2-strong: rgba(var(--color-accent-2-rgb), 0.3);
-  
-  --color-detail-light: rgba(var(--color-detail-rgb), 0.1);
-  --color-detail-medium: rgba(var(--color-detail-rgb), 0.2);
-  --color-detail-strong: rgba(var(--color-detail-rgb), 0.3);
-  
-  /* Gradient */
-  --gradient-primary: linear-gradient(135deg, #38BDF8 0%, #FB7185 100%);
-  
-  /* Shadow and border tokens */
-  --color-shadow: rgba(0, 0, 0, 0.1);
-  --color-shadow-strong: rgba(0, 0, 0, 0.2);
-  --color-border: rgba(var(--color-text-rgb), 0.1);
-  --color-border-strong: rgba(var(--color-text-rgb), 0.2);
+  --color-detail-rgb:   250, 204, 21;
+  --color-accent-1-light:  rgba(56, 189, 248, 0.10);
+  --color-accent-1-medium: rgba(56, 189, 248, 0.20);
+  --color-accent-1-strong: rgba(56, 189, 248, 0.35);
+  --color-accent-2-light:  rgba(251, 113, 133, 0.10);
+  --color-accent-2-medium: rgba(251, 113, 133, 0.20);
+  --color-accent-2-strong: rgba(251, 113, 133, 0.35);
+  --color-detail-light:    rgba(250, 204, 21, 0.10);
+  --color-detail-medium:   rgba(250, 204, 21, 0.20);
+  --color-detail-strong:   rgba(250, 204, 21, 0.35);
+
+  /* Gradients */
+  --gradient-primary:   linear-gradient(135deg, var(--palette-sky-400) 0%, var(--palette-rose-400) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--palette-rose-400) 0%, var(--palette-amber-400) 100%);
+  --gradient-accent:    linear-gradient(135deg, var(--palette-amber-400) 0%, var(--palette-rose-400) 100%);
+
+  /* Borders */
+  --color-border:        rgba(15, 23, 42, 0.10);
+  --color-border-strong: rgba(15, 23, 42, 0.20);
+
+  /* Shadows */
+  --color-shadow:        rgba(15, 23, 42, 0.08);
+  --color-shadow-strong: rgba(15, 23, 42, 0.16);
+  --shadow-sm:  0 1px 3px var(--color-shadow), 0 1px 2px var(--color-shadow);
+  --shadow-md:  0 4px 12px var(--color-shadow);
+  --shadow-lg:  0 10px 30px var(--color-shadow), 0 4px 10px var(--color-shadow);
+  --shadow-xl:  0 20px 60px var(--color-shadow-strong);
+
+  /* Glassmorphism */
+  --glass-bg:     rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.80);
+  --glass-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+  --glass-blur:   blur(16px);
+
+  /* Navigation dots */
+  --nav-dot-inactive: rgba(15, 23, 42, 0.25);
+  --nav-dot-active:   var(--palette-sky-400);
+  --nav-dot-hover:    var(--palette-sky-500);
+  --nav-bg:           rgba(255, 255, 255, 0.75);
+  --nav-border:       rgba(255, 255, 255, 0.90);
+
+  /* Interactive / buttons */
+  --button-bg:      var(--gradient-primary);
+  --button-text:    #FFFFFF;
+  --button-border:  var(--palette-sky-400);
+  --button-shadow:  0 4px 14px rgba(56, 189, 248, 0.30);
+
+  --card-bg:     rgba(255, 255, 255, 0.90);
+  --card-border: rgba(255, 255, 255, 0.80);
+  --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+
+  /* Semantic status */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error:   #EF4444;
+  --success-bg:    rgba(16, 185, 129, 0.08);
+  --warning-bg:    rgba(245, 158, 11, 0.08);
+  --error-bg:      rgba(239, 68, 68, 0.08);
+
+  /* Icon colour (used in Introduction) */
+  --icon-color: var(--palette-sky-400);
+
+  /* Accent aliases (used in older components) */
+  --accent:         var(--palette-sky-400);
+  --accent-hover:   var(--palette-sky-500);
+  --accent-primary: var(--palette-sky-400);
+  --accent-muted:   var(--color-accent-1-light);
 }
 
+/* ─── DARK THEME ─────────────────────────────────────────────── */
 [data-theme="dark"] {
-  /* 🌑 Dark Theme Colors */
-  --color-bg: #0F172A;        /* Page background */
-  --color-surface: #1E293B;   /* Cards, panels */
-  --color-text: #F8FAFC;      /* Body text */
-  --color-heading: #E2E8F0;   /* Headings */
-  --color-accent-1: #38BDF8;  /* CTAs, highlights */
-  --color-accent-2: #FB7185;  /* Buttons, icons */
-  --color-detail: #FACC15;    /* Highlights, borders, tags */
-  
-  /* RGB values for alpha variations */
-  --color-bg-rgb: 15, 23, 42;
-  --color-surface-rgb: 30, 41, 59;
-  --color-text-rgb: 248, 250, 252;
-  --color-heading-rgb: 226, 232, 240;
-  --color-accent-1-rgb: 56, 189, 248;
-  --color-accent-2-rgb: 251, 113, 133;
-  --color-detail-rgb: 250, 204, 21;
-  
-  /* Dark theme shadow adjustments */
-  --color-shadow: rgba(0, 0, 0, 0.3);
-  --color-shadow-strong: rgba(0, 0, 0, 0.5);
+  /* Backgrounds */
+  --color-bg:         var(--palette-slate-900);
+  --color-bg-subtle:  var(--palette-slate-800);
+  --color-surface:    var(--palette-slate-800);
+  --color-surface-raised: #253352;
+
+  /* Legacy aliases */
+  --bg-primary:  var(--color-bg);
+  --bg-gradient: linear-gradient(135deg, var(--palette-slate-900) 0%, var(--palette-slate-800) 100%);
+
+  /* Text */
+  --color-text:       #E2E8F0;
+  --color-heading:    #F1F5F9;
+  --color-text-muted: #94A3B8;
+  --color-text-faint: #64748B;
+
+  /* Legacy aliases */
+  --text-primary:   var(--color-heading);
+  --text-secondary: var(--color-text);
+  --text-tertiary:  var(--color-text-muted);
+
+  /* Accents — brighter in dark to punch through */
+  --color-accent-1: #56CFFF;
+  --color-accent-2: #FF91A4;
+  --color-detail:   #FFD84D;
+
+  --color-accent-1-rgb: 86, 207, 255;
+  --color-accent-2-rgb: 255, 145, 164;
+  --color-detail-rgb:   255, 216, 77;
+  --color-accent-1-light:  rgba(86, 207, 255, 0.12);
+  --color-accent-1-medium: rgba(86, 207, 255, 0.22);
+  --color-accent-1-strong: rgba(86, 207, 255, 0.38);
+  --color-accent-2-light:  rgba(255, 145, 164, 0.12);
+  --color-accent-2-medium: rgba(255, 145, 164, 0.22);
+  --color-accent-2-strong: rgba(255, 145, 164, 0.38);
+  --color-detail-light:    rgba(255, 216, 77, 0.12);
+  --color-detail-medium:   rgba(255, 216, 77, 0.22);
+  --color-detail-strong:   rgba(255, 216, 77, 0.38);
+
+  /* Gradients */
+  --gradient-primary:   linear-gradient(135deg, #56CFFF 0%, #FF91A4 100%);
+  --gradient-secondary: linear-gradient(135deg, #FF91A4 0%, #FFD84D 100%);
+  --gradient-accent:    linear-gradient(135deg, #FFD84D 0%, #FF91A4 100%);
+
+  /* Borders */
+  --color-border:        rgba(248, 250, 252, 0.10);
+  --color-border-strong: rgba(248, 250, 252, 0.18);
+
+  /* Shadows */
+  --color-shadow:        rgba(0, 0, 0, 0.30);
+  --color-shadow-strong: rgba(0, 0, 0, 0.50);
+  --shadow-sm:  0 1px 3px var(--color-shadow);
+  --shadow-md:  0 4px 12px var(--color-shadow);
+  --shadow-lg:  0 10px 30px var(--color-shadow);
+  --shadow-xl:  0 20px 60px var(--color-shadow-strong);
+
+  /* Glassmorphism */
+  --glass-bg:     rgba(15, 23, 42, 0.55);
+  --glass-border: rgba(248, 250, 252, 0.10);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.30);
+  --glass-blur:   blur(16px);
+
+  /* Navigation dots */
+  --nav-dot-inactive: rgba(248, 250, 252, 0.25);
+  --nav-dot-active:   #56CFFF;
+  --nav-dot-hover:    #7DD8FF;
+  --nav-bg:           rgba(15, 23, 42, 0.75);
+  --nav-border:       rgba(248, 250, 252, 0.10);
+
+  /* Interactive / buttons */
+  --button-bg:     var(--gradient-primary);
+  --button-text:   var(--palette-slate-900);
+  --button-border: #56CFFF;
+  --button-shadow: 0 4px 14px rgba(86, 207, 255, 0.30);
+
+  --card-bg:     rgba(30, 41, 59, 0.85);
+  --card-border: rgba(248, 250, 252, 0.10);
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.30);
+
+  /* Semantic status */
+  --success-bg: rgba(16, 185, 129, 0.15);
+  --warning-bg: rgba(245, 158, 11, 0.15);
+  --error-bg:   rgba(239, 68, 68, 0.15);
+
+  /* Icon colour */
+  --icon-color: #56CFFF;
+
+  /* Accent aliases */
+  --accent:         #56CFFF;
+  --accent-hover:   #7DD8FF;
+  --accent-primary: #56CFFF;
+  --accent-muted:   var(--color-accent-1-light);
 }
