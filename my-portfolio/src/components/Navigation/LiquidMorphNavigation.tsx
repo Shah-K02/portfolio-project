@@ -104,42 +104,9 @@ const LiquidMorphNavigation: React.FC<LiquidMorphNavigationProps> = ({
       onHoverStart={() => handleHover(currentSection)}
       onHoverEnd={() => handleHover(null)}
     >
-      {/* Liquid background blob */}
-      <motion.div
-        className="liquid-blob-bg"
-        animate={blobControls}
-        style={{
-          background: `
-            conic-gradient(from 180deg at 50% 50%, 
-              #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff, #ff6b6b
-            )
-          `
-        }}
-      />
+      {/* Liquid background blob - removed rainbow artifact */}
       
-      {/* Liquid surface effect */}
-      <div className="liquid-surface">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="liquid-droplet"
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.3, 1, 0.3],
-              scale: [0.8, 1.2, 0.8]
-            }}
-            transition={{
-              duration: 3 + (i * 0.2),
-              repeat: Infinity,
-              delay: i * 0.3,
-              ease: "easeInOut"
-            }}
-            style={{
-              left: `${(i / 12) * 100}%`,
-            }}
-          />
-        ))}
-      </div>
+
 
       {/* Navigation dots that morph */}
       <div className="nav-dots-container">
@@ -219,27 +186,7 @@ const LiquidMorphNavigation: React.FC<LiquidMorphNavigationProps> = ({
         ))}
       </div>
 
-      {/* Floating orbs for ambiance */}
-      <div className="floating-orbs">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="floating-orb"
-            animate={{
-              x: [0, Math.sin(i) * 50, 0],
-              y: [0, Math.cos(i) * 50, 0],
-              opacity: [0.2, 0.8, 0.2],
-              scale: [0.5, 1, 0.5]
-            }}
-            transition={{
-              duration: 4 + i,
-              repeat: Infinity,
-              delay: i * 0.5,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </div>
+
     </motion.div>
   );
 };

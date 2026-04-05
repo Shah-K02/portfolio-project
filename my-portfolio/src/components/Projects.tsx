@@ -1,6 +1,5 @@
-import React, { useState, useMemo, useRef, useEffect, TouchEvent } from "react";
-import { motion, useScroll, useTransform, Variants, useMotionValue, useSpring } from "framer-motion";
-import { AnimationVariants } from "../types/animation";
+import React, { useState, useMemo, useRef, useEffect } from "react";
+import { motion, Variants } from "framer-motion";
 import "./Projects.css";
 import "../styles/sectionAnimation.css";
 
@@ -269,31 +268,6 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const projectsRef = React.useRef<HTMLElement>(null);
   
-  // Scroll progress animation
-  const scrollProgress = useSpring(0, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  const { scrollYProgress } = useScroll({
-    target: projectsRef,
-    offset: ["start start", "end end"]
-  });
-
-  useEffect(() => {
-    return scrollYProgress.on("change", (latest) => {
-      scrollProgress.set(latest);
-    });
-  }, [scrollYProgress, scrollProgress]);
-
-  const { scrollYProgress: sectionProgress } = useScroll({
-    target: projectsRef,
-    offset: ["start end", "end start"],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.8]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.98, 1, 1, 0.98]);
 
   const handleViewProject = (project: Project) => {
     setSelectedProject(project);
@@ -307,11 +281,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
 
   return (
     <section className="projects-section" id="projects" ref={projectsRef}>
-      <motion.div 
-        className="scroll-progress" 
-        style={{ scaleX: scrollProgress }}
-      />
-      <motion.div className="projects-container" style={{ opacity, scale }}>
+      <motion.div className="projects-container">
         <motion.header
           className="projects-header"
           variants={containerVariants}

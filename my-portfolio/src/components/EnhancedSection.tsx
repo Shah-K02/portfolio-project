@@ -76,14 +76,13 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
 
     // Enhanced visibility logic for Projects section
     const shouldBeVisible = React.useMemo(() => {
-      // For Projects section (index 2), be generous with visibility
+      // For Projects section (index 2), always show
       if (sectionIndex === 2) {
-        // Show when currentSection is 1 (About) or 2 (Projects) or when intersection observer sees it
-        return currentSection === 1 || currentSection === 2 || isInView;
+        return true;
       }
       // For other sections, use intersection observer
       return isInView;
-    }, [isInView, currentSection, sectionIndex]);
+    }, [isInView, sectionIndex]);
 
 
     // Animation variants based on type
@@ -222,7 +221,7 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
       const baseStyles = {
         minHeight: "100vh",
         position: "relative" as const,
-        overflow: "hidden" as const,
+        overflow: sectionIndex === 2 ? "visible" : ("hidden" as const),
         ...getBackgroundStyle(),
       };
 
@@ -324,28 +323,6 @@ const EnhancedSection = forwardRef<HTMLElement, EnhancedSectionProps>(
           />
         )}
 
-        {/* 3D depth effect for modern look */}
-        <motion.div
-          className="depth-layer"
-          style={{
-            position: "absolute",
-            top: "10%",
-            left: "10%",
-            right: "10%",
-            bottom: "10%",
-            background:
-              "linear-gradient(135deg, var(--color-accent-1-light) 0%, var(--color-accent-2-light) 100%)",
-            borderRadius: "20px",
-            transform: "translateZ(-10px)",
-            filter: "blur(1px)",
-            pointerEvents: "none",
-          }}
-          animate={{
-            scale: isInView ? 1 : 0.95,
-            opacity: isInView ? 1 : 0,
-          }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-        />
       </motion.section>
     );
   }
