@@ -35,7 +35,7 @@
   align-items: center;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .about-content {
     grid-template-columns: 1fr 1fr;
   }
@@ -137,8 +137,39 @@
     margin-bottom: 2rem;
   }
 
+  .about-content {
+    gap: 2rem;
+  }
+
+  .about-info {
+    gap: 1.25rem;
+  }
+
   .info-card {
-    padding: 1.5rem;
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-bio {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  .about-content {
+    gap: 1.5rem;
+  }
+
+  .about-info {
+    gap: 1rem;
+  }
+
+  .info-card {
+    padding: 1rem;
+  }
+
+  .about-pic {
+    max-width: 280px;
   }
 }
 /* About section scroll animation overrides */

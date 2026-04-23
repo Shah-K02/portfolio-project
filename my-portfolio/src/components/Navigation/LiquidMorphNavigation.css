@@ -142,7 +142,7 @@
 /* ─── Mobile: horizontal bottom bar ────────────────────────── */
 @media (max-width: 768px) {
   .pill-nav {
-    bottom: 1.5rem;
+    bottom: max(1.5rem, env(safe-area-inset-bottom, 1.5rem));
     right: 50%;
     top: auto;
     transform: translateX(50%);

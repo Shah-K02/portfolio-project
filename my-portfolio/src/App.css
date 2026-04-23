@@ -393,10 +393,11 @@ body {
   pointer-events: auto;
 }
 
-/* Holographic project cards spacing */
-.projects-grid .holographic-card {
-  margin: 0 auto;
-  max-width: 100%;
+/* Global: ensure all sections clear the bottom mobile nav bar */
+@media (max-width: 768px) {
+  .smooth-scroll-container > * {
+    padding-bottom: calc(var(--section-padding, 5rem) + 4rem);
+  }
 }
 
 /* Loading Fallback Styles */
