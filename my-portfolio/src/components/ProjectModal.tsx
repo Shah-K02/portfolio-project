@@ -23,12 +23,21 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
     }
   };
 
-  // Focus management
+  // Focus management + Escape key
   useEffect(() => {
     if (isOpen && modalRef.current) {
       modalRef.current.focus();
     }
-  }, [isOpen]);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!project) return null;
 
@@ -94,11 +103,11 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
               onClick={onClose}
               aria-label="Close modal"
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path
                   d="M18 6L6 18M6 6l12 12"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React from 'react';
 import './HolographicProjectCard.css';
 import { Project } from '../../types/project';
 
@@ -16,281 +15,112 @@ const HolographicProjectCard: React.FC<HolographicProjectCardProps> = ({
   onViewProject,
   className = ''
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  // Handle mouse movement for 3D effect
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    
-    const x = (e.clientX - centerX) / rect.width;
-    const y = (e.clientY - centerY) / rect.height;
-    
-    setMousePosition({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setMousePosition({ x: 0, y: 0 });
-  };
-
-  // Generate holographic pattern data
-  const hologramPatterns = Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    delay: Math.random() * 2,
-    duration: Math.random() * 3 + 2
-  }));
-
-  const displayImage = project.image || project.screenshots?.[0] || 'https://via.placeholder.com/400x250/667eea/ffffff?text=Project+Image';
+  const displayImage = project.image || project.screenshots?.[0];
   const githubUrl = project.githubUrl || project.repositoryUrl;
   const liveUrl = project.liveUrl || project.demoUrl;
 
+  // Cap visible tech tags to avoid overflow
+  const maxTags = 4;
+  const visibleTags = project.technologies?.slice(0, maxTags) ?? [];
+  const extraCount = (project.technologies?.length ?? 0) - maxTags;
+
   return (
-    <motion.div
-      className={`holographic-card ${className}`}
-      style={{
-        transform: `perspective(1000px) rotateX(${mousePosition.y * 15}deg) rotateY(${mousePosition.x * 15}deg)`,
-        transformStyle: 'preserve-3d'
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.6 }}
+    <article
+      className={`project-card ${className}`}
+      style={{ animationDelay: `${index * 80}ms` }}
     >
-      {/* Holographic background layer */}
-      <motion.div
-        className="holo-background"
-        animate={{
-          background: isHovered 
-            ? `conic-gradient(from ${index * 60}deg at 50% 50%, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3, #54a0ff, #ff6b6b)`
-            : `conic-gradient(from 0deg at 50% 50%, rgba(78, 205, 196, 0.1), rgba(255, 107, 107, 0.05), rgba(69, 183, 209, 0.1))`
-        }}
-      />
+      {/* Top accent bar */}
+      <div className="project-card-accent" aria-hidden="true" />
 
-      {/* Iridescent overlay */}
-      <motion.div
-        className="iridescent-overlay"
-        style={{
-          background: `radial-gradient(circle at ${50 + mousePosition.x * 30}% ${50 + mousePosition.y * 30}%, 
-            rgba(255, 107, 107, ${0.1 + (isHovered ? 0.2 : 0)}) 0%, 
-            rgba(78, 205, 196, ${0.1 + (isHovered ? 0.15 : 0)}) 25%, 
-            rgba(69, 183, 209, ${0.1 + (isHovered ? 0.2 : 0)}) 50%, 
-            rgba(150, 206, 180, ${0.1 + (isHovered ? 0.1 : 0)}) 75%, 
-            transparent 100%)`,
-          transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`
-        }}
-      />
-
-      {/* Holographic particles */}
-      <div className="holo-particles">
-        {hologramPatterns.map((pattern) => (
-          <motion.div
-            key={pattern.id}
-            className="holo-particle"
-            style={{
-              left: `${pattern.x}%`,
-              top: `${pattern.y}%`,
-              width: `${pattern.size}px`,
-              height: `${pattern.size}px`,
-            }}
-            animate={{
-              opacity: isHovered ? [0.2, 1, 0.2] : [0.1, 0.3, 0.1],
-              scale: isHovered ? [0.5, 1.5, 0.5] : [0.5, 1, 0.5],
-              rotate: [0, 360]
-            }}
-            transition={{
-              duration: pattern.duration,
-              repeat: Infinity,
-              delay: pattern.delay,
-              ease: "easeInOut"
-            }}
+      {/* Image */}
+      {displayImage && (
+        <div className="project-card-image-wrap">
+          <img
+            src={displayImage}
+            alt={`${project.title} preview`}
+            className="project-card-image"
+            loading="lazy"
           />
-        ))}
+          <div className="project-card-image-overlay" aria-hidden="true" />
+        </div>
+      )}
+
+      {/* Body */}
+      <div className="project-card-body">
+        {/* Header row: title + status */}
+        <div className="project-card-header">
+          <h3 className="project-card-title">{project.title}</h3>
+          {project.status && (
+            <span className={`project-card-badge badge-${project.status}`}>
+              {project.status.replace('-', ' ')}
+            </span>
+          )}
+        </div>
+
+        {/* Description */}
+        <p className="project-card-description">{project.description}</p>
+
+        {/* Tech tags */}
+        {visibleTags.length > 0 && (
+          <div className="project-card-tags">
+            {visibleTags.map((tech) => (
+              <span key={tech} className="project-card-tag">{tech}</span>
+            ))}
+            {extraCount > 0 && (
+              <span className="project-card-tag tag-more">+{extraCount}</span>
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Reflection effects */}
-      <motion.div
-        className="reflection-layer"
-        style={{
-          background: `linear-gradient(${135 + mousePosition.x * 45}deg, 
-            rgba(255, 255, 255, 0.1) 0%, 
-            rgba(255, 255, 255, 0.05) 25%, 
-            transparent 50%, 
-            rgba(255, 255, 255, 0.05) 75%, 
-            rgba(255, 255, 255, 0.1) 100%)`,
-          transform: `translate(${mousePosition.x * 5}px, ${mousePosition.y * 5}px)`
-        }}
-      />
-
-      {/* Card content */}
-      <div className="card-content">
-        {/* Project image with holographic border */}
-        {displayImage && (
-          <motion.div 
-            className="project-image-container"
-            style={{
-              transform: `translateZ(20px) rotateX(${mousePosition.y * 5}deg) rotateY(${mousePosition.x * 5}deg)`
-            }}
-          >
-            <div className="holo-image-border" />
-            <img
-              src={displayImage}
-              alt={project.title}
-              className="project-image"
-              loading="lazy"
-            />
-            <div className="image-glow" />
-          </motion.div>
+      {/* Footer actions */}
+      <div className="project-card-footer">
+        {project.year && (
+          <span className="project-card-year">{project.year}</span>
         )}
-
-        {/* Project info */}
-        <motion.div 
-          className="project-info"
-          style={{
-            transform: `translateZ(10px) rotateX(${mousePosition.y * 2}deg) rotateY(${mousePosition.x * 2}deg)`
-          }}
-        >
-          <h3 className="project-title">{project.title}</h3>
-          <p className="project-description">{project.description}</p>
-          
-          {/* Technologies with holographic tags */}
-          <div className="tech-stack">
-            {project.technologies?.map((tech, techIndex) => (
-              <motion.span
-                key={tech}
-                className="tech-tag"
-                whileHover={{ scale: 1.1, rotateZ: 5 }}
-                animate={{
-                  boxShadow: isHovered 
-                    ? `0 0 20px hsla(${260 + techIndex * 30}, 70%, 60%, 0.5)`
-                    : '0 0 0px transparent'
-                }}
-                transition={{ delay: techIndex * 0.1 }}
-              >
-                {tech}
-              </motion.span>
-            )) || []}
-          </div>
-        </motion.div>
-
-        {/* Action buttons with holographic effects */}
-        <motion.div 
-          className="card-actions"
-          style={{
-            transform: `translateZ(30px) rotateX(${mousePosition.y * 3}deg) rotateY(${mousePosition.x * 3}deg)`
-          }}
-        >
+        <div className="project-card-actions">
           {liveUrl && (
-            <motion.a
+            <a
               href={liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="holo-button primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="card-btn card-btn-primary"
+              aria-label={`View live demo of ${project.title}`}
             >
-              <span className="button-text">View Live</span>
-              <div className="button-glow" />
-            </motion.a>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                <polyline points="15 3 21 3 21 9" />
+                <line x1="10" y1="14" x2="21" y2="3" />
+              </svg>
+              Live
+            </a>
           )}
-          
           {githubUrl && (
-            <motion.a
+            <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="holo-button secondary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="card-btn card-btn-ghost"
+              aria-label={`View source code of ${project.title}`}
             >
-              <span className="button-text">Code</span>
-              <div className="button-glow" />
-            </motion.a>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
+              </svg>
+              Code
+            </a>
           )}
-          
           {onViewProject && (
-            <motion.button
+            <button
               onClick={() => onViewProject(project)}
-              className="holo-button tertiary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="card-btn card-btn-ghost"
+              aria-label={`View details of ${project.title}`}
             >
-              <span className="button-text">Details</span>
-              <div className="button-glow" />
-            </motion.button>
+              Details
+            </button>
           )}
-        </motion.div>
-      </div>
-
-      {/* Glitch effect overlay */}
-      <motion.div
-        className="glitch-overlay"
-        animate={{
-          opacity: isHovered ? [0, 0.1, 0] : 0,
-          x: isHovered ? [0, 2, -2, 0] : 0
-        }}
-        transition={{
-          duration: 0.1,
-          repeat: isHovered ? Infinity : 0,
-          repeatDelay: Math.random() * 2 + 1
-        }}
-      />
-
-      {/* Floating data visualization */}
-      <motion.div
-        className="floating-data"
-        animate={{
-          opacity: isHovered ? 0.7 : 0,
-          y: isHovered ? [-10, 10, -10] : 0
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <div className="data-line" />
-        <div className="data-points">
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="data-point"
-              animate={{
-                scale: isHovered ? [0.5, 1.2, 0.5] : 0.5,
-                opacity: isHovered ? [0.3, 1, 0.3] : 0
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
-                delay: i * 0.2
-              }}
-            />
-          ))}
         </div>
-      </motion.div>
-
-      {/* Edge glow effect */}
-      <motion.div
-        className="edge-glow"
-        style={{
-          boxShadow: isHovered 
-            ? `0 0 ${20 + 30}px hsla(${260 + index * 30}, 70%, 60%, 0.7), 
-               0 0 ${40 + 60}px hsla(${260 + index * 30}, 70%, 60%, 0.3), 
-               inset 0 0 ${20 + 20}px hsla(${260 + index * 30}, 70%, 60%, 0.25)`
-            : '0 0 0px transparent'
-        }}
-      />
-    </motion.div>
+      </div>
+    </article>
   );
 };
 

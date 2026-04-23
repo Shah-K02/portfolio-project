@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import Introduction from "./components/Introduction";
 import About from "./components/About";
 import Projects from "./components/Projects";
@@ -13,13 +13,12 @@ import LiquidMorphNavigation from "./components/Navigation/LiquidMorphNavigation
 import { ThemeProvider } from "./context/ThemeContext";
 import { ThemeToggle } from "./components/Navigation/ThemeToggle";
 import PerformanceMonitor from "./components/PerformanceMonitor";
-import AIAssistant from "./components/AI/AIAssistant";
 import analytics from "./utils/advancedAnalytics";
 import {
   PerformanceMonitor as PerfMonitor,
   preloadResource,
 } from "./utils/performanceOptimizations";
-import { PROJECTS_DATA } from "./constants/projectsData";
+
 import "./App.css";
 import "./styles/enhancedScrolling.css";
 
@@ -27,7 +26,7 @@ import "./styles/enhancedScrolling.css";
 
 function AppContent() {
   const sectionCount = 5;
-  const { sectionRefs, currentSection, isScrolling, scrollToSection } = useSmoothSectionScroll(sectionCount);
+  const { sectionRefs, currentSection, scrollToSection } = useSmoothSectionScroll(sectionCount);
   const perfMonitor = useMemo(() => new PerfMonitor(), []);
   
   // Calculate scroll progress for the progress bar
@@ -96,43 +95,6 @@ function AppContent() {
       <ScrollProgress scrollProgress={scrollProgress} />
       {process.env.NODE_ENV === 'development' && <PerformanceMonitor />}
 
-      <AIAssistant
-        portfolioData={{
-          name: "Shah Kar",
-          skills: [
-            "React",
-            "TypeScript",
-            "Node.js",
-            "JavaScript",
-            "Python",
-            "Java",
-            "C#",
-            "Spring Boot",
-            "Express",
-            "MongoDB",
-            "MySQL",
-            "PostgreSQL",
-            "HTML",
-            "CSS",
-            "Tailwind CSS",
-            "Git",
-            "RESTful APIs",
-            "JWT",
-          ],
-          projects: PROJECTS_DATA.map(p => ({
-            title: p.title,
-            description: p.longDescription || p.description,
-            technologies: p.technologies ?? [],
-          })),
-          experience: [
-            {
-              role: "Computer Science Graduate",
-              company: "Aston University, Birmingham",
-              duration: "2021-2024"
-            }
-          ]
-        }}
-      />
 
       <div className="smooth-scroll-container">
         <AnimatePresence>
