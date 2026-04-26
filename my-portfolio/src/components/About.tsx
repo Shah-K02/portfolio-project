@@ -6,6 +6,7 @@ const About: React.FC = () => {
 
   return (
     <section
+      id="about"
       ref={ref}
       className={`about section-animated fade-up ${
         inView ? "section-visible" : "section-hidden"

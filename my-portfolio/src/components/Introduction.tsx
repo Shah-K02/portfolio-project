@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GitHubIcon, LinkedInIcon } from "./Icons";
 import "./Introduction.css";
 import { motion } from "framer-motion";
@@ -7,7 +7,6 @@ import { usePerformanceDetection } from "../utils/performanceDetection";
 import TypingAnimation from "./TypingAnimation";
 import MagneticCursor from "./MagneticCursor";
 
-// ── Animation variants ─────────────────────────────────────────────────────────
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 const FADE_RIGHT = (delay = 0) => ({
@@ -25,11 +24,37 @@ const FADE_LEFT = (delay = 0) => ({
 const Introduction: React.FC = () => {
   const { config } = usePerformanceDetection();
   const [mounted, setMounted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const scrollOverlayRef = useRef<HTMLDivElement>(null);
 
-  // Trigger entrance after mount so animations always play on load
+  // Entry: trigger Framer Motion animations AND reveal the background
+  // The ::before pseudo starts as a full black curtain; adding 'intro--entered'
+  // CSS-transitions it to a semi-transparent dark tint, revealing the image.
   useEffect(() => {
-    const t = requestAnimationFrame(() => setMounted(true));
+    const t = requestAnimationFrame(() => {
+      setMounted(true);
+      sectionRef.current?.classList.add("intro--entered");
+    });
     return () => cancelAnimationFrame(t);
+  }, []);
+
+  // Scroll: on scroll-down a black overlay div gets more opaque, hiding the bg.
+  // On scroll-up the overlay becomes transparent again, revealing the bg.
+  // We only ever increase overlay opacity (0 → opaque), never fight with CSS.
+  useEffect(() => {
+    const section = sectionRef.current;
+    const overlay = scrollOverlayRef.current;
+    if (!section || !overlay) return;
+
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const sectionH = section.offsetHeight || window.innerHeight;
+      const progress = Math.min(Math.max(scrollY / sectionH, 0), 1);
+      overlay.style.opacity = String(Math.min(progress * 1.6, 1));
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleViewWork = () => {
@@ -42,9 +67,15 @@ const Introduction: React.FC = () => {
     }
   };
 
-
   return (
-    <section className="intro" id="introduction" style={{ position: "relative", overflow: "hidden" }}>
+    <section
+      ref={sectionRef}
+      className="intro"
+      id="introduction"
+      style={{ backgroundImage: "url('/intro-bg.png')" }}
+    >
+      {/* Scroll-fade overlay: transparent at rest, JS drives it opaque on scroll */}
+      <div ref={scrollOverlayRef} className="intro-scroll-overlay" aria-hidden="true" />
 
       {/* Radial glow blobs */}
       <div className="intro-glow intro-glow--1" aria-hidden="true" />
