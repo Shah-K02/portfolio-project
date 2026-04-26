@@ -1,275 +1,265 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { GitHubIcon, LinkedInIcon } from "./Icons";
 import "./Introduction.css";
 import { motion } from "framer-motion";
 import { Code } from "react-feather";
-import { useScrollAnimation } from "../hooks/useScrollAnimation";
-import "../styles/sectionAnimation.css";
-import ParticleBackground from "./ParticleBackground";
+import { usePerformanceDetection } from "../utils/performanceDetection";
+import NeuralNetworkBackground from "./Interactive/NeuralNetworkBackground";
 import TypingAnimation from "./TypingAnimation";
 import MagneticCursor from "./MagneticCursor";
-import { usePerformanceDetection } from "../utils/performanceDetection";
 
-import InteractiveParticles from "./Interactive/InteractiveParticles";
-import NeuralNetworkBackground from "./Interactive/NeuralNetworkBackground";
+// ── Animation variants ─────────────────────────────────────────────────────────
+const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
+
+const FADE_RIGHT = (delay = 0) => ({
+  initial: { opacity: 0, x: -50 },
+  animate: { opacity: 1, x: 0 },
+  transition: { duration: 0.8, delay, ease: EASE },
+});
+
+const FADE_LEFT = (delay = 0) => ({
+  initial: { opacity: 0, x: 50 },
+  animate: { opacity: 1, x: 0 },
+  transition: { duration: 0.8, delay, ease: EASE },
+});
+
 const Introduction: React.FC = () => {
-  const { ref, inView } = useScrollAnimation({ amount: 0.2 }); // 20% threshold for early trigger
   const { config, isLowEnd } = usePerformanceDetection();
+  const [mounted, setMounted] = useState(false);
 
-  // Extracted once — used by both magnetic and non-magnetic CTA button variants
+  // Trigger entrance after mount so animations always play on load
+  useEffect(() => {
+    const t = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(t);
+  }, []);
+
   const handleViewWork = () => {
-    const projectsSection =
+    const section =
       document.querySelector('[data-section="projects"]') ||
-      document.querySelector('#projects') ||
-      document.querySelector('.projects-section');
-
-    if (projectsSection) {
-      const button = document.querySelector('.cta-button');
-      if (button) {
-        button.classList.add('clicked');
-        setTimeout(() => button.classList.remove('clicked'), 300);
-      }
-      const offsetTop =
-        projectsSection.getBoundingClientRect().top + window.pageYOffset - 80;
-      window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-      setTimeout(() => {
-        projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
+      document.querySelector("#projects") ||
+      document.querySelector(".projects-section");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
-  // Neural Network data representing your learning journey
-  const learningData = {
-    skills: [
-      "React", "TypeScript", "Node.js", "Python", "JavaScript",
-      "Express", "MongoDB", "PostgreSQL", "CSS3", "HTML5",
-      "JWT", "RESTful APIs", "Git", "Responsive Design"
-    ],
-    projects: [
-      "Personal Fitness Platform", "AutoMods", "Sports4Us", 
-      "Task Manager API", "Portfolio Project"
-    ],
-    experiences: [
-      "Frontend Development", "Full-Stack Engineering", "API Development",
-      "Database Design", "UI/UX Implementation", "Performance Optimization"
-    ]
+  const neuralData = {
+    skills: ["React","TypeScript","Node.js","Python","JavaScript","Express","MongoDB","PostgreSQL","CSS3","HTML5","JWT","RESTful APIs","Git","Responsive Design"],
+    projects: ["Personal Fitness Platform","AutoMods","Sports4Us","Task Manager API","Portfolio Project"],
+    experiences: ["Frontend Development","Full-Stack Engineering","API Development","Database Design","UI/UX Implementation","Performance Optimization"],
   };
 
   return (
-    <section
-      ref={ref}
-      className={`introduction section-animated fade-up ${
-        inView ? "section-visible" : "section-hidden"
-      }`}
-      style={{ position: "relative", overflow: "hidden" }}
-    >
+    <section className="intro" id="introduction" style={{ position: "relative", overflow: "hidden" }}>
+
+      {/* Neural network background */}
       {config.features.particles && (
-        <div className="intro-background" style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
+        <div className="intro-bg-canvas">
           <NeuralNetworkBackground
-            className="intro-neural-network"
-            nodeCount={isLowEnd ? 30 : 50}
+            className="intro-neural"
+            nodeCount={isLowEnd ? 25 : 45}
             maxConnections={isLowEnd ? 2 : 3}
-            learningData={learningData}
+            learningData={neuralData}
             interactive={!isLowEnd}
           />
         </div>
       )}
-      <div className="container">
-        <div
-          className={`introduction-content stagger-children ${
-            inView ? "section-visible" : ""
-          }`}
-        >
-          {/* Animated Profile Circle with my Picture */}
-          <div className="profile-image stagger-item">
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: inView ? 1 : 0, x: inView ? 0 : 50 }}
-              transition={{ duration: config.durations.fast, delay: 0.1 }}
-              className="profile-circle-container"
-            >
-              <div className="profile-circle-outer">
-                <div className="profile-circle-gradient">
-                  <div className="profile-circle-white">
-                    <div className="profile-circle-inner">
-                      <img
-                        src="./profilepic.jpeg"
-                        alt="Shah Kar"
-                        className="profile-picture"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <motion.div
-                  className="profile-circle-decoration"
-                  animate={{ rotate: (inView && config.features.infiniteRotations) ? 360 : 0 }}
-                  transition={{
-                    duration: isLowEnd ? 4 : 8,
-                    repeat: (inView && config.features.infiniteRotations) ? Infinity : 0,
-                    ease: "linear",
-                    repeatType: "loop",
-                  }}
-                >
-                  <Code className="profile-icon" />
-                </motion.div>
+
+      {/* Radial glow blobs */}
+      <div className="intro-glow intro-glow--1" aria-hidden="true" />
+      <div className="intro-glow intro-glow--2" aria-hidden="true" />
+
+      <div className="intro-container">
+
+        {/* ── LEFT: text content ── */}
+        <div className="intro-text">
+
+          {/* Availability chip */}
+          <motion.div className="intro-chip" {...FADE_RIGHT(0.1)} animate={mounted ? FADE_RIGHT(0.1).animate : FADE_RIGHT(0.1).initial}>
+            <span className="intro-chip-dot" aria-hidden="true" />
+            Available for opportunities
+          </motion.div>
+
+          {/* Greeting */}
+          <motion.p className="intro-greeting" {...FADE_RIGHT(0.25)} animate={mounted ? FADE_RIGHT(0.25).animate : FADE_RIGHT(0.25).initial}>
+            Hi there, I'm
+          </motion.p>
+
+          {/* Name — large display type */}
+          <div className="intro-name-wrap" aria-label="Shah Kar">
+            {["Shah", "Kar"].map((word, wi) => (
+              <div className="intro-name-line" key={word}>
+                {word.split("").map((ch, ci) => (
+                  <motion.span
+                    key={ci}
+                    className="intro-name-char"
+                    initial={{ opacity: 0, y: 60, rotateX: -40 }}
+                    animate={mounted ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                    transition={{
+                      duration: 0.65,
+                      delay: 0.35 + wi * 0.15 + ci * 0.045,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    {ch}
+                  </motion.span>
+                ))}
               </div>
-            </motion.div>
+            ))}
           </div>
 
-          <motion.h1
-            className="main-title stagger-item"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
-            transition={{ duration: config.durations.fast, delay: 0.2 }}
-          >
-            Hi, I'm <span className="highlight">Shah Kar</span>
-          </motion.h1>
-
+          {/* Role / typing */}
           <motion.div
-            className="subtitle-container stagger-item"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
-            transition={{ duration: config.durations.fast, delay: 0.3 }}
+            className="intro-role-wrap"
+            initial={{ opacity: 0, y: 24 }}
+            animate={mounted ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="subtitle-static">
-              I am a passionate Computer Science graduate specialising in{" "}
-            </p>
-            <div className="typing-container">
-              <TypingAnimation
-                texts={[
-                  "Full-Stack Development",
-                  "React & TypeScript",
-                  "Node.js & Express",
-                  "Database Design",
-                  "API Development",
-                  "Modern Web Technologies",
-                ]}
-                className="typing-text"
-                speed={80}
-                deleteSpeed={40}
-                delayBetweenTexts={1500}
-              />
-            </div>
-            <p className="subtitle-static">
-              Ready to create innovative solutions and contribute to
-              cutting-edge projects.
-            </p>
+            <span className="intro-role-prefix">Specialising in </span>
+            <TypingAnimation
+              texts={["Full-Stack Development","React & TypeScript","Node.js & Express","Database Design","API Development","Modern Web"]}
+              className="intro-typing"
+              speed={75}
+              deleteSpeed={40}
+              delayBetweenTexts={1800}
+            />
           </motion.div>
 
+          {/* Short bio */}
+          <motion.p
+            className="intro-bio"
+            initial={{ opacity: 0, y: 20 }}
+            animate={mounted ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          >
+            Computer Science graduate passionate about building beautiful,
+            performant web products from concept to deployment.
+          </motion.p>
+
+          {/* CTA row */}
           <motion.div
-            className="social-links stagger-item"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: inView ? 1 : 0, y: inView ? 0 : 30 }}
-            transition={{ duration: config.durations.fast, delay: 0.4 }}
+            className="intro-actions"
+            initial={{ opacity: 0, y: 20 }}
+            animate={mounted ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 1.05, ease: [0.22, 1, 0.36, 1] }}
           >
             {config.features.magneticCursor ? (
               <MagneticCursor strength={0.2}>
-                <motion.a
-                href="https://github.com/Shah-K02"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View Shah Kar's GitHub profile"
-                className="social-link github enhanced"
-                whileHover={{
-                  scale: 1.1,
-                  boxShadow: "0 0 25px var(--color-accent-1)",
-                  backgroundColor: "var(--color-accent-1-light)",
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <GitHubIcon />
-                </motion.a>
+                <button className="intro-btn intro-btn--primary" onClick={handleViewWork}>
+                  View My Work
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
               </MagneticCursor>
             ) : (
-              <motion.a
-                href="https://github.com/Shah-K02"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View Shah Kar's GitHub profile"
-                className="social-link github enhanced"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <GitHubIcon />
-              </motion.a>
-            )}
-
-            {config.features.magneticCursor ? (
-              <MagneticCursor strength={0.2}>
-                <motion.a
-                  href="https://www.linkedin.com/in/shah-kar"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Connect with Shah Kar on LinkedIn"
-                  className="social-link linkedin enhanced"
-                  whileHover={{
-                    scale: 1.1,
-                    boxShadow: "0 0 25px var(--color-accent-1)",
-                    backgroundColor: "var(--color-accent-1-light)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <LinkedInIcon />
-                </motion.a>
-              </MagneticCursor>
-            ) : (
-              <motion.a
-                href="https://www.linkedin.com/in/shah-kar"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Connect with Shah Kar on LinkedIn"
-                className="social-link linkedin enhanced"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <LinkedInIcon />
-              </motion.a>
-            )}
-
-            {config.features.magneticCursor ? (
-              <MagneticCursor strength={0.2}>
-              <motion.button
-                className="cta-button"
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 30px var(--color-accent-2)",
-                  backgroundColor: "var(--color-accent-2)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleViewWork}
-              >
+              <button className="intro-btn intro-btn--primary" onClick={handleViewWork}>
                 View My Work
-              </motion.button>
-              </MagneticCursor>
-            ) : (
-              <motion.button
-                className="cta-button"
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 0 30px var(--color-accent-2)",
-                  backgroundColor: "var(--color-accent-2)",
-                }}
-                whileTap={{ scale: 0.95 }}
-                onClick={handleViewWork}
-              >
-                View My Work
-              </motion.button>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </button>
             )}
 
-            {/* CV Download Button */}
-            <motion.a
+            <a
               href="/ShahKar-CV.pdf"
               download="ShahKar-CV.pdf"
-              className="cv-download-btn"
+              className="intro-btn intro-btn--outline"
               aria-label="Download Shah Kar's CV"
-              whileHover={{ scale: 1.05, boxShadow: "0 0 30px var(--color-accent-1)" }}
-              whileTap={{ scale: 0.95 }}
             >
               Download CV
-            </motion.a>
+            </a>
+          </motion.div>
+
+          {/* Social icons */}
+          <motion.div
+            className="intro-socials"
+            initial={{ opacity: 0, y: 16 }}
+            animate={mounted ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <a href="https://github.com/Shah-K02" target="_blank" rel="noopener noreferrer" className="intro-social-link" aria-label="GitHub">
+              <GitHubIcon />
+            </a>
+            <a href="https://www.linkedin.com/in/shah-kar" target="_blank" rel="noopener noreferrer" className="intro-social-link" aria-label="LinkedIn">
+              <LinkedInIcon />
+            </a>
           </motion.div>
         </div>
+
+        {/* ── RIGHT: profile image with orbiting icon ── */}
+        <motion.div
+          className="intro-image-side"
+          {...FADE_LEFT(0.4)}
+          animate={mounted ? FADE_LEFT(0.4).animate : FADE_LEFT(0.4).initial}
+        >
+          {/* Orbit system */}
+          <div className="orbit-system">
+
+            {/* Orbiting ring + icon */}
+            <div className="orbit-ring" aria-hidden="true">
+              <div className="orbit-traveller">
+                <div className="orbit-icon">
+                  <Code size={18} />
+                </div>
+              </div>
+            </div>
+
+            {/* Secondary slower ring — decorative dashes */}
+            <div className="orbit-ring orbit-ring--slow" aria-hidden="true">
+              <div className="orbit-traveller orbit-traveller--dot">
+                <span className="orbit-dot" />
+              </div>
+            </div>
+
+            {/* Profile picture */}
+            <div className="profile-wrap">
+              <div className="profile-gradient-border">
+                <div className="profile-inner">
+                  <img
+                    src="./profilepic.jpeg"
+                    alt="Shah Kar"
+                    className="profile-img"
+                    loading="eager"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Floating stat chips */}
+            <motion.div
+              className="intro-stat intro-stat--tl"
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={mounted ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 1.1, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+              aria-label="5+ projects"
+            >
+              <strong>5+</strong>
+              <span>Projects</span>
+            </motion.div>
+
+            <motion.div
+              className="intro-stat intro-stat--br"
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={mounted ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 1.25, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+              aria-label="Full-stack focused"
+            >
+              <strong>Full</strong>
+              <span>Stack</span>
+            </motion.div>
+          </div>
+        </motion.div>
+
       </div>
+
+      {/* Scroll hint */}
+      <motion.div
+        className="intro-scroll-hint"
+        initial={{ opacity: 0 }}
+        animate={mounted ? { opacity: 1 } : {}}
+        transition={{ delay: 1.6, duration: 0.8 }}
+        aria-hidden="true"
+      >
+        <span className="intro-scroll-line" />
+        <span className="intro-scroll-label">Scroll</span>
+      </motion.div>
     </section>
   );
 };
