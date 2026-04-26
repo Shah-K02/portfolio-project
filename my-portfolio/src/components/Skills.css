@@ -1,11 +1,7 @@
 .skills-section {
-  padding: 8rem 2rem;
+  padding: 5rem 2rem;
   position: relative;
-  background: var(--bg-primary);
-  overflow: hidden;
-  contain: layout paint style;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
+  background: var(--color-bg);
 }
 
 .skills-3d-background {

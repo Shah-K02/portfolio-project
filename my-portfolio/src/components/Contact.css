@@ -1,10 +1,5 @@
 .contact-section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6rem 2rem;
-  padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
+  padding: 5rem 2rem;
   background: var(--color-bg);
   color: var(--color-text);
   position: relative;
@@ -411,7 +406,6 @@
 @media (max-width: 768px) {
   .contact-section {
     padding: 4rem 1.25rem;
-    padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
   }
   
   .contact-grid {

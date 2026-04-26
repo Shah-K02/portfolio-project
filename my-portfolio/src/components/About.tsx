@@ -72,16 +72,6 @@ const About: React.FC = () => {
               </div>
             </div>
 
-            <div className="info-card interests-card stagger-item">
-              <h3 className="card-title">Interests &amp; Languages</h3>
-              <ul className="strengths-list">
-                <li>🌍 Languages: English, Pashto, Dari, Urdu</li>
-                <li>🎨 UI/UX Design &amp; Interaction Design</li>
-                <li>🤖 Artificial Intelligence &amp; Machine Learning</li>
-                <li>📊 Data Visualisation &amp; Analytics</li>
-                <li>⚽ Sport &amp; Fitness</li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>

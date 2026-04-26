@@ -4,9 +4,8 @@
 
 /* ── Section wrapper ────────────────────────────────────── */
 .projects-section {
-  padding: var(--section-padding) 2rem;
+  padding: 5rem 2rem;
   position: relative;
-  overflow: hidden;
   background: var(--color-bg);
 }
 

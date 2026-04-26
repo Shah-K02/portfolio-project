@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import "./Skills.css";
-import SkillsBackground from "./SkillsBackground";
 import {
   FaCode,
   FaGlobe,
@@ -107,58 +106,58 @@ const SkillCard: React.FC<SkillCardProps> = ({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-  <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6, delay }}
-    whileHover={{ scale: 1.05 }}
-    className={`skills-card skills-card-${color}`}
-  >
-    <div className="skills-card-header">
-      {icon && (
-        <motion.span
-          className={`skills-card-icon skills-card-icon-${color}`}
-          animate={shouldReduceMotion ? {} : { rotate: [0, 360] }}
-          transition={{ duration: 2, repeat: shouldReduceMotion ? 0 : Infinity, ease: "linear" }}
-        >
-          {icon}
-        </motion.span>
-      )}
-      <h3 className="skills-card-title">{title}</h3>
-    </div>
-    {isList ? (
-      <ul className="skills-ul">
-        {(items as string[]).map((item, index) => (
-          <motion.li
-            key={`${title}-${index}-${item}`}
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay }}
+      whileHover={{ scale: 1.05 }}
+      className={`skills-card skills-card-${color}`}
+    >
+      <div className="skills-card-header">
+        {icon && (
+          <motion.span
+            className={`skills-card-icon skills-card-icon-${color}`}
+            animate={shouldReduceMotion ? {} : { rotate: [0, 360] }}
+            transition={{ duration: 2, repeat: shouldReduceMotion ? 0 : Infinity, ease: "linear" }}
           >
-            {item}
-          </motion.li>
-        ))}
-      </ul>
-    ) : (
-      <div className="skills-list">
-        {(items as Skill[]).map((skill, index) => (
-          <motion.div
-            key={`${title}-${index}-${skill.name}`}
-            className="skills-list-item"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            whileHover={{ scale: 1.1 }}
-          >
-            <span className="skills-list-icon">{skill.icon}</span>
-            <span className="skills-list-text">{skill.name}</span>
-          </motion.div>
-        ))}
+            {icon}
+          </motion.span>
+        )}
+        <h3 className="skills-card-title">{title}</h3>
       </div>
-    )}
-  </motion.div>
-);
+      {isList ? (
+        <ul className="skills-ul">
+          {(items as string[]).map((item, index) => (
+            <motion.li
+              key={`${title}-${index}-${item}`}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              {item}
+            </motion.li>
+          ))}
+        </ul>
+      ) : (
+        <div className="skills-list">
+          {(items as Skill[]).map((skill, index) => (
+            <motion.div
+              key={`${title}-${index}-${skill.name}`}
+              className="skills-list-item"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ scale: 1.1 }}
+            >
+              <span className="skills-list-icon">{skill.icon}</span>
+              <span className="skills-list-text">{skill.name}</span>
+            </motion.div>
+          ))}
+        </div>
+      )}
+    </motion.div>
+  );
 };
 
 const Skills: React.FC = () => {
@@ -166,33 +165,21 @@ const Skills: React.FC = () => {
   const gridRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
-  // Parallax and opacity effects
-  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
-  const titleY = useTransform(scrollYProgress, [0, 0.5], [100, 0]);
-  const gridScale = useTransform(scrollYProgress, [0, 0.2], [0.8, 1]);
+  const titleY = useTransform(scrollYProgress, [0, 0.5], [60, 0]);
+  const gridScale = useTransform(scrollYProgress, [0, 0.2], [0.9, 1]);
 
   useEffect(() => {
-    const section = sectionRef.current;
     const grid = gridRef.current;
-    if (!section || !grid) return;
+    if (!grid) return;
 
-    // Scroll animation handler
-    const scrollHandler = () => {
-      const scrollY = window.scrollY;
-      section.style.setProperty('--scroll-y', String(scrollY));
-      section.setAttribute('data-scroll', 'true');
-    };
-
-    // Intersection Observer for skills grid
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
-            // Trigger staggered animation for child elements
+            entry.target.classList.add("animate-in");
             const children = entry.target.children;
             Array.from(children).forEach((child, index) => {
               (child as HTMLElement).style.animationDelay = `${index * 0.1}s`;
@@ -201,32 +188,11 @@ const Skills: React.FC = () => {
           }
         });
       },
-      {
-        threshold: 0.2,
-        rootMargin: '50px',
-      }
+      { threshold: 0.2, rootMargin: "50px" }
     );
 
-    // Observe skills grid
     observer.observe(grid);
-
-    // Add scroll listener with throttling
-    let ticking = false;
-    const onScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          scrollHandler();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   const skillCards: SkillCategory[] = [
@@ -304,14 +270,7 @@ const Skills: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      style={{
-        position: 'relative',
-        overflow: 'hidden'
-      }}
     >
-      <motion.div style={{ opacity: backgroundOpacity }}>
-        <SkillsBackground />
-      </motion.div>
       <div className="skills-container">
         <motion.h2
           className="skills-title"
@@ -321,14 +280,14 @@ const Skills: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          Skills & Technologies
+          Skills &amp; Technologies
         </motion.h2>
 
         <motion.div
           ref={gridRef}
           className="skills-grid animate-on-scroll"
-          style={{ scale: gridScale, willChange: 'transform, opacity' }}
-          initial={{ opacity: 0, y: 100 }}
+          style={{ scale: gridScale, willChange: "transform, opacity" }}
+          initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, type: "spring", stiffness: 100, damping: 15 }}
         >

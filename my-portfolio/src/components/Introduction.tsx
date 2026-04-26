@@ -4,7 +4,6 @@ import "./Introduction.css";
 import { motion } from "framer-motion";
 import { Code } from "react-feather";
 import { usePerformanceDetection } from "../utils/performanceDetection";
-import NeuralNetworkBackground from "./Interactive/NeuralNetworkBackground";
 import TypingAnimation from "./TypingAnimation";
 import MagneticCursor from "./MagneticCursor";
 
@@ -24,7 +23,7 @@ const FADE_LEFT = (delay = 0) => ({
 });
 
 const Introduction: React.FC = () => {
-  const { config, isLowEnd } = usePerformanceDetection();
+  const { config } = usePerformanceDetection();
   const [mounted, setMounted] = useState(false);
 
   // Trigger entrance after mount so animations always play on load
@@ -43,27 +42,9 @@ const Introduction: React.FC = () => {
     }
   };
 
-  const neuralData = {
-    skills: ["React","TypeScript","Node.js","Python","JavaScript","Express","MongoDB","PostgreSQL","CSS3","HTML5","JWT","RESTful APIs","Git","Responsive Design"],
-    projects: ["Personal Fitness Platform","AutoMods","Sports4Us","Task Manager API","Portfolio Project"],
-    experiences: ["Frontend Development","Full-Stack Engineering","API Development","Database Design","UI/UX Implementation","Performance Optimization"],
-  };
 
   return (
     <section className="intro" id="introduction" style={{ position: "relative", overflow: "hidden" }}>
-
-      {/* Neural network background */}
-      {config.features.particles && (
-        <div className="intro-bg-canvas">
-          <NeuralNetworkBackground
-            className="intro-neural"
-            nodeCount={isLowEnd ? 25 : 45}
-            maxConnections={isLowEnd ? 2 : 3}
-            learningData={neuralData}
-            interactive={!isLowEnd}
-          />
-        </div>
-      )}
 
       {/* Radial glow blobs */}
       <div className="intro-glow intro-glow--1" aria-hidden="true" />
