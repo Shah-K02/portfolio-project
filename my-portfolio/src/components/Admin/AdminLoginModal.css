@@ -1,0 +1,297 @@
+/* ── AdminLoginModal.css ──────────────────────────────────────────────────── */
+
+/* Backdrop */
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: admin-backdrop-in 0.2s ease;
+}
+
+@keyframes admin-backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Card */
+.admin-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  margin: 1rem;
+  padding: 2.5rem 2rem 1.75rem;
+  border-radius: 20px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255,255,255,0.05) inset,
+    0 0 40px rgba(99, 102, 241, 0.08);
+  animation: admin-card-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: box-shadow 0.3s ease;
+}
+
+@keyframes admin-card-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Shake animation */
+.admin-modal-card.shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-8px); }
+  30%       { transform: translateX(8px); }
+  45%       { transform: translateX(-6px); }
+  60%       { transform: translateX(6px); }
+  75%       { transform: translateX(-3px); }
+  90%       { transform: translateX(3px); }
+}
+
+/* Success state */
+.admin-modal-card.success {
+  border-color: rgba(52, 211, 153, 0.4);
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(52, 211, 153, 0.2);
+}
+
+/* Header */
+.admin-modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.admin-modal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+}
+
+.admin-modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #f1f5f9);
+  margin: 0 0 0.4rem;
+  letter-spacing: -0.02em;
+}
+
+.admin-modal-subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary, #94a3b8);
+  margin: 0;
+}
+
+/* Form */
+.admin-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.admin-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-input-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary, #94a3b8);
+}
+
+.admin-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-primary, #f1f5f9);
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.admin-input:focus {
+  border-color: rgba(99, 102, 241, 0.7);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.admin-input--error {
+  border-color: rgba(239, 68, 68, 0.6) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+.admin-input-error {
+  font-size: 0.8rem;
+  color: #f87171;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Success banner */
+.admin-success-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: #34d399;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Action buttons */
+.admin-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.admin-btn {
+  flex: 1;
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.admin-btn--primary {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+}
+
+.admin-btn--primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+}
+
+.admin-btn--primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-btn--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-text-secondary, #94a3b8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary, #f1f5f9);
+}
+
+/* Hint text */
+.admin-modal-hint {
+  margin: 1.25rem 0 0;
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary, #64748b);
+  text-align: center;
+}
+
+.admin-modal-hint kbd {
+  display: inline-block;
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  font-size: 0.7rem;
+  font-family: monospace;
+}
+
+/* Close button */
+.admin-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-text-secondary, #94a3b8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-modal-close:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-text-primary, #f1f5f9);
+}
+
+/* Light mode overrides */
+[data-theme="light"] .admin-modal-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.92), rgba(248,250,252,0.85));
+  border-color: rgba(0,0,0,0.1);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.15), 0 0 40px rgba(99,102,241,0.06);
+}
+
+[data-theme="light"] .admin-modal-title {
+  color: #1e293b;
+}
+
+[data-theme="light"] .admin-modal-subtitle {
+  color: #64748b;
+}
+
+[data-theme="light"] .admin-input {
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.12);
+  color: #1e293b;
+}
+
+[data-theme="light"] .admin-btn--ghost {
+  color: #475569;
+  border-color: rgba(0,0,0,0.12);
+}
+
+[data-theme="light"] .admin-btn--ghost:hover {
+  color: #1e293b;
+  background: rgba(0,0,0,0.06);
+}
+
+[data-theme="light"] .admin-modal-close {
+  color: #64748b;
+}
+
+[data-theme="light"] .admin-modal-close:hover {
+  background: rgba(0,0,0,0.08);
+  color: #1e293b;
+}

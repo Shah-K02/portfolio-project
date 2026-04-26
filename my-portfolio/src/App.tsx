@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 import Introduction from "./components/Introduction";
 import About from "./components/About";
@@ -18,6 +18,8 @@ import {
   PerformanceMonitor as PerfMonitor,
   preloadResource,
 } from "./utils/performanceOptimizations";
+import { AdminProvider } from "./context/AdminContext";
+import AdminLoginModal from "./components/Admin/AdminLoginModal";
 
 import "./App.css";
 import "./styles/enhancedScrolling.css";
@@ -210,13 +212,34 @@ function AppContent() {
 }
 
 function App() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  // Global keyboard shortcut: Ctrl + Shift + A → open admin login
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+      e.preventDefault();
+      setIsLoginOpen(prev => !prev);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
+
   return (
     <div className="app-root">
-      <ThemeProvider>
-        <ThemeToggle />
-        <VisualEffects />
-        <AppContent />
-      </ThemeProvider>
+      <AdminProvider>
+        <ThemeProvider>
+          <ThemeToggle />
+          <VisualEffects />
+          <AppContent />
+          <AdminLoginModal
+            isOpen={isLoginOpen}
+            onClose={() => setIsLoginOpen(false)}
+          />
+        </ThemeProvider>
+      </AdminProvider>
     </div>
   );
 }

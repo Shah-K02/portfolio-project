@@ -123,7 +123,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                 </h2>
                 {project.status && (
                   <span className={`status-badge status-${project.status}`}>
-                    {project.status.replace("-", " ")}
+                    {project.status.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
                   </span>
                 )}
               </div>

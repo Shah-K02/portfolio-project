@@ -6,24 +6,28 @@ import "../styles/sectionAnimation.css";
 import ProjectModal from "./ProjectModal";
 import ProjectFilter from "./ProjectFilter";
 import HolographicProjectCard from "./Cards/HolographicProjectCard";
+import AdminPanel from "./Admin/AdminPanel";
+import ProjectFormModal from "./Admin/ProjectFormModal";
 
 // Types
 import { Project } from "../types/project";
 
-// Constants
-import { PROJECTS_DATA } from "../constants/projectsData";
+// Context
+import { useAdmin } from "../context/AdminContext";
 
 // Utils
 import { getUniqueCategories } from "../utils/projectUtils";
 
-interface ProjectsProps {
-  projects?: Project[];
-}
+const Projects: React.FC = () => {
+  const { isAdmin, projects, deleteProject } = useAdmin();
 
-const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  // Form modal state
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
+  const [editingProject, setEditingProject] = useState<Project | null>(null);
 
   // Filtered & sorted projects
   const filteredProjects = useMemo(() => {
@@ -37,22 +41,44 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
   // Categories for filter bar
   const categories = useMemo(() => getUniqueCategories(projects), [projects]);
 
+  // Detail modal
   const handleViewProject = (project: Project) => {
     setSelectedProject(project);
-    setIsModalOpen(true);
+    setIsDetailModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseDetailModal = () => {
+    setIsDetailModalOpen(false);
     setSelectedProject(null);
   };
 
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
+  // Admin: open form to add new
+  const handleAddProject = () => {
+    setEditingProject(null);
+    setIsFormOpen(true);
+  };
+
+  // Admin: open form to edit existing
+  const handleEditProject = (project: Project) => {
+    setEditingProject(project);
+    setIsFormOpen(true);
+  };
+
+  // Admin: delete project
+  const handleDeleteProject = (id: string) => {
+    deleteProject(id);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormOpen(false);
+    setEditingProject(null);
   };
 
   return (
     <section className="projects-section" id="projects">
+      {/* Floating admin toolbar — only visible when logged in */}
+      {isAdmin && <AdminPanel onAddProject={handleAddProject} />}
+
       <div className="projects-container">
         {/* Section header */}
         <header className="projects-header">
@@ -66,7 +92,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
         <ProjectFilter
           categories={categories}
           selectedCategory={selectedCategory}
-          onCategoryChange={handleCategoryChange}
+          onCategoryChange={setSelectedCategory}
         />
 
         {/* Projects grid */}
@@ -82,6 +108,8 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
                   project={project}
                   index={idx}
                   onViewProject={handleViewProject}
+                  onEdit={isAdmin ? handleEditProject : undefined}
+                  onDelete={isAdmin ? handleDeleteProject : undefined}
                 />
               </li>
             ))}
@@ -90,11 +118,20 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
       </div>
 
       {/* Project detail modal */}
-      {isModalOpen && selectedProject && (
+      {isDetailModalOpen && selectedProject && (
         <ProjectModal
           project={selectedProject}
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
+          isOpen={isDetailModalOpen}
+          onClose={handleCloseDetailModal}
+        />
+      )}
+
+      {/* Admin: project form modal */}
+      {isAdmin && (
+        <ProjectFormModal
+          isOpen={isFormOpen}
+          onClose={handleCloseForm}
+          editingProject={editingProject}
         />
       )}
     </section>
@@ -102,4 +139,3 @@ const Projects: React.FC<ProjectsProps> = ({ projects = PROJECTS_DATA }) => {
 };
 
 export default Projects;
-export type { ProjectsProps };
