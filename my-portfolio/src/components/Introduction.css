@@ -196,58 +196,83 @@
 .intro-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.875rem;
   flex-wrap: wrap;
   margin-bottom: 2rem;
 }
 
+/* Intro uses global .btn .btn-primary .btn-ghost — these add size/visual tweaks */
 .intro-btn {
+  height: var(--btn-h-lg);
+  padding: 0 var(--btn-px-lg);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-radius: var(--btn-radius);
+  font-family: var(--font-body);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.8rem 1.9rem;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
   text-decoration: none;
-  letter-spacing: 0.02em;
+  cursor: pointer;
   border: none;
-  transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease, color 200ms ease;
+  transition: var(--btn-transition);
+  white-space: nowrap;
 }
 
 .intro-btn--primary {
-  background: var(--gradient-primary);
+  background: var(--btn-primary-bg);
   color: #fff;
-  box-shadow: 0 4px 20px var(--color-accent-1-medium, rgba(99,102,241,0.35));
+  box-shadow: var(--btn-primary-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle shimmer sweep on hover */
+.intro-btn--primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.4s var(--ease-out);
+  border-radius: inherit;
+}
+
+.intro-btn--primary:hover::before {
+  transform: translateX(100%);
 }
 
 .intro-btn--primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px var(--color-accent-1-strong, rgba(99,102,241,0.55));
+  transform: translateY(-3px);
+  box-shadow: var(--btn-primary-shadow-h);
+  color: #fff;
 }
 
 .intro-btn--primary svg {
-  transition: transform 200ms ease;
+  transition: transform 160ms var(--ease-out);
+  flex-shrink: 0;
 }
 
 .intro-btn--primary:hover svg {
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
 
 .intro-btn--outline {
   background: transparent;
-  color: var(--color-accent-1, #6366f1);
-  border: 2px solid var(--color-accent-1, #6366f1);
+  color: var(--btn-ghost-text);
+  border: 1.5px solid var(--btn-ghost-border);
 }
 
 .intro-btn--outline:hover {
-  background: var(--gradient-primary);
-  color: #fff;
-  border-color: transparent;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px var(--color-accent-1-medium, rgba(99,102,241,0.35));
+  background: var(--btn-ghost-bg-h);
+  transform: translateY(-3px);
+  box-shadow: var(--btn-primary-shadow);
+  color: var(--btn-ghost-text);
+}
+
+.intro-btn:active {
+  transform: scale(0.97) translateY(0) !important;
 }
 
 /* ── Social icons ── */

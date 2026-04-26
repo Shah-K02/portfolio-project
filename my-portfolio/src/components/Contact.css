@@ -28,31 +28,26 @@
 }
 
 .contact-heading {
-  font-family: "Inter", sans-serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 800;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--fw-extrabold);
   text-align: center;
-  margin-bottom: 4rem;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  margin-bottom: 0.75rem;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: var(--color-heading);
   position: relative;
 }
 
 .contact-heading::after {
   content: '';
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 4px;
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  border-radius: var(--radius-full);
   background: var(--gradient-primary);
-  border-radius: 2px;
-  opacity: 0.8;
+  margin: 0.65rem auto 3.5rem;
+  opacity: 0.85;
 }
 
 .contact-grid {
@@ -332,28 +327,49 @@
 }
 
 .form-submit {
-  padding: 0.9rem 2rem;
-  border-radius: 25px;
-  background: var(--gradient-primary);
+  height: var(--btn-h-md);
+  padding: 0 var(--btn-px-md);
+  border-radius: var(--btn-radius);
+  background: var(--btn-primary-bg);
   color: #fff;
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
+  font-family: var(--font-body);
+  font-weight: var(--btn-font-weight);
+  font-size: var(--btn-font-size);
+  letter-spacing: var(--btn-letter-spacing);
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: var(--btn-transition);
   width: 100%;
-  letter-spacing: 0.025em;
+  box-shadow: var(--btn-primary-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.form-submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.4s var(--ease-out);
+}
+
+.form-submit:hover:not(:disabled)::before {
+  transform: translateX(100%);
 }
 
 .form-submit:disabled {
-  opacity: 0.65;
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
 .form-submit:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px var(--color-accent-1-medium);
+  box-shadow: var(--btn-primary-shadow-h);
+}
+
+.form-submit:focus-visible {
+  box-shadow: var(--btn-focus-ring);
 }
 
 .form-status {

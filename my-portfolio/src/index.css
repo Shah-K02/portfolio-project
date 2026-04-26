@@ -129,3 +129,153 @@ body::-webkit-scrollbar {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL BUTTON SYSTEM
+   Three variants: .btn-primary  .btn-ghost  .btn-text
+   Two sizes (default = md):    .btn-sm  .btn-lg
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Base ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: var(--btn-h-md);
+  padding: 0 var(--btn-px-md);
+  border-radius: var(--btn-radius);
+  font-family: var(--font-body);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  letter-spacing: var(--btn-letter-spacing);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: var(--btn-transition);
+  position: relative;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:focus-visible {
+  box-shadow: var(--btn-focus-ring);
+}
+
+.btn:active {
+  transform: scale(0.97) translateY(1px) !important;
+}
+
+/* ── Sizes ── */
+.btn-sm {
+  height: var(--btn-h-sm);
+  padding: 0 var(--btn-px-sm);
+  font-size: 0.8rem;
+}
+
+.btn-lg {
+  height: var(--btn-h-lg);
+  padding: 0 var(--btn-px-lg);
+  font-size: 1rem;
+}
+
+/* ── Primary — gradient fill ── */
+.btn-primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  box-shadow: var(--btn-primary-shadow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--btn-primary-shadow-h);
+  color: var(--btn-primary-text);
+}
+
+/* Arrow icon nudge on hover */
+.btn-primary .btn-arrow {
+  transition: transform 160ms var(--ease-out);
+}
+
+.btn-primary:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* ── Ghost — transparent with coloured border ── */
+.btn-ghost {
+  background: var(--btn-ghost-bg);
+  color: var(--btn-ghost-text);
+  border: 1.5px solid var(--btn-ghost-border);
+  box-shadow: none;
+}
+
+.btn-ghost:hover {
+  background: var(--btn-ghost-bg-h);
+  transform: translateY(-2px);
+  box-shadow: var(--btn-primary-shadow);
+  color: var(--btn-ghost-text);
+}
+
+/* ── Text — no background, no border ── */
+.btn-text {
+  background: transparent;
+  color: var(--color-accent-1);
+  border: none;
+  height: auto;
+  padding: 0.25rem 0.5rem;
+  font-size: inherit;
+}
+
+.btn-text:hover {
+  color: var(--color-accent-2);
+  text-decoration: underline;
+}
+
+/* ── Icon-only button ── */
+.btn-icon {
+  width: var(--btn-h-md);
+  height: var(--btn-h-md);
+  padding: 0;
+  border-radius: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONSISTENT SECTION HEADINGS
+   Use .section-heading on every section's h2
+   ═══════════════════════════════════════════════════════════════ */
+
+.section-heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: var(--fw-extrabold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+  color: var(--color-heading);
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+/* Gradient accent underline bar */
+.section-heading::after {
+  content: '';
+  display: block;
+  width: 3.5rem;
+  height: 3px;
+  border-radius: var(--radius-full);
+  background: var(--gradient-primary);
+  margin: 0.65rem auto 0;
+  opacity: 0.85;
+}
+
+.section-subheading {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  font-weight: var(--fw-normal);
+  line-height: var(--lh-normal);
+  color: var(--color-text-muted);
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 3.5rem;
+}

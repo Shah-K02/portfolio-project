@@ -177,9 +177,44 @@
   --button-border:  var(--palette-sky-400);
   --button-shadow:  0 4px 14px rgba(56, 189, 248, 0.30);
 
+  /* ── Button design system ───────────────────────────────── */
+  /* Sizes */
+  --btn-h-sm:  2.25rem;
+  --btn-h-md:  2.75rem;
+  --btn-h-lg:  3.25rem;
+  --btn-px-sm: 1.1rem;
+  --btn-px-md: 1.75rem;
+  --btn-px-lg: 2.25rem;
+  --btn-radius: 9999px;
+  --btn-font-size: 0.9rem;
+  --btn-font-weight: 650;
+  --btn-letter-spacing: 0.025em;
+  --btn-transition: transform 160ms var(--ease-out),
+                    box-shadow 160ms var(--ease-out),
+                    background 160ms var(--ease-out),
+                    border-color 160ms var(--ease-out),
+                    color 160ms var(--ease-out);
+
+  /* Primary — solid gradient */
+  --btn-primary-bg:       var(--gradient-primary);
+  --btn-primary-text:     #fff;
+  --btn-primary-shadow:   0 4px 18px rgba(56,189,248,0.35);
+  --btn-primary-shadow-h: 0 8px 28px rgba(56,189,248,0.50);
+
+  /* Ghost — transparent with coloured border */
+  --btn-ghost-bg:         transparent;
+  --btn-ghost-border:     var(--palette-sky-400);
+  --btn-ghost-text:       var(--palette-sky-400);
+  --btn-ghost-bg-h:       var(--color-accent-1-light);
+
+  /* Focus ring */
+  --btn-focus-ring: 0 0 0 3px rgba(56,189,248,0.35);
+
   --card-bg:     rgba(255, 255, 255, 0.90);
   --card-border: rgba(255, 255, 255, 0.80);
   --card-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+
+  --card-radius: 1.25rem;
 
   /* Semantic status */
   --color-success: #10B981;
@@ -275,6 +310,14 @@
   --button-text:   var(--palette-slate-900);
   --button-border: #56CFFF;
   --button-shadow: 0 4px 14px rgba(86, 207, 255, 0.30);
+
+  /* Button design system — dark overrides */
+  --btn-primary-shadow:   0 4px 18px rgba(86,207,255,0.35);
+  --btn-primary-shadow-h: 0 8px 28px rgba(86,207,255,0.50);
+  --btn-ghost-border:     #56CFFF;
+  --btn-ghost-text:       #56CFFF;
+  --btn-ghost-bg-h:       var(--color-accent-1-light);
+  --btn-focus-ring:       0 0 0 3px rgba(86,207,255,0.35);
 
   --card-bg:     rgba(30, 41, 59, 0.85);
   --card-border: rgba(248, 250, 252, 0.10);

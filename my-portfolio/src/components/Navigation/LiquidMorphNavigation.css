@@ -55,35 +55,39 @@
 /* ─── Dot inner (the visual circle) ────────────────────────── */
 .pill-nav__dot-inner {
   display: block;
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: var(--nav-dot-inactive);
+  background: var(--color-text-muted);
+  opacity: 0.35;
   transition:
-    width          200ms var(--ease-out, cubic-bezier(0,0,0.2,1)),
-    height         200ms var(--ease-out, cubic-bezier(0,0,0.2,1)),
-    background     200ms var(--ease-out, cubic-bezier(0,0,0.2,1)),
-    border-radius  200ms var(--ease-out, cubic-bezier(0,0,0.2,1)),
-    box-shadow     200ms var(--ease-out, cubic-bezier(0,0,0.2,1));
+    width          220ms var(--ease-out, cubic-bezier(0,0,0.2,1)),
+    height         220ms var(--ease-out, cubic-bezier(0,0,0.2,1)),
+    background     220ms var(--ease-out, cubic-bezier(0,0,0.2,1)),
+    border-radius  220ms var(--ease-out, cubic-bezier(0,0,0.2,1)),
+    box-shadow     220ms var(--ease-out, cubic-bezier(0,0,0.2,1)),
+    opacity        220ms var(--ease-out, cubic-bezier(0,0,0.2,1));
 }
 
-/* Hover state: slightly expanded */
+/* Hover state: brighten and expand slightly */
 .pill-nav__dot:hover .pill-nav__dot-inner {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   background: var(--nav-dot-hover, var(--color-accent-1));
+  opacity: 0.75;
   box-shadow: 0 0 0 3px var(--color-accent-1-light);
 }
 
-/* Active state: pill indicator — wider than tall */
+/* Active state: vivid pill, full opacity */
 .pill-nav__dot.is-active .pill-nav__dot-inner {
   width: 6px;
-  height: 20px;
+  height: 22px;
   border-radius: 999px;
   background: var(--nav-dot-active);
+  opacity: 1;
   box-shadow:
     0 0 0 2px var(--color-accent-1-light),
-    0 2px 8px var(--color-accent-1-medium);
+    0 2px 10px var(--color-accent-1-medium);
 }
 
 /* ─── Tooltip label ─────────────────────────────────────────── */

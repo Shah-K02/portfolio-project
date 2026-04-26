@@ -41,30 +41,24 @@
 
 .projects-title {
   font-family: var(--font-heading);
-  font-size: var(--text-lg);
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: var(--fw-extrabold);
-  margin: 0 0 1rem;
+  margin: 0 0 0.75rem;
   line-height: var(--lh-tight);
   letter-spacing: var(--ls-tight);
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  position: relative;
-  display: inline-block;
+  color: var(--color-heading);
+  display: block;
 }
 
 .projects-title::after {
   content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
+  display: block;
+  width: 3.5rem;
   height: 3px;
-  background: var(--gradient-primary);
   border-radius: var(--radius-full);
-  opacity: 0.7;
+  background: var(--gradient-primary);
+  margin: 0.65rem auto 0;
+  opacity: 0.85;
 }
 
 .projects-subtitle {
@@ -86,44 +80,41 @@
 }
 
 .filter-btn {
-  padding: 0.5rem 1.25rem;
-  background: var(--glass-bg);
+  height: var(--btn-h-sm);
+  padding: 0 var(--btn-px-sm);
+  background: transparent;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
-  color: var(--color-text);
+  border-radius: var(--btn-radius);
+  color: var(--color-text-muted);
   font-family: var(--font-body);
   font-weight: var(--fw-medium);
   font-size: var(--text-sm);
   cursor: pointer;
-  transition:
-    background 200ms ease,
-    color 200ms ease,
-    border-color 200ms ease,
-    box-shadow 200ms ease,
-    transform 200ms var(--ease-out);
+  transition: var(--btn-transition);
   text-transform: capitalize;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  opacity: 0.65;
 }
 
 .filter-btn:hover {
-  border-color: var(--color-accent-1-medium);
-  color: var(--color-accent-1);
+  border-color: var(--btn-ghost-border);
+  color: var(--btn-ghost-text);
   background: var(--color-accent-1-light);
+  opacity: 1;
   transform: translateY(-1px);
 }
 
 .filter-btn.active {
-  background: var(--gradient-primary);
+  background: var(--btn-primary-bg);
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 4px 14px var(--color-accent-1-medium);
+  box-shadow: var(--btn-primary-shadow);
   font-weight: var(--fw-semibold);
+  opacity: 1;
 }
 
 .filter-btn:focus-visible {
-  outline: 2px solid var(--color-accent-1);
-  outline-offset: 2px;
+  box-shadow: var(--btn-focus-ring);
+  opacity: 1;
 }
 
 /* ── Projects grid ──────────────────────────────────────── */
