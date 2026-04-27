@@ -19,7 +19,7 @@ import { useAdmin } from "../context/AdminContext";
 import { getUniqueCategories } from "../utils/projectUtils";
 
 const Projects: React.FC = () => {
-  const { isAdmin, projects, deleteProject } = useAdmin();
+  const { isAdmin, projects, deleteProject, loading } = useAdmin();
 
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [isDetailModalOpen, setIsDetailModalOpen] = useState<boolean>(false);
@@ -65,8 +65,8 @@ const Projects: React.FC = () => {
   };
 
   // Admin: delete project
-  const handleDeleteProject = (id: string) => {
-    deleteProject(id);
+  const handleDeleteProject = async (id: string) => {
+    await deleteProject(id);
   };
 
   const handleCloseForm = () => {
@@ -96,7 +96,12 @@ const Projects: React.FC = () => {
         />
 
         {/* Projects grid */}
-        {filteredProjects.length === 0 ? (
+        {loading ? (
+          <div className="projects-loading" role="status" aria-label="Loading projects">
+            <span className="projects-loading__spinner" aria-hidden="true" />
+            <span>Loading projects…</span>
+          </div>
+        ) : filteredProjects.length === 0 ? (
           <div className="projects-empty" role="alert">
             No projects in this category yet.
           </div>

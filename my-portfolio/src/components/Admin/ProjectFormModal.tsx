@@ -131,7 +131,7 @@ const ProjectFormModal: React.FC<ProjectFormModalProps> = ({ isOpen, onClose, ed
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
@@ -146,16 +146,19 @@ const ProjectFormModal: React.FC<ProjectFormModalProps> = ({ isOpen, onClose, ed
     };
 
     setSaving(true);
-    setTimeout(() => {
+    try {
       if (isEditing && editingProject) {
-        updateProject({ ...payload, id: editingProject.id });
+        await updateProject({ ...payload, id: editingProject.id });
       } else {
-        addProject(payload);
+        await addProject(payload);
       }
-      setSaving(false);
       setSaved(true);
       setTimeout(onClose, 700);
-    }, 400);
+    } catch (err) {
+      console.error('Failed to save project:', err);
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
