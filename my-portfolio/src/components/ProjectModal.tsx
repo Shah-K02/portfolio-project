@@ -1,5 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { X } from "react-feather";
 import { Project } from "../types/project";
 import "./ProjectModal.css";
 
@@ -15,6 +17,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
   onClose,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+
+  // Reset fullscreen when modal closes
+  useEffect(() => {
+    if (!isOpen) setFullscreenImage(null);
+  }, [isOpen]);
 
   // Handle click outside to close
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -30,7 +38,13 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        setFullscreenImage((prev) => {
+          if (prev) return null;
+          onClose();
+          return prev;
+        });
+      }
     };
 
     if (isOpen) {
@@ -73,7 +87,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
     exit: { opacity: 0 },
   };
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <motion.div
@@ -103,15 +117,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
               onClick={onClose}
               aria-label="Close modal"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path
-                  d="M18 6L6 18M6 6l12 12"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <X size={20} />
             </button>
 
             {/* Modal Content */}
@@ -139,6 +145,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
                           alt={`${project.title} screenshot ${index + 1}`}
                           className="screenshot-image"
                           loading="lazy"
+                          onClick={() => setFullscreenImage(screenshot)}
                         />
                       </div>
                     ))}
@@ -243,9 +250,44 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
               </div>
             </div>
           </motion.div>
+
+          {/* Fullscreen Image Overlay */}
+          <AnimatePresence>
+            {fullscreenImage && (
+              <motion.div
+                className="fullscreen-overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setFullscreenImage(null)}
+              >
+                <button
+                  className="fullscreen-close"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setFullscreenImage(null);
+                  }}
+                  aria-label="Close fullscreen"
+                >
+                  <X size={24} />
+                </button>
+                <motion.img
+                  src={fullscreenImage}
+                  alt="Fullscreen screenshot"
+                  className="fullscreen-image"
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                  onClick={(e) => e.stopPropagation()} // Click on image does not close
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 
