@@ -49,7 +49,7 @@ const ContactSection: React.FC = () => {
           className="contact-heading"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.6 }}
         >
           Get In Touch
@@ -60,7 +60,7 @@ const ContactSection: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.6 }}
             className="contact-info"
           >
@@ -127,7 +127,7 @@ const ContactSection: React.FC = () => {
             onSubmit={handleSubmit}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.6, delay: 0.15 }}
           >
             <h3 className="form-heading">Send a Message</h3>

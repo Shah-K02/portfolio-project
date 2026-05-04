@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { motion, Variants } from "framer-motion";
 import "./Projects.css";
 import "../styles/sectionAnimation.css";
 
@@ -17,6 +18,28 @@ import { useAdmin } from "../context/AdminContext";
 
 // Utils
 import { getUniqueCategories } from "../utils/projectUtils";
+
+// Animation Variants
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 60, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    scale: 1,
+    transition: { type: "spring", stiffness: 100, damping: 15 }
+  },
+};
 
 const Projects: React.FC = () => {
   const { isAdmin, projects, deleteProject, loading } = useAdmin();
@@ -81,12 +104,18 @@ const Projects: React.FC = () => {
 
       <div className="projects-container">
         {/* Section header */}
-        <header className="projects-header">
+        <motion.header 
+          className="projects-header"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="projects-title">My Projects</h2>
           <p className="projects-subtitle">
             A collection of my recent work and personal projects
           </p>
-        </header>
+        </motion.header>
 
         {/* Category filter */}
         <ProjectFilter
@@ -106,9 +135,15 @@ const Projects: React.FC = () => {
             No projects in this category yet.
           </div>
         ) : (
-          <ul className="projects-grid">
+          <motion.ul 
+            className="projects-grid"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.1 }}
+          >
             {filteredProjects.map((project, idx) => (
-              <li key={project.id} style={{ listStyle: "none" }}>
+              <motion.li key={project.id} style={{ listStyle: "none" }} variants={itemVariants}>
                 <HolographicProjectCard
                   project={project}
                   index={idx}
@@ -116,9 +151,9 @@ const Projects: React.FC = () => {
                   onEdit={isAdmin ? handleEditProject : undefined}
                   onDelete={isAdmin ? handleDeleteProject : undefined}
                 />
-              </li>
+              </motion.li>
             ))}
-          </ul>
+          </motion.ul>
         )}
       </div>
 

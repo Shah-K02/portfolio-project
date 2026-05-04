@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { GitHubIcon, LinkedInIcon } from "./Icons";
 import "./Introduction.css";
 import { motion } from "framer-motion";
-import { Code } from "react-feather";
+import { Code, Upload } from "react-feather";
 import { usePerformanceDetection } from "../utils/performanceDetection";
 import TypingAnimation from "./TypingAnimation";
 import MagneticCursor from "./MagneticCursor";
+import { useAdmin } from "../context/AdminContext";
 
 const EASE = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -23,9 +24,11 @@ const FADE_LEFT = (delay = 0) => ({
 
 const Introduction: React.FC = () => {
   const { config } = usePerformanceDetection();
+  const { isAdmin, cvUrl, uploadCV, cvLoading } = useAdmin();
   const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const scrollOverlayRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Entry: trigger Framer Motion animations AND reveal the background
   // The ::before pseudo starts as a full black curtain; adding 'intro--entered'
@@ -67,6 +70,18 @@ const Introduction: React.FC = () => {
     }
   };
 
+  const handleCVUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      try {
+        await uploadCV(file);
+        alert("CV updated successfully!");
+      } catch (err) {
+        alert("Failed to upload CV. Please try again.");
+      }
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -87,13 +102,25 @@ const Introduction: React.FC = () => {
         <div className="intro-text">
 
           {/* Availability chip */}
-          <motion.div className="intro-chip" {...FADE_RIGHT(0.1)} animate={mounted ? FADE_RIGHT(0.1).animate : FADE_RIGHT(0.1).initial}>
+          <motion.div 
+            className="intro-chip" 
+            initial={FADE_RIGHT(0.1).initial}
+            whileInView={FADE_RIGHT(0.1).animate}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={FADE_RIGHT(0.1).transition}
+          >
             <span className="intro-chip-dot" aria-hidden="true" />
             Available for opportunities
           </motion.div>
 
           {/* Greeting */}
-          <motion.p className="intro-greeting" {...FADE_RIGHT(0.25)} animate={mounted ? FADE_RIGHT(0.25).animate : FADE_RIGHT(0.25).initial}>
+          <motion.p 
+            className="intro-greeting" 
+            initial={FADE_RIGHT(0.25).initial}
+            whileInView={FADE_RIGHT(0.25).animate}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={FADE_RIGHT(0.25).transition}
+          >
             Hi there, I'm
           </motion.p>
 
@@ -106,10 +133,11 @@ const Introduction: React.FC = () => {
                     key={ci}
                     className="intro-name-char"
                     initial={{ opacity: 0, y: 60, rotateX: -40 }}
-                    animate={mounted ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                    whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                    viewport={{ once: false, amount: 0.2 }}
                     transition={{
                       duration: 0.65,
-                      delay: 0.35 + wi * 0.15 + ci * 0.045,
+                      delay: wi * 0.15 + ci * 0.045,
                       ease: [0.22, 1, 0.36, 1],
                     }}
                   >
@@ -124,8 +152,9 @@ const Introduction: React.FC = () => {
           <motion.div
             className="intro-role-wrap"
             initial={{ opacity: 0, y: 24 }}
-            animate={mounted ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
             <span className="intro-role-prefix">Specialising in </span>
             <TypingAnimation
@@ -141,8 +170,9 @@ const Introduction: React.FC = () => {
           <motion.p
             className="intro-bio"
             initial={{ opacity: 0, y: 20 }}
-            animate={mounted ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
             Computer Science graduate passionate about building beautiful,
             performant web products from concept to deployment.
@@ -152,8 +182,9 @@ const Introduction: React.FC = () => {
           <motion.div
             className="intro-actions"
             initial={{ opacity: 0, y: 20 }}
-            animate={mounted ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 1.05, ease: [0.22, 1, 0.36, 1] }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             {config.features.magneticCursor ? (
               <MagneticCursor strength={0.2}>
@@ -170,21 +201,44 @@ const Introduction: React.FC = () => {
             )}
 
             <a
-              href="/ShahKar-CV.pdf"
-              download="ShahKar-CV.pdf"
+              href={cvUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="intro-btn intro-btn--outline"
               aria-label="Download Shah Kar's CV"
             >
               Download CV
             </a>
+
+            {isAdmin && (
+              <>
+                <input
+                  type="file"
+                  accept="application/pdf"
+                  style={{ display: 'none' }}
+                  ref={fileInputRef}
+                  onChange={handleCVUpload}
+                />
+                <button 
+                  className="intro-btn intro-btn--outline"
+                  style={{ borderColor: 'rgba(52, 211, 153, 0.5)', color: '#34d399' }}
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={cvLoading}
+                >
+                  <Upload size={16} style={{ marginRight: '6px' }} />
+                  {cvLoading ? "Uploading..." : "Update CV"}
+                </button>
+              </>
+            )}
           </motion.div>
 
           {/* Social icons */}
           <motion.div
             className="intro-socials"
             initial={{ opacity: 0, y: 16 }}
-            animate={mounted ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             <a href="https://github.com/Shah-K02" target="_blank" rel="noopener noreferrer" className="intro-social-link" aria-label="GitHub">
               <GitHubIcon />
@@ -198,8 +252,10 @@ const Introduction: React.FC = () => {
         {/* ── RIGHT: profile image with orbiting icon ── */}
         <motion.div
           className="intro-image-side"
-          {...FADE_LEFT(0.4)}
-          animate={mounted ? FADE_LEFT(0.4).animate : FADE_LEFT(0.4).initial}
+          initial={FADE_LEFT(0.2).initial}
+          whileInView={FADE_LEFT(0.2).animate}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={FADE_LEFT(0.2).transition}
         >
           {/* Orbit system */}
           <div className="orbit-system">
@@ -238,8 +294,9 @@ const Introduction: React.FC = () => {
             <motion.div
               className="intro-stat intro-stat--tl"
               initial={{ opacity: 0, scale: 0.7 }}
-              animate={mounted ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 1.1, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ delay: 0.6, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
               aria-label="5+ projects"
             >
               <strong>5+</strong>
@@ -249,8 +306,9 @@ const Introduction: React.FC = () => {
             <motion.div
               className="intro-stat intro-stat--br"
               initial={{ opacity: 0, scale: 0.7 }}
-              animate={mounted ? { opacity: 1, scale: 1 } : {}}
-              transition={{ delay: 1.25, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ delay: 0.8, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
               aria-label="Full-stack focused"
             >
               <strong>Full</strong>
@@ -265,8 +323,9 @@ const Introduction: React.FC = () => {
       <motion.div
         className="intro-scroll-hint"
         initial={{ opacity: 0 }}
-        animate={mounted ? { opacity: 1 } : {}}
-        transition={{ delay: 1.6, duration: 0.8 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ delay: 1.0, duration: 0.8 }}
         aria-hidden="true"
       >
         <span className="intro-scroll-line" />

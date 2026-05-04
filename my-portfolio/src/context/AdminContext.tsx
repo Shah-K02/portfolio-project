@@ -10,9 +10,11 @@ import {
   writeBatch,
   query,
   orderBy,
+  setDoc,
   type UpdateData,
 } from 'firebase/firestore';
-import { db } from '../lib/firebase';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { db, storage } from '../lib/firebase';
 import { Project } from '../types/project';
 import { PROJECTS_DATA } from '../constants/projectsData';
 
@@ -31,6 +33,9 @@ interface AdminContextType {
   addProject: (project: Omit<Project, 'id'>) => Promise<void>;
   updateProject: (project: Project) => Promise<void>;
   deleteProject: (id: string) => Promise<void>;
+  cvUrl: string;
+  cvLoading: boolean;
+  uploadCV: (file: File) => Promise<void>;
 }
 
 // ─── Context ──────────────────────────────────────────────────────────────────
@@ -44,6 +49,10 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
+  // CV State
+  const [cvUrl, setCvUrl] = useState<string>('/ShahKar-CV.pdf');
+  const [cvLoading, setCvLoading] = useState<boolean>(false);
 
   // ── Seed Firestore with static data on first ever load ──────────────────────
   useEffect(() => {
@@ -80,7 +89,18 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
     );
 
-    return () => unsubscribe();
+    // Listener for CV URL
+    const settingsRef = doc(db, 'settings', 'general');
+    const unsubscribeSettings = onSnapshot(settingsRef, (docSnap) => {
+      if (docSnap.exists() && docSnap.data().cvUrl) {
+        setCvUrl(docSnap.data().cvUrl);
+      }
+    });
+
+    return () => {
+      unsubscribe();
+      unsubscribeSettings();
+    };
   }, []);
 
   // ── Auth ────────────────────────────────────────────────────────────────────
@@ -112,9 +132,33 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     await deleteDoc(doc(db, COLLECTION, id));
   }, []);
 
+  // ── CV Upload ────────────────────────────────────────────────────────────────
+  const uploadCV = useCallback(async (file: File) => {
+    try {
+      setCvLoading(true);
+      // Create a reference to 'cv/filename'
+      const fileRef = ref(storage, `cv/${file.name}`);
+      // Upload the file
+      await uploadBytes(fileRef, file);
+      // Get the download URL
+      const url = await getDownloadURL(fileRef);
+      // Save it to Firestore
+      await setDoc(doc(db, 'settings', 'general'), { cvUrl: url }, { merge: true });
+    } catch (error) {
+      console.error("Error uploading CV:", error);
+      throw error;
+    } finally {
+      setCvLoading(false);
+    }
+  }, []);
+
   return (
     <AdminContext.Provider
-      value={{ isAdmin, loading, login, logout, projects, addProject, updateProject, deleteProject }}
+      value={{ 
+        isAdmin, loading, login, logout, 
+        projects, addProject, updateProject, deleteProject,
+        cvUrl, cvLoading, uploadCV
+      }}
     >
       {children}
     </AdminContext.Provider>

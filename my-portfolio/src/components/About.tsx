@@ -2,7 +2,7 @@ import React from "react";
 import "./About.css";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 const About: React.FC = () => {
-  const { ref, inView } = useScrollAnimation({ amount: 0.2 });
+  const { ref, inView } = useScrollAnimation({ amount: 0.2, once: false });
 
   return (
     <section
@@ -25,7 +25,7 @@ const About: React.FC = () => {
         <p className={`about-bio stagger-item ${inView ? "section-visible" : ""}` }>
           I'm a Computer Science graduate from Aston University with a passion for building elegant,
           high-performance web applications. I love turning complex problems into simple, intuitive
-          experiences — whether that's architecting a RESTful API, crafting pixel-perfect UIs, or
+          experiences, whether that's architecting a RESTful API, crafting pixel-perfect UIs, or
           optimising a database query. I'm multilingual, detail-oriented, and always eager to
           learn whatever the project demands.
         </p>
