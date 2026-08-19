@@ -14,21 +14,23 @@ import {
   type UpdateData,
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../lib/firebase';
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth';
+import { db, storage, auth } from '../lib/firebase';
 import { Project } from '../types/project';
 import { PROJECTS_DATA } from '../constants/projectsData';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-const ADMIN_PASSWORD = 'Shahkar018@';
-const SESSION_KEY = 'portfolio_admin_session';
+// Not a secret - just identifies which Firebase Auth user is the site owner.
+// The actual password lives only in Firebase Authentication now.
+const ADMIN_EMAIL = process.env.REACT_APP_ADMIN_EMAIL as string;
 const COLLECTION = 'projects';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface AdminContextType {
   isAdmin: boolean;
   loading: boolean;
-  login: (password: string) => boolean;
-  logout: () => void;
+  login: (password: string) => Promise<boolean>;
+  logout: () => Promise<void>;
   projects: Project[];
   addProject: (project: Omit<Project, 'id'>) => Promise<void>;
   updateProject: (project: Project) => Promise<void>;
@@ -43,9 +45,7 @@ const AdminContext = createContext<AdminContextType | undefined>(undefined);
 
 // ─── Provider ─────────────────────────────────────────────────────────────────
 export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isAdmin, setIsAdmin] = useState<boolean>(() => {
-    return sessionStorage.getItem(SESSION_KEY) === 'true';
-  });
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -53,6 +53,14 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   // CV State
   const [cvUrl, setCvUrl] = useState<string>('/ShahKar-CV.pdf');
   const [cvLoading, setCvLoading] = useState<boolean>(false);
+
+  // ── Real Firebase Auth session (replaces the old sessionStorage flag) ───────
+  useEffect(() => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      setIsAdmin(!!user);
+    });
+    return () => unsubscribeAuth();
+  }, []);
 
   // ── Seed Firestore with static data on first ever load ──────────────────────
   useEffect(() => {
@@ -104,18 +112,17 @@ export const AdminProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, []);
 
   // ── Auth ────────────────────────────────────────────────────────────────────
-  const login = useCallback((password: string): boolean => {
-    if (password === ADMIN_PASSWORD) {
-      sessionStorage.setItem(SESSION_KEY, 'true');
-      setIsAdmin(true);
+  const login = useCallback(async (password: string): Promise<boolean> => {
+    try {
+      await signInWithEmailAndPassword(auth, ADMIN_EMAIL, password);
       return true;
+    } catch {
+      return false;
     }
-    return false;
   }, []);
 
-  const logout = useCallback(() => {
-    sessionStorage.removeItem(SESSION_KEY);
-    setIsAdmin(false);
+  const logout = useCallback(async () => {
+    await signOut(auth);
   }, []);
 
   // ── CRUD ────────────────────────────────────────────────────────────────────
