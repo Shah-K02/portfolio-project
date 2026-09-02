@@ -134,6 +134,29 @@ code, .code {
   font-weight: var(--fw-medium);
 }
 
+/* ─── Section eyebrow — monospace label used above section headings ── */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent-1);
+  margin-bottom: var(--space-4);
+}
+
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
 /* ─── Glassmorphism ──────────────────────────────────────────── */
 .glass-card {
   background: var(--glass-bg);

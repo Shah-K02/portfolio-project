@@ -1,95 +1,31 @@
 /* ═══════════════════════════════════════════════════════════════════
-   Introduction — redesigned split-layout hero with orbiting elements
+   Introduction — hero deliberately stays near-black regardless of the
+   site theme toggle (a title-slide moment), everything below returns
+   to the warm paper palette. Accents are hardcoded to the dark-mode
+   signal/wire values so contrast never depends on [data-theme].
    ═══════════════════════════════════════════════════════════════════ */
 
-/* ── Section shell ── */
 .intro {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 2rem;
-  /* background-image set via inline style in JSX (webpack can't resolve /public paths in CSS) */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #fff;
+  background: var(--palette-slate-900);
+  color: var(--palette-slate-50);
   position: relative;
   overflow: hidden;
 }
 
-/* ── Entry curtain — starts as a solid dark overlay, reveals the bg on mount ──
-   JS adds .intro--entered class via requestAnimationFrame, triggering the
-   CSS transition from opaque black to a light dark tint. */
-.intro::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: rgba(8, 0, 20, 0.98); /* near-black curtain at start */
-  transition: background 1.6s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-}
-
-/* After mount: lift the curtain to reveal the bg with a subtle dark tint */
-.intro--entered::before {
-  background: rgba(8, 0, 20, 0.50);
-}
-
-/* ── Scroll-fade overlay — transparent at rest, JS makes it opaque on scroll-down
-   so the background image appears to fade out. On scroll-up it reverses. ── */
-.intro-scroll-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  background: rgba(0, 0, 0, 1);
-  opacity: 0;           /* starts invisible; JS drives this up on scroll */
-  pointer-events: none;
-}
-
-/* Neural network canvas behind everything */
-.intro-bg-canvas {
+/* ── Dot-grid ground — quiet schematic texture, not a photo backdrop ── */
+.intro-grid {
   position: absolute;
   inset: 0;
   z-index: 0;
+  background-image: radial-gradient(circle, rgba(247, 245, 240, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 40%, transparent 100%);
   pointer-events: none;
-}
-
-.intro-neural {
-  width: 100%;
-  height: 100%;
-}
-
-/* Radial glow blobs */
-.intro-glow {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 3;   /* above both overlays */
-  filter: blur(90px);
-}
-
-.intro-glow--1 {
-  width: 55vw;
-  height: 55vw;
-  top: -15%;
-  right: -10%;
-  background: rgba(160, 40, 255, 0.25);
-  animation: glowPulse 8s ease-in-out infinite alternate;
-}
-
-.intro-glow--2 {
-  width: 40vw;
-  height: 40vw;
-  bottom: -10%;
-  left: -5%;
-  background: rgba(210, 90, 255, 0.2);
-  animation: glowPulse 10s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes glowPulse {
-  from { transform: scale(1);   opacity: 0.35; }
-  to   { transform: scale(1.15); opacity: 0.55; }
 }
 
 /* ── Layout container ── */
@@ -102,7 +38,7 @@
   width: 100%;
   margin: 0 auto;
   position: relative;
-  z-index: 4;   /* above both overlays and glows */
+  z-index: 1;
   padding: 6rem 0 4rem;
 }
 
@@ -113,54 +49,50 @@
   gap: 0;
 }
 
-/* Availability chip */
-.intro-chip {
+/* Status line — a readout, not a chip */
+.intro-status {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  border: 1px solid rgba(52, 211, 153, 0.3);
-  background: rgba(52, 211, 153, 0.08);
-  color: #34d399;
+  gap: 0.55rem;
+  font-family: var(--font-code);
   font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  margin-bottom: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: #4FBE87;
+  margin-bottom: 1.75rem;
   width: fit-content;
 }
 
-.intro-chip-dot {
-  width: 7px;
-  height: 7px;
+.intro-status-dot {
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: #34d399;
-  box-shadow: 0 0 6px #34d399;
-  animation: chipPulse 2s ease-in-out infinite;
+  background: #4FBE87;
+  box-shadow: 0 0 6px #4FBE87;
   flex-shrink: 0;
+  animation: statusPulse 2.4s ease-in-out infinite;
 }
 
-@keyframes chipPulse {
-  0%, 100% { opacity: 1; transform: scale(1);   }
-  50%       { opacity: 0.6; transform: scale(1.3); }
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
 }
 
 /* Greeting */
 .intro-greeting {
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: rgba(255, 255, 255, 0.75);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: rgba(247, 245, 240, 0.68);
   font-weight: 500;
-  margin: 0 0 0.35rem;
-  letter-spacing: 0.02em;
+  margin: 0 0 0.5rem;
 }
 
 /* ── Name display ── */
 .intro-name-wrap {
   display: flex;
   flex-direction: column;
-  line-height: 0.92;
-  margin-bottom: 1.75rem;
-  perspective: 600px;
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
 }
 
 .intro-name-line {
@@ -170,56 +102,55 @@
 
 .intro-name-char {
   display: inline-block;
-  font-family: var(--font-heading, 'Inter', sans-serif);
-  font-size: clamp(4.5rem, 10vw, 8rem);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  color: #f1f5f9; /* Hardcoded light color to stay visible on dark intro bg */
-  line-height: 1;
-  /* Gradient first word */
-}
-
-/* First word gradient (Shah) */
-.intro-name-line:first-child .intro-name-char {
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── Role / typing ── */
-.intro-role-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.25rem;
-  min-height: 2.5rem;
-}
-
-.intro-role-prefix {
-  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
-  color: rgba(255, 255, 255, 0.72);
-  white-space: nowrap;
-}
-
-.intro-typing {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  font-family: var(--font-heading);
+  font-size: clamp(4rem, 9vw, 7rem);
   font-weight: 600;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-style: italic;
+  letter-spacing: -0.02em;
+  color: var(--palette-slate-50);
+  line-height: 1;
+}
+
+.intro-name-line--0 .intro-name-char {
+  color: #4FBE87;
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* ── Role + static stack list (replaces the typing-cycler gimmick) ── */
+.intro-role {
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+  color: rgba(247, 245, 240, 0.68);
+  margin: 0 0 0.75rem;
+}
+
+.intro-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0 0 1.75rem;
+  padding: 0;
+}
+
+.intro-stack-item {
+  font-family: var(--font-code);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #E2704F;
+  border: 1px solid rgba(226, 112, 79, 0.35);
+  background: rgba(226, 112, 79, 0.08);
+  border-radius: 0.375rem;
+  padding: 0.3rem 0.65rem;
 }
 
 /* ── Bio ── */
 .intro-bio {
   font-size: clamp(0.9rem, 1.6vw, 1.05rem);
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(247, 245, 240, 0.68);
   line-height: 1.7;
   margin: 0 0 2.25rem;
-  max-width: 520px;
+  max-width: 480px;
 }
 
 /* ── Action buttons ── */
@@ -231,13 +162,11 @@
   margin-bottom: 2rem;
 }
 
-/* Intro uses global .btn .btn-primary .btn-ghost — these add size/visual tweaks */
 .intro-btn {
   height: var(--btn-h-lg);
   padding: 0 var(--btn-px-lg);
   font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-weight: 650;
   border-radius: var(--btn-radius);
   font-family: var(--font-body);
   display: inline-flex;
@@ -251,32 +180,15 @@
 }
 
 .intro-btn--primary {
-  background: var(--btn-primary-bg);
-  color: #fff;
-  box-shadow: var(--btn-primary-shadow);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Subtle shimmer sweep on hover */
-.intro-btn--primary::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.18) 50%, transparent 60%);
-  transform: translateX(-100%);
-  transition: transform 0.4s var(--ease-out);
-  border-radius: inherit;
-}
-
-.intro-btn--primary:hover::before {
-  transform: translateX(100%);
+  background: #2F6F4E;
+  color: #FFFDF9;
+  box-shadow: 0 4px 18px rgba(47, 111, 78, 0.35);
 }
 
 .intro-btn--primary:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--btn-primary-shadow-h);
-  color: #fff;
+  transform: translateY(-2px);
+  background: #3C8C63;
+  box-shadow: 0 8px 24px rgba(47, 111, 78, 0.45);
 }
 
 .intro-btn--primary svg {
@@ -290,15 +202,19 @@
 
 .intro-btn--outline {
   background: transparent;
-  color: var(--btn-ghost-text);
-  border: 1.5px solid var(--btn-ghost-border);
+  color: var(--palette-slate-50);
+  border: 1.5px solid rgba(247, 245, 240, 0.28);
 }
 
 .intro-btn--outline:hover {
-  background: var(--btn-ghost-bg-h);
-  transform: translateY(-3px);
-  box-shadow: var(--btn-primary-shadow);
-  color: var(--btn-ghost-text);
+  border-color: #4FBE87;
+  color: #4FBE87;
+  transform: translateY(-2px);
+}
+
+.intro-btn--admin {
+  border-color: rgba(79, 190, 135, 0.5);
+  color: #4FBE87;
 }
 
 .intro-btn:active {
@@ -316,202 +232,107 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05); /* Fixed to light variant */
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #f1f5f9; /* Fixed light color */
+  width: 42px;
+  height: 42px;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: 1px solid rgba(247, 245, 240, 0.16);
+  color: var(--palette-slate-50);
   text-decoration: none;
-  transition: all 0.25s ease;
-  backdrop-filter: blur(8px);
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .intro-social-link:hover {
-  background: rgba(99, 102, 241, 0.2);
-  border-color: rgba(99, 102, 241, 0.4);
-  color: #8b5cf6;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+  border-color: #4FBE87;
+  color: #4FBE87;
+  transform: translateY(-2px);
 }
 
 .intro-social-link svg {
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
 }
 
-/* ── RIGHT: orbit system ───────────────────────────────────────── */
+/* ── RIGHT: profile photo + spec panel ───────────────────────────── */
 .intro-image-side {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  gap: 1.25rem;
   flex-shrink: 0;
 }
 
-/* The orbit coordinate system */
-.orbit-system {
+.profile-frame {
   position: relative;
-  width: 340px;
-  height: 340px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 280px;
+  aspect-ratio: 4 / 5;
+  padding: 10px;
 }
 
-/* ── Orbit ring ── */
-.orbit-ring {
+.profile-corner {
   position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1.5px dashed rgba(99, 102, 241, 0.25);
-  animation: orbitSpin 8s linear infinite;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
 }
 
-.orbit-ring--slow {
-  inset: -28px;
-  border-color: rgba(139, 92, 246, 0.15);
-  animation-duration: 14s;
-  animation-direction: reverse;
+.profile-corner--tl {
+  top: 0;
+  left: 0;
+  border-top: 2px solid #4FBE87;
+  border-left: 2px solid #4FBE87;
 }
 
-@keyframes orbitSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-/* The traveller sits at the top of the ring and counter-rotates so the
-   icon always faces up while the ring spins. */
-.orbit-traveller {
-  position: absolute;
-  top: -22px;
-  left: 50%;
-  transform: translateX(-50%);
-  /* Counter-rotate: the ring parent spins forward, this spins back */
-  animation: orbitCounterSpin 8s linear infinite;
-}
-
-.orbit-ring--slow .orbit-traveller {
-  animation-duration: 14s;
-  animation-direction: normal; /* reverses the parent's reverse */
-  top: -14px;
-}
-
-@keyframes orbitCounterSpin {
-  from { transform: translateX(-50%) rotate(0deg); }
-  to   { transform: translateX(-50%) rotate(-360deg); }
-}
-
-.orbit-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.55);
-  border: 2px solid rgba(255,255,255,0.15);
-}
-
-.orbit-dot {
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--color-accent-2, #8b5cf6);
-  box-shadow: 0 0 8px var(--color-accent-2, #8b5cf6);
-}
-
-/* ── Profile photo ── */
-.profile-wrap {
-  position: relative;
-  z-index: 2;
-}
-
-.profile-gradient-border {
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background: var(--gradient-primary);
-  padding: 3px;
-  box-shadow:
-    0 20px 60px rgba(99, 102, 241, 0.35),
-    0 0 0 1px rgba(99,102,241,0.12);
-  animation: profileFloat 5s ease-in-out infinite;
-}
-
-@keyframes profileFloat {
-  0%, 100% { transform: translateY(0);    box-shadow: 0 20px 60px rgba(99,102,241,0.35); }
-  50%       { transform: translateY(-10px); box-shadow: 0 30px 80px rgba(99,102,241,0.5);  }
-}
-
-.profile-inner {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  background: var(--color-bg);
+.profile-corner--br {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid #E2704F;
+  border-right: 2px solid #E2704F;
 }
 
 .profile-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
   display: block;
+  filter: grayscale(0.15) contrast(1.03);
 }
 
-/* ── Floating stat chips ── */
-.intro-stat {
-  position: absolute;
+.profile-spec {
+  width: 100%;
+  max-width: 280px;
+  border: 1px solid rgba(247, 245, 240, 0.14);
+  border-radius: 0.5rem;
+  padding: 0.85rem 1rem;
+  margin: 0;
+}
+
+.profile-spec-row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0.6rem 1rem;
-  border-radius: 14px;
-  background: var(--glass-bg, rgba(255,255,255,0.06));
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border, rgba(255,255,255,0.12));
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
-  z-index: 5;
-  animation: statFloat 4s ease-in-out infinite;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.35rem 0;
 }
 
-.intro-stat strong {
-  font-size: 1.3rem;
-  font-weight: 800;
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1;
+.profile-spec-row + .profile-spec-row {
+  border-top: 1px solid rgba(247, 245, 240, 0.08);
 }
 
-.intro-stat span {
-  font-size: 0.68rem;
-  font-weight: 600;
+.profile-spec-row dt {
+  font-family: var(--font-code);
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--color-text-secondary, #94a3b8);
-  margin-top: 0.1rem;
+  color: rgba(247, 245, 240, 0.5);
 }
 
-.intro-stat--tl {
-  top: -10px;
-  left: -20px;
-  animation-delay: 0s;
-}
-
-.intro-stat--br {
-  bottom: -10px;
-  right: -20px;
-  animation-delay: 2s;
-}
-
-@keyframes statFloat {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-6px); }
+.profile-spec-row dd {
+  font-family: var(--font-code);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--palette-slate-50);
+  margin: 0;
 }
 
 /* ── Scroll hint ───────────────────────────────────────────────── */
@@ -524,13 +345,13 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  z-index: 3;
+  z-index: 1;
 }
 
 .intro-scroll-line {
   width: 1px;
-  height: 48px;
-  background: linear-gradient(to bottom, transparent, var(--color-accent-1, #6366f1), transparent);
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, rgba(247, 245, 240, 0.4), transparent);
   animation: scrollLine 2s ease-in-out infinite;
 }
 
@@ -541,40 +362,12 @@
 }
 
 .intro-scroll-label {
+  font-family: var(--font-code);
   font-size: 0.65rem;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: var(--color-text-secondary, #64748b);
-}
-
-/* ── Light-mode overrides ──────────────────────────────────────── */
-[data-theme="light"] .intro-glow--1 { opacity: 0.25; }
-[data-theme="light"] .intro-glow--2 { opacity: 0.2;  }
-
-[data-theme="light"] .intro-chip {
-  border-color: rgba(5, 150, 105, 0.25);
-  background: rgba(5, 150, 105, 0.07);
-  color: #059669;
-}
-
-[data-theme="light"] .intro-chip-dot {
-  background: #059669;
-  box-shadow: 0 0 6px #059669;
-}
-
-[data-theme="light"] .orbit-ring {
-  border-color: rgba(99, 102, 241, 0.2);
-}
-
-[data-theme="light"] .profile-gradient-border {
-  box-shadow: 0 20px 60px rgba(99,102,241,0.2);
-}
-
-[data-theme="light"] .intro-stat {
-  background: rgba(255,255,255,0.85);
-  border-color: rgba(0,0,0,0.06);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  color: rgba(247, 245, 240, 0.4);
 }
 
 /* ── Responsive ────────────────────────────────────────────────── */
@@ -599,26 +392,20 @@
     justify-content: center;
   }
 
-  .intro-chip,
+  .intro-status,
+  .intro-stack,
   .intro-actions,
   .intro-socials {
     justify-content: center;
   }
 
   .intro-bio {
-    text-align: center;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .orbit-system {
-    width: 280px;
-    height: 280px;
-  }
-
-  .profile-gradient-border {
-    width: 210px;
-    height: 210px;
+  .profile-frame {
+    width: 220px;
   }
 }
 
@@ -632,22 +419,9 @@
     padding: 4rem 0 3rem;
   }
 
-  .orbit-system {
-    width: 220px;
-    height: 220px;
+  .profile-frame {
+    width: 180px;
   }
-
-  .profile-gradient-border {
-    width: 170px;
-    height: 170px;
-  }
-
-  .orbit-ring--slow {
-    inset: -20px;
-  }
-
-  .intro-stat--tl { top: -5px;  left: -10px; }
-  .intro-stat--br { bottom: -5px; right: -10px; }
 
   .intro-btn {
     padding: 0.75rem 1.5rem;
@@ -680,32 +454,15 @@
 
   .intro-image-side { order: 2; }
 
-  .orbit-system {
-    width: 200px;
-    height: 200px;
-  }
-
-  .profile-gradient-border {
-    width: 150px;
-    height: 150px;
+  .profile-frame {
+    width: 160px;
   }
 }
 
 /* Reduce motion */
 @media (prefers-reduced-motion: reduce) {
-  .orbit-ring,
-  .orbit-traveller,
-  .profile-gradient-border,
-  .intro-stat,
-  .intro-chip-dot,
-  .intro-glow--1,
-  .intro-glow--2,
+  .intro-status-dot,
   .intro-scroll-line {
     animation: none;
   }
-
-  .intro-name-char {
-    transition: none;
-  }
 }
-

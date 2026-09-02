@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import "./Skills.css";
 import {
   FaCode,
@@ -30,25 +30,13 @@ import {
 
 interface Skill {
   name: string;
-  icon: React.ReactElement;
+  icon?: React.ReactElement;
 }
 
-interface SkillCardProps {
+interface SkillRow {
   title: string;
-  items: Skill[] | string[];
-  icon: React.ReactElement;
-  color: string;
-  delay?: number;
-  isList?: boolean;
-}
-
-interface SkillCategory {
-  title: string;
-  items: Skill[] | string[];
-  icon: React.ReactElement;
-  color: string;
-  delay: number;
-  isList?: boolean;
+  rowIcon: React.ReactElement;
+  items: Skill[];
 }
 
 const skillIcons: Record<string, React.ReactElement> = {
@@ -70,208 +58,77 @@ const skillIcons: Record<string, React.ReactElement> = {
   "VS Code": <SiVisualstudiocode />,
 };
 
-const skills = {
-  languages: [
-    { name: "Java", icon: skillIcons.Java },
-    { name: "JavaScript", icon: skillIcons.JavaScript },
-    { name: "Python", icon: skillIcons.Python },
-    { name: "HTML", icon: skillIcons.HTML },
-    { name: "CSS", icon: skillIcons.CSS },
-    { name: "Tailwind", icon: skillIcons.Tailwind },
-    { name: "MySQL", icon: skillIcons.MySQL },
-    { name: "C#", icon: skillIcons["C#"] },
-  ],
-  frameworks: [
-    { name: "React", icon: skillIcons.React },
-    { name: "Node.js", icon: skillIcons["Node.js"] },
-    { name: "Express", icon: skillIcons.Express },
-    { name: "Spring Boot", icon: skillIcons["Spring Boot"] },
-  ],
-  tools: [
-    { name: "GitHub", icon: skillIcons.GitHub },
-    { name: "Postman", icon: skillIcons.Postman },
-    { name: "Git", icon: skillIcons.Git },
-    { name: "VS Code", icon: skillIcons["VS Code"] },
-  ],
-};
-
-const SkillCard: React.FC<SkillCardProps> = ({
-  title,
-  items,
-  icon,
-  color,
-  delay = 0,
-  isList = false,
-}) => {
-  const shouldReduceMotion = useReducedMotion();
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay }}
-      whileHover={{ scale: 1.05 }}
-      className={`skills-card skills-card-${color}`}
-    >
-      <div className="skills-card-header">
-        {icon && (
-          <motion.span
-            className={`skills-card-icon skills-card-icon-${color}`}
-            animate={shouldReduceMotion ? {} : { rotate: [0, 360] }}
-            transition={{ duration: 2, repeat: shouldReduceMotion ? 0 : Infinity, ease: "linear" }}
-          >
-            {icon}
-          </motion.span>
-        )}
-        <h3 className="skills-card-title">{title}</h3>
-      </div>
-      {isList ? (
-        <ul className="skills-ul">
-          {(items as string[]).map((item, index) => (
-            <motion.li
-              key={`${title}-${index}-${item}`}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              {item}
-            </motion.li>
-          ))}
-        </ul>
-      ) : (
-        <div className="skills-list">
-          {(items as Skill[]).map((skill, index) => (
-            <motion.div
-              key={`${title}-${index}-${skill.name}`}
-              className="skills-list-item"
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.1 }}
-            >
-              <span className="skills-list-icon">{skill.icon}</span>
-              <span className="skills-list-text">{skill.name}</span>
-            </motion.div>
-          ))}
-        </div>
-      )}
-    </motion.div>
-  );
-};
+const rows: SkillRow[] = [
+  {
+    title: "Languages",
+    rowIcon: <FaCode />,
+    items: ["Java", "JavaScript", "Python", "HTML", "CSS", "Tailwind", "MySQL", "C#"].map(
+      (name) => ({ name, icon: skillIcons[name] })
+    ),
+  },
+  {
+    title: "Frameworks",
+    rowIcon: <FaGlobe />,
+    items: ["React", "Node.js", "Express", "Spring Boot"].map((name) => ({
+      name,
+      icon: skillIcons[name],
+    })),
+  },
+  {
+    title: "Tools",
+    rowIcon: <FaDatabase />,
+    items: ["GitHub", "Postman", "Git", "VS Code"].map((name) => ({
+      name,
+      icon: skillIcons[name],
+    })),
+  },
+  {
+    title: "Engineering",
+    rowIcon: <FaAward />,
+    items: [
+      "Agile & Scrum",
+      "SDLC",
+      "Data Structures & Algorithms",
+      "Object-Oriented Programming",
+      "Test-Driven Development",
+    ].map((name) => ({ name })),
+  },
+  {
+    title: "Practice",
+    rowIcon: <FaBriefcase />,
+    items: [
+      "Leadership & Teamwork",
+      "Project Management",
+      "Problem Solving",
+      "Communication",
+      "Time Management",
+    ].map((name) => ({ name })),
+  },
+  {
+    title: "Additional",
+    rowIcon: <FaUser />,
+    items: [
+      "UI/UX Design Principles",
+      "API Development",
+      "Database Design",
+      "Version Control (Git)",
+      "Project Documentation",
+    ].map((name) => ({ name })),
+  },
+];
 
 const Skills: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-
-  const titleY = useTransform(scrollYProgress, [0, 0.5], [60, 0]);
-  const gridScale = useTransform(scrollYProgress, [0, 0.2], [0.9, 1]);
-
-  useEffect(() => {
-    const grid = gridRef.current;
-    if (!grid) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in");
-            const children = entry.target.children;
-            Array.from(children).forEach((child, index) => {
-              (child as HTMLElement).style.animationDelay = `${index * 0.1}s`;
-            });
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2, rootMargin: "50px" }
-    );
-
-    observer.observe(grid);
-    return () => observer.disconnect();
-  }, []);
-
-  const skillCards: SkillCategory[] = [
-    {
-      title: "Programming Languages",
-      items: skills.languages,
-      icon: <FaCode />,
-      color: "blue",
-      delay: 0,
-    },
-    {
-      title: "Frameworks & Libraries",
-      items: skills.frameworks,
-      icon: <FaGlobe />,
-      color: "purple",
-      delay: 0.1,
-    },
-    {
-      title: "Tools & Technologies",
-      items: skills.tools,
-      icon: <FaDatabase />,
-      color: "green",
-      delay: 0.2,
-    },
-    {
-      title: "Soft Skills",
-      items: [
-        "Leadership & Teamwork",
-        "Project Management",
-        "Problem Solving",
-        "Communication",
-        "Time Management",
-        "Multilingual Communication",
-      ],
-      icon: <FaBriefcase />,
-      color: "orange",
-      delay: 0.3,
-      isList: true,
-    },
-    {
-      title: "Software Engineering",
-      items: [
-        "Agile & Scrum",
-        "SDLC",
-        "Data Structures & Algorithms",
-        "Object-Oriented Programming",
-        "Test-Driven Development",
-      ],
-      icon: <FaAward />,
-      color: "pink",
-      delay: 0.4,
-      isList: true,
-    },
-    {
-      title: "Additional",
-      items: [
-        "UI/UX Design Principles",
-        "API Development",
-        "Database Design",
-        "Version Control (Git)",
-        "Project Documentation",
-      ],
-      icon: <FaUser />,
-      color: "indigo",
-      delay: 0.5,
-      isList: true,
-    },
-  ];
+  const titleY = useTransform(scrollYProgress, [0, 0.5], [40, 0]);
 
   return (
-    <motion.section
-      ref={sectionRef}
-      className="skills-section"
-      id="skills"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1 }}
-    >
+    <section ref={sectionRef} className="skills-section" id="skills">
       <div className="skills-container">
+        <span className="eyebrow">03 · STACK</span>
         <motion.h2
           className="skills-title"
           style={{ y: titleY }}
@@ -283,20 +140,33 @@ const Skills: React.FC = () => {
           Skills &amp; Technologies
         </motion.h2>
 
-        <motion.div
-          ref={gridRef}
-          className="skills-grid animate-on-scroll"
-          style={{ scale: gridScale, willChange: "transform, opacity" }}
-          initial={{ opacity: 0, y: 80 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, type: "spring", stiffness: 100, damping: 15 }}
-        >
-          {skillCards.map((card) => (
-            <SkillCard key={card.title} {...card} />
+        <div className="skills-manifest">
+          {rows.map((row, i) => (
+            <motion.div
+              key={row.title}
+              className="skills-row"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: i * 0.06 }}
+            >
+              <div className="skills-row-label">
+                <span className="skills-row-icon">{row.rowIcon}</span>
+                {row.title}
+              </div>
+              <ul className="skills-row-items">
+                {row.items.map((item) => (
+                  <li key={item.name} className="skills-tag">
+                    {item.icon && <span className="skills-tag-icon">{item.icon}</span>}
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

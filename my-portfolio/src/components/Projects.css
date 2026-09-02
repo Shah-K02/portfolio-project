@@ -35,8 +35,8 @@
 
 /* ── Section header ─────────────────────────────────────── */
 .projects-header {
-  text-align: center;
-  margin-bottom: 3rem;
+  text-align: left;
+  margin-bottom: 2.5rem;
 }
 
 .projects-title {
@@ -50,30 +50,19 @@
   display: block;
 }
 
-.projects-title::after {
-  content: "";
-  display: block;
-  width: 3.5rem;
-  height: 3px;
-  border-radius: var(--radius-full);
-  background: var(--gradient-primary);
-  margin: 0.65rem auto 0;
-  opacity: 0.85;
-}
-
 .projects-subtitle {
   font-size: var(--text-base);
   color: var(--color-text-muted);
   font-weight: var(--fw-normal);
   line-height: var(--lh-normal);
-  margin: 0.75rem auto 0;
+  margin: 0.75rem 0 0;
   max-width: 560px;
 }
 
 /* ── Category filter ────────────────────────────────────── */
 .project-filter {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.75rem;
   margin-bottom: 2.5rem;
   flex-wrap: wrap;

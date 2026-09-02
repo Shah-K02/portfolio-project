@@ -111,7 +111,8 @@ const Projects: React.FC = () => {
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="projects-title">My Projects</h2>
+          <span className="eyebrow">02 · WORK</span>
+          <h2 className="projects-title">Projects</h2>
           <p className="projects-subtitle">
             A collection of my recent work and personal projects
           </p>

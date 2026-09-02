@@ -13,6 +13,7 @@ const About: React.FC = () => {
       }`}
     >
       <div className="container">
+        <span className="eyebrow stagger-item">01 · ABOUT</span>
         <h2
           className={`section-title stagger-item ${
             inView ? "section-visible" : ""

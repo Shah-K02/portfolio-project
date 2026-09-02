@@ -45,6 +45,7 @@ const ContactSection: React.FC = () => {
   return (
     <section id="contact" className="contact-section">
       <div className="contact-container">
+        <span className="eyebrow">04 · CONTACT</span>
         <motion.h2
           className="contact-heading"
           initial={{ opacity: 0, y: 50 }}
