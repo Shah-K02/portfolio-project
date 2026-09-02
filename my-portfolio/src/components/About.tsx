@@ -1,6 +1,28 @@
 import React from "react";
 import "./About.css";
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { FaBolt, FaGraduationCap } from "react-icons/fa";
+
+const STRENGTHS = [
+  "Full-stack development",
+  "Problem-solving",
+  "Team collaboration",
+  "Continuous learning",
+  "Project management",
+  "Object-oriented design",
+];
+
+const EDUCATION = [
+  { label: "Degree", value: "BSc Computer Science" },
+  { label: "University", value: "Aston University, Birmingham" },
+  { label: "Years", value: "2021 – 2024" },
+  {
+    label: "Modules",
+    value:
+      "OOP, Data Structures & Algorithms, Software Engineering, Database Design, Team Projects",
+  },
+];
+
 const About: React.FC = () => {
   const { ref, inView } = useScrollAnimation({ amount: 0.2, once: false });
 
@@ -22,8 +44,7 @@ const About: React.FC = () => {
           About Me
         </h2>
 
-        {/* Personal Bio */}
-        <p className={`about-bio stagger-item ${inView ? "section-visible" : ""}` }>
+        <p className={`about-bio stagger-item ${inView ? "section-visible" : ""}`}>
           I'm a Computer Science graduate from Aston University with a passion for building elegant,
           high-performance web applications. I love turning complex problems into simple, intuitive
           experiences, whether that's architecting a RESTful API, crafting pixel-perfect UIs, or
@@ -37,43 +58,40 @@ const About: React.FC = () => {
           }`}
         >
           <div className="about-image stagger-item">
-            <img src="./aboutpic.jpeg" alt="About me" className="about-pic" />
+            <div className="about-frame">
+              <span className="about-corner about-corner--tl" aria-hidden="true" />
+              <span className="about-corner about-corner--br" aria-hidden="true" />
+              <img src="./aboutpic.jpeg" alt="Shah Kar" className="about-pic" />
+            </div>
           </div>
 
-          <div className="about-info stagger-item">
-            <div className="info-card strengths-card stagger-item">
-              <img
-                className="strength-icon"
-                src="./strengthicon.png"
-                alt="Strengths"
-              />
-              <h3 className="card-title">Strengths</h3>
-              <ul className="strengths-list">
-                <li>Full-stack development expertise</li>
-                <li>Strong problem-solving abilities</li>
-                <li>Excellent team collaboration</li>
-                <li>Continuous learning mindset</li>
-                <li>Software project management</li>
-                <li>Object-oriented programming</li>
+          <div className="about-panel stagger-item">
+            <div className="about-panel-row">
+              <div className="about-panel-label">
+                <span className="icon-badge"><FaBolt /></span>
+                Strengths
+              </div>
+              <ul className="about-tags">
+                {STRENGTHS.map((s) => (
+                  <li key={s} className="about-tag">{s}</li>
+                ))}
               </ul>
             </div>
 
-            <div className="info-card education-card stagger-item">
-              <img className="edu-icon" src="./eduicon.png" alt="Education" />
-              <h3 className="card-title">Education</h3>
-              <div className="education-content">
-                <p className="degree">Bachelor of Computer Science</p>
-                <p className="university">
-                  Aston University, Birmingham, UK 2021–2024
-                </p>
-                <p className="modules">
-                  Relevant modules: Object-Oriented Programming, Data Structures
-                  &amp; Algorithms, Software Engineering, Database Design, Team
-                  Projects, Individual Project
-                </p>
+            <div className="about-panel-row">
+              <div className="about-panel-label">
+                <span className="icon-badge icon-badge--wire"><FaGraduationCap /></span>
+                Education
               </div>
+              <dl className="about-edu">
+                {EDUCATION.map((row) => (
+                  <div className="about-edu-row" key={row.label}>
+                    <dt>{row.label}</dt>
+                    <dd>{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
-
           </div>
         </div>
       </div>

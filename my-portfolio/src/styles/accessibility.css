@@ -92,9 +92,12 @@
   opacity: 0.6;
 }
 
-[aria-hidden="true"] {
-  display: none !important;
-}
+/* Note: aria-hidden must NOT affect visual rendering — it only tells
+   assistive tech to skip an element. A decorative element (icon, accent
+   line, corner bracket) is correctly marked aria-hidden while staying
+   fully visible; forcing display:none here was hiding every such element
+   sitewide. Use display:none / .sr-only directly when something should
+   also be hidden visually. */
 
 /* Interactive Elements */
 .interactive-card {

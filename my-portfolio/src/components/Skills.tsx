@@ -151,7 +151,7 @@ const Skills: React.FC = () => {
               transition={{ duration: 0.5, delay: i * 0.06 }}
             >
               <div className="skills-row-label">
-                <span className="skills-row-icon">{row.rowIcon}</span>
+                <span className={`icon-badge ${i % 2 ? "icon-badge--wire" : ""}`}>{row.rowIcon}</span>
                 {row.title}
               </div>
               <ul className="skills-row-items">

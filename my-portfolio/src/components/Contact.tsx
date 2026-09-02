@@ -63,61 +63,53 @@ const ContactSection: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             transition={{ duration: 0.6 }}
-            className="contact-info"
+            className="contact-panel"
           >
-            <div className="contact-item">
-              <div className="contact-icon">
-                <EmailIcon className="icon" />
-              </div>
-              <div>
-                <h3 className="contact-title">Email</h3>
-                <a href="mailto:shahkar0215@gmail.com" className="contact-link">
+            <div className="contact-row">
+              <span className="icon-badge"><EmailIcon /></span>
+              <div className="contact-row-body">
+                <div className="contact-row-label">Email</div>
+                <a href="mailto:shahkar0215@gmail.com" className="contact-row-value">
                   shahkar0215@gmail.com
                 </a>
               </div>
             </div>
 
-            <div className="contact-item">
-              <div className="contact-icon">
-                <LinkedInIcon className="icon" />
-              </div>
-              <div>
-                <h3 className="contact-title">LinkedIn</h3>
+            <div className="contact-row">
+              <span className="icon-badge icon-badge--wire"><LinkedInIcon /></span>
+              <div className="contact-row-body">
+                <div className="contact-row-label">LinkedIn</div>
                 <a
                   href="https://www.linkedin.com/in/shah-kar/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="contact-link"
+                  className="contact-row-value"
                 >
                   Connect with me
                 </a>
               </div>
             </div>
 
-            <div className="contact-item">
-              <div className="contact-icon">
-                <GitHubIcon className="icon" />
-              </div>
-              <div>
-                <h3 className="contact-title">GitHub</h3>
+            <div className="contact-row">
+              <span className="icon-badge"><GitHubIcon /></span>
+              <div className="contact-row-body">
+                <div className="contact-row-label">GitHub</div>
                 <a
                   href="https://github.com/Shah-K02"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="contact-link"
+                  className="contact-row-value"
                 >
                   View my projects
                 </a>
               </div>
             </div>
 
-            <div className="contact-item">
-              <div className="contact-icon">
-                <LocationIcon className="icon" />
-              </div>
-              <div>
-                <h3 className="contact-title">Location</h3>
-                <p className="contact-text">Birmingham, UK</p>
+            <div className="contact-row">
+              <span className="icon-badge icon-badge--wire"><LocationIcon /></span>
+              <div className="contact-row-body">
+                <div className="contact-row-label">Location</div>
+                <span className="contact-row-value contact-row-value--static">Birmingham, UK</span>
               </div>
             </div>
           </motion.div>
@@ -186,12 +178,12 @@ const ContactSection: React.FC = () => {
 
             {formState === "success" && (
               <p className="form-status form-success">
-                ✅ Message sent! I'll get back to you soon.
+                Message sent — I'll get back to you soon.
               </p>
             )}
             {formState === "error" && (
               <p className="form-status form-error">
-                ❌ Something went wrong. Please try emailing me directly.
+                Something went wrong. Please try emailing me directly.
               </p>
             )}
 
