@@ -2,6 +2,8 @@ import React from 'react';
 import './HolographicProjectCard.css';
 import { Project } from '../../types/project';
 import { useAdmin } from '../../context/AdminContext';
+import { ExternalLinkIcon, GitHubIcon } from '../Icons';
+import { ChevronRight } from 'react-feather';
 
 // Capitalise each word, handle hyphenated values like 'in-progress'
 const formatStatus = (s: string) =>
@@ -28,6 +30,7 @@ const HolographicProjectCard: React.FC<HolographicProjectCardProps> = ({
   const displayImage = project.image || project.screenshots?.[0];
   const githubUrl = project.githubUrl || project.repositoryUrl;
   const liveUrl = project.liveUrl || project.demoUrl;
+  const status = project.status;
 
   // Cap visible tech tags to avoid overflow
   const maxTags = 4;
@@ -51,9 +54,6 @@ const HolographicProjectCard: React.FC<HolographicProjectCardProps> = ({
       className={`project-card ${className}`}
       style={{ animationDelay: `${index * 80}ms` }}
     >
-      {/* Top accent bar */}
-      <div className="project-card-accent" aria-hidden="true" />
-
       {/* Admin overlay — edit / delete */}
       {isAdmin && (
         <div className="project-card-admin-overlay" aria-label="Admin controls">
@@ -96,18 +96,25 @@ const HolographicProjectCard: React.FC<HolographicProjectCardProps> = ({
             loading="lazy"
           />
           <div className="project-card-image-overlay" aria-hidden="true" />
+          {status && (
+            <span className={`project-card-status status-${status}`}>
+              <span className="project-card-status-dot" aria-hidden="true" />
+              {formatStatus(status)}
+            </span>
+          )}
         </div>
       )}
 
       {/* Body */}
       <div className="project-card-body">
-        {/* Header row: title + status */}
         <div className="project-card-header">
           <h3 className="project-card-title">{project.title}</h3>
-          {project.status && (
-            <span className={`project-card-badge badge-${project.status}`}>
-              {formatStatus(project.status)}
-            </span>
+          {(project.year || project.category) && (
+            <p className="project-card-meta">
+              {project.year}
+              {project.year && project.category && ' · '}
+              {project.category}
+            </p>
           )}
         </div>
 
@@ -129,47 +136,39 @@ const HolographicProjectCard: React.FC<HolographicProjectCardProps> = ({
 
       {/* Footer actions */}
       <div className="project-card-footer">
-        {project.year && (
-          <span className="project-card-year">{project.year}</span>
+        {liveUrl && (
+          <a
+            href={liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-card-cta"
+            aria-label={`View live demo of ${project.title}`}
+          >
+            View live
+            <ExternalLinkIcon size={14} />
+          </a>
         )}
-        <div className="project-card-actions">
-          {liveUrl && (
-            <a
-              href={liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="card-btn card-btn-primary"
-              aria-label={`View live demo of ${project.title}`}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
-              </svg>
-              Live
-            </a>
-          )}
+        <div className="project-card-links">
           {githubUrl && (
             <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="card-btn card-btn-ghost"
+              className="project-card-link"
               aria-label={`View source code of ${project.title}`}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
-              </svg>
+              <GitHubIcon size={14} />
               Code
             </a>
           )}
           {onViewProject && (
             <button
               onClick={() => onViewProject(project)}
-              className="card-btn card-btn-ghost"
+              className="project-card-link"
               aria-label={`View details of ${project.title}`}
             >
               Details
+              <ChevronRight size={14} />
             </button>
           )}
         </div>

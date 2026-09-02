@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { GitHubIcon, LinkedInIcon, EmailIcon, LocationIcon } from "./Icons";
+import { GitHubIcon, LinkedInIcon, EmailIcon, LocationIcon, ExternalLinkIcon } from "./Icons";
+import { Send } from "react-feather";
 import "./Contact.css";
 
 const ContactSection: React.FC = () => {
@@ -65,52 +66,49 @@ const ContactSection: React.FC = () => {
             transition={{ duration: 0.6 }}
             className="contact-panel"
           >
-            <div className="contact-row">
+            <a href="mailto:shahkar0215@gmail.com" className="contact-row contact-row--link">
               <span className="icon-badge"><EmailIcon /></span>
-              <div className="contact-row-body">
-                <div className="contact-row-label">Email</div>
-                <a href="mailto:shahkar0215@gmail.com" className="contact-row-value">
-                  shahkar0215@gmail.com
-                </a>
-              </div>
-            </div>
+              <span className="contact-row-body">
+                <span className="contact-row-label">Email</span>
+                <span className="contact-row-value">shahkar0215@gmail.com</span>
+              </span>
+              <span className="contact-row-arrow" aria-hidden="true"><ExternalLinkIcon size={16} /></span>
+            </a>
 
-            <div className="contact-row">
+            <a
+              href="https://www.linkedin.com/in/shah-kar/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-row contact-row--link"
+            >
               <span className="icon-badge icon-badge--wire"><LinkedInIcon /></span>
-              <div className="contact-row-body">
-                <div className="contact-row-label">LinkedIn</div>
-                <a
-                  href="https://www.linkedin.com/in/shah-kar/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="contact-row-value"
-                >
-                  Connect with me
-                </a>
-              </div>
-            </div>
+              <span className="contact-row-body">
+                <span className="contact-row-label">LinkedIn</span>
+                <span className="contact-row-value">Connect with me</span>
+              </span>
+              <span className="contact-row-arrow" aria-hidden="true"><ExternalLinkIcon size={16} /></span>
+            </a>
 
-            <div className="contact-row">
+            <a
+              href="https://github.com/Shah-K02"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-row contact-row--link"
+            >
               <span className="icon-badge"><GitHubIcon /></span>
-              <div className="contact-row-body">
-                <div className="contact-row-label">GitHub</div>
-                <a
-                  href="https://github.com/Shah-K02"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="contact-row-value"
-                >
-                  View my projects
-                </a>
-              </div>
-            </div>
+              <span className="contact-row-body">
+                <span className="contact-row-label">GitHub</span>
+                <span className="contact-row-value">View my projects</span>
+              </span>
+              <span className="contact-row-arrow" aria-hidden="true"><ExternalLinkIcon size={16} /></span>
+            </a>
 
             <div className="contact-row">
               <span className="icon-badge icon-badge--wire"><LocationIcon /></span>
-              <div className="contact-row-body">
-                <div className="contact-row-label">Location</div>
+              <span className="contact-row-body">
+                <span className="contact-row-label">Location</span>
                 <span className="contact-row-value contact-row-value--static">Birmingham, UK</span>
-              </div>
+              </span>
             </div>
           </motion.div>
 
@@ -194,11 +192,16 @@ const ContactSection: React.FC = () => {
               whileHover={{ scale: formState === "idle" ? 1.03 : 1 }}
               whileTap={{ scale: 0.97 }}
             >
-              {formState === "sending"
-                ? "Sending…"
-                : formState === "success"
-                  ? "Sent!"
-                  : "Send Message"}
+              {formState === "sending" ? (
+                "Sending…"
+              ) : formState === "success" ? (
+                "Sent!"
+              ) : (
+                <>
+                  <Send size={16} />
+                  Send Message
+                </>
+              )}
             </motion.button>
           </motion.form>
         </div>

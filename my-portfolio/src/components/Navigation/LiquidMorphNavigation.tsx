@@ -22,20 +22,31 @@ const LiquidMorphNavigation: React.FC<LiquidMorphNavigationProps> = ({
 }) => {
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
 
+  const progress = items.length > 1 ? currentSection / (items.length - 1) : 0;
+
   return (
     <nav
-      className={`pill-nav ${className}`}
+      className={`side-nav ${className}`}
       aria-label="Section navigation"
     >
-      <div className="pill-nav__track">
+      <div className="side-nav__track">
+        {/* The trace — a vertical rail that fills as you move through sections */}
+        <span className="side-nav__rail" aria-hidden="true">
+          <span
+            className="side-nav__rail-fill"
+            style={{ '--nav-fill': `${progress * 100}%` } as React.CSSProperties}
+          />
+        </span>
+
         {items.map((item, index) => {
-          const isActive  = index === currentSection;
+          const isActive = index === currentSection;
           const isHovered = hoveredItem === index;
+          const showLabel = isActive || isHovered;
 
           return (
             <button
               key={item.id}
-              className={`pill-nav__dot${isActive ? ' is-active' : ''}`}
+              className={`side-nav__node${isActive ? ' is-active' : ''}`}
               onClick={() => onSectionChange(index)}
               onMouseEnter={() => setHoveredItem(index)}
               onMouseLeave={() => setHoveredItem(null)}
@@ -43,14 +54,21 @@ const LiquidMorphNavigation: React.FC<LiquidMorphNavigationProps> = ({
               aria-current={isActive ? 'true' : undefined}
               type="button"
             >
-              <span className="pill-nav__dot-inner" />
+              <span className="side-nav__node-dot" aria-hidden="true">
+                {isActive && (
+                  <>
+                    <span className="side-nav__node-corner side-nav__node-corner--tl" />
+                    <span className="side-nav__node-corner side-nav__node-corner--br" />
+                  </>
+                )}
+              </span>
 
-              {/* Tooltip */}
               <span
-                className={`pill-nav__label${isHovered ? ' is-visible' : ''}`}
+                className={`side-nav__label${showLabel ? ' is-visible' : ''}${isActive ? ' is-active' : ''}`}
                 aria-hidden="true"
               >
-                {item.label}
+                <span className="side-nav__label-index">{String(index + 1).padStart(2, '0')}</span>
+                {isHovered && <span className="side-nav__label-text">{item.label}</span>}
               </span>
             </button>
           );

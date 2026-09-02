@@ -1,23 +1,19 @@
 import React from 'react';
 import { useTheme } from '../../context/ThemeContext';
-import { IoSunny, IoMoon } from 'react-icons/io5';
 import './ThemeToggle.css';
 
 export const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
+  const isDark = theme === 'dark';
 
   return (
     <button
       className="theme-toggle"
       onClick={toggleTheme}
-      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
     >
-      <div className="icon-container">
-        {theme === 'light' ? <IoMoon size={26} color="var(--color-text)" /> : <IoSunny size={26} color="var(--color-text)" />}
-      </div>
-      <span className="sr-only">
-        {theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-      </span>
+      <span className="theme-toggle-dot" aria-hidden="true" />
+      <span className="theme-toggle-label">{isDark ? 'Dark' : 'Light'}</span>
     </button>
   );
 };

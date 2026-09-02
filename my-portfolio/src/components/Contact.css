@@ -66,14 +66,28 @@
   align-items: center;
   gap: 1rem;
   padding: 1.25rem 1.5rem;
+  text-decoration: none;
+  color: inherit;
 }
 
 .contact-row + .contact-row {
   border-top: 1px solid var(--color-border);
 }
 
+/* Interactive rows — the whole row is the click target, not just the value text */
+.contact-row--link {
+  cursor: pointer;
+  transition: background-color 180ms var(--ease-out);
+}
+
+.contact-row--link:hover {
+  background: var(--color-accent-1-light);
+}
+
 .contact-row-body {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .contact-row-label {
@@ -86,20 +100,43 @@
 }
 
 .contact-row-value {
-  display: inline-block;
   color: var(--color-heading);
   font-size: 0.98rem;
   font-weight: 600;
-  text-decoration: none;
 }
 
-a.contact-row-value:hover {
+.contact-row--link:hover .contact-row-value {
   color: var(--color-accent-1);
 }
 
 .contact-row-value--static {
   font-weight: 500;
   color: var(--color-text);
+}
+
+/* Trailing "leaves the page" indicator — appears/nudges on hover so the
+   row's affordance is obvious without cluttering it at rest */
+.contact-row-arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: inline-flex;
+  color: var(--color-text-faint);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out), color 180ms var(--ease-out);
+}
+
+.contact-row--link:hover .contact-row-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+  color: var(--color-accent-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-row-arrow,
+  .contact-row--link {
+    transition: none;
+  }
 }
 
 /* ── Contact form ─────────────────────────────────────────────── */
@@ -170,6 +207,10 @@ a.contact-row-value:hover {
 }
 
 .form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   height: var(--btn-h-md);
   padding: 0 var(--btn-px-md);
   border-radius: var(--btn-radius);

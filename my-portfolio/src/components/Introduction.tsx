@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { GitHubIcon, LinkedInIcon } from "./Icons";
 import "./Introduction.css";
 import { motion } from "framer-motion";
-import { Upload } from "react-feather";
+import { Upload, Download } from "react-feather";
 import { usePerformanceDetection } from "../utils/performanceDetection";
 import MagneticCursor from "./MagneticCursor";
 import { useAdmin } from "../context/AdminContext";
@@ -124,6 +124,7 @@ const Introduction: React.FC = () => {
               className="intro-btn intro-btn--outline"
               aria-label="Download Shah Kar's CV"
             >
+              <Download size={16} />
               Download CV
             </a>
 
