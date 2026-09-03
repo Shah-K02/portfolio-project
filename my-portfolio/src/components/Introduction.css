@@ -380,11 +380,11 @@
 
   .intro-text {
     align-items: center;
-    order: 2;
+    order: 1;
   }
 
   .intro-image-side {
-    order: 1;
+    order: 2;
   }
 
   .intro-name-line {

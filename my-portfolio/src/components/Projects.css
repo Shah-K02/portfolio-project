@@ -94,7 +94,7 @@
 
 .filter-btn.active {
   background: var(--btn-primary-bg);
-  color: #fff;
+  color: var(--btn-primary-text);
   border-color: transparent;
   box-shadow: var(--btn-primary-shadow);
   font-weight: var(--fw-semibold);

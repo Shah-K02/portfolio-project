@@ -395,7 +395,7 @@ body {
 
 /* Global: ensure all sections clear the bottom mobile nav bar */
 @media (max-width: 768px) {
-  .smooth-scroll-container > * {
+  .app-container > * {
     padding-bottom: calc(var(--section-padding, 5rem) + 4rem);
   }
 }
