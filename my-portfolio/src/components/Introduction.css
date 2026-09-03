@@ -196,7 +196,7 @@
 }
 
 .intro-btn--primary:hover svg {
-  transform: translateX(4px);
+  transform: translateY(3px);
 }
 
 .intro-btn--outline {

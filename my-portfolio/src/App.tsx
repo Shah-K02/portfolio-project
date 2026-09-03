@@ -4,7 +4,6 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
-import { ScrollProgress } from "./components/Navigation/ScrollProgress";
 import LiquidMorphNavigation from "./components/Navigation/LiquidMorphNavigation";
 import { ThemeProvider } from "./context/ThemeContext";
 import { ThemeToggle } from "./components/Navigation/ThemeToggle";
@@ -14,25 +13,43 @@ import AdminLoginModal from "./components/Admin/AdminLoginModal";
 import "./App.css";
 
 // ── Track which section is currently in view for the nav indicator ──────────
+//
+// A single observer watches all sections against a thin horizontal band at
+// the viewport's vertical centre (via rootMargin), rather than each section
+// independently against 30% of its own height. Sections are non-overlapping
+// blocks stacked vertically, so exactly one of them intersects that band at
+// any given scroll position — this stays correct regardless of how tall a
+// given section is. The previous per-section-height approach broke down for
+// the (much taller) Projects section: it could simultaneously satisfy "30%
+// visible" alongside its neighbour for a long scroll range, and since each
+// observer fired independently with no coordination, whichever callback ran
+// last won arbitrarily — the indicator would flicker between Projects and
+// Skills while scrolling through that overlap.
 function useCurrentSection(count: number) {
   const [currentSection, setCurrentSection] = useState(0);
 
   useEffect(() => {
     const ids = ["introduction", "about", "projects", "skills", "contact"];
-    const observers: IntersectionObserver[] = [];
+    const elements = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
 
-    ids.forEach((id, i) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setCurrentSection(i); },
-        { threshold: 0.3 }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
+    if (elements.length === 0) return;
 
-    return () => observers.forEach(o => o.disconnect());
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = elements.indexOf(entry.target as HTMLElement);
+            if (index !== -1) setCurrentSection(index);
+          }
+        });
+      },
+      { threshold: 0, rootMargin: "-45% 0px -45% 0px" }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, [count]);
 
   return currentSection;
@@ -46,25 +63,10 @@ function scrollToSection(index: number) {
 
 // ── Main content ─────────────────────────────────────────────────────────────
 function AppContent() {
-  const [scrollProgress, setScrollProgress] = useState(0);
   const currentSection = useCurrentSection(5);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const scrollTop = window.scrollY;
-      const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
-      setScrollProgress(progress);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
     <div className="app-container">
-      <ScrollProgress scrollProgress={scrollProgress} />
-
       {/* Sections — each manages its own padding/layout just like About */}
       <Introduction />
       <About />
