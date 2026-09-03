@@ -67,7 +67,9 @@ const LiquidMorphNavigation: React.FC<LiquidMorphNavigationProps> = ({
                 className={`side-nav__label${showLabel ? ' is-visible' : ''}${isActive ? ' is-active' : ''}`}
                 aria-hidden="true"
               >
-                <span className="side-nav__label-index">{String(index + 1).padStart(2, '0')}</span>
+                {/* Matches each section's own "0N · LABEL" eyebrow (Home is
+                    unnumbered content-wise, so it's the "00" starting point) */}
+                <span className="side-nav__label-index">{String(index).padStart(2, '0')}</span>
                 {isHovered && <span className="side-nav__label-text">{item.label}</span>}
               </span>
             </button>
