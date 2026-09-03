@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-03T00:00:00Z",
+  "title": "Design System: Shah Kar Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "signal": {
+        "role": "primary",
+        "displayName": "Signal Green",
+        "canonical": "#2F6F4E",
+        "tonalRamp": ["#0D2117", "#1A4530", "#2F6F4E", "#3C8C63", "#6FAE8C", "#A3CDB6", "#D3E9DD", "#EFF7F2"]
+      },
+      "wire": {
+        "role": "secondary",
+        "displayName": "Rust Wire",
+        "canonical": "#B8402E",
+        "tonalRamp": ["#2E0F0A", "#5C2016", "#B8402E", "#D4573D", "#E58F7C", "#EFB3A3", "#F3C4B8", "#FBE5DE"]
+      },
+      "ochre": {
+        "role": "tertiary",
+        "displayName": "Muted Ochre",
+        "canonical": "#AD8323",
+        "tonalRamp": ["#2B2008", "#574110", "#826118", "#AD8323", "#C99A2E", "#DDBC70", "#EEDCAF", "#F9F0DD"]
+      },
+      "neutral-heading": {
+        "role": "neutral",
+        "displayName": "Ink / Paper",
+        "canonical": "#17140F",
+        "tonalRamp": ["#100E0A", "#17140F", "#26221D", "#524B41", "#9B9284", "#E2DDD1", "#EDEAE2", "#F7F5F0"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero name/headline only." },
+      "headline": { "displayName": "Headline", "purpose": "Section h1/h3-level headings." },
+      "title": { "displayName": "Title", "purpose": "Card and subsection headings." },
+      "body": { "displayName": "Body", "purpose": "Paragraph copy." },
+      "label": { "displayName": "Label", "purpose": "Eyebrows, status pills, nav index, tags, meta lines." }
+    },
+    "shadows": [
+      { "name": "shadow-sm", "value": "0 1px 3px rgba(23,20,15,0.08), 0 1px 2px rgba(23,20,15,0.08)", "purpose": "Barely-there separation, rarely used alone." },
+      { "name": "shadow-md", "value": "0 4px 12px rgba(23,20,15,0.08)", "purpose": "Default hover state for buttons, theme toggle, nav label." },
+      { "name": "shadow-lg", "value": "0 10px 30px rgba(23,20,15,0.08), 0 4px 10px rgba(23,20,15,0.08)", "purpose": "Card hover lift, glass-card hover." },
+      { "name": "shadow-xl", "value": "0 20px 60px rgba(23,20,15,0.16)", "purpose": "Modal-scale elevation." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.0, 0.0, 0.2, 1)", "purpose": "Default easing for hovers, lifts, and most transitions." },
+      { "name": "ease-in-out", "value": "cubic-bezier(0.4, 0.0, 0.2, 1)", "purpose": "Theme-switch background/color crossfades." },
+      { "name": "ease-spring", "value": "cubic-bezier(0.34, 1.56, 0.64, 1)", "purpose": "Occasional playful overshoot (reserved, used sparingly)." },
+      { "name": "duration-fast", "value": "150ms", "purpose": "Micro-interactions (button sheen, focus ring)." },
+      { "name": "duration-normal", "value": "250ms", "purpose": "Standard interactive transitions." },
+      { "name": "duration-slow", "value": "400ms", "purpose": "Theme-switch and nav rail fill transitions." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid signal-green pill button; the one primary call to action.",
+      "html": "<button class=\"ds-btn-primary\">View Project</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.75rem; border-radius: 9999px; border: none; cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.875rem; letter-spacing: 0.02em; background: var(--signal, #2F6F4E); color: var(--neutral-surface, #FFFDF9); box-shadow: 0 4px 18px rgba(47,111,78,0.30); transition: transform 160ms cubic-bezier(0,0,0.2,1), box-shadow 160ms cubic-bezier(0,0,0.2,1), background 160ms cubic-bezier(0,0,0.2,1); } .ds-btn-primary:hover { transform: translateY(-3px); background: var(--signal-bright, #3C8C63); box-shadow: 0 8px 28px rgba(47,111,78,0.42); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(47,111,78,0.35); } .ds-btn-primary:active { transform: translateY(-1px) scale(0.98); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Transparent, signal-bordered secondary action.",
+      "html": "<button class=\"ds-btn-ghost\">Learn more</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1.75rem; border-radius: 9999px; border: 1.5px solid var(--signal, #2F6F4E); background: transparent; color: var(--signal, #2F6F4E); cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.875rem; transition: background 160ms ease, transform 160ms ease; } .ds-btn-ghost:hover { background: rgba(47,111,78,0.10); transform: translateY(-2px); } .ds-btn-ghost:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(47,111,78,0.35); }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Manifest-style project card with a status stamp, mono meta line, and tech tags.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-status\"><span class=\"ds-card-status-dot\"></span>Completed</div><div class=\"ds-card-body\"><h4 class=\"ds-card-title\">TradeLens</h4><p class=\"ds-card-meta\">2026 &middot; MT5 Trading Analytics</p><p class=\"ds-card-desc\">Real-time trading dashboard built on the MetaTrader 5 API.</p><div class=\"ds-card-tags\"><span class=\"ds-tag\">React</span><span class=\"ds-tag\">TypeScript</span><span class=\"ds-tag\">Python</span></div></div></div>",
+      "css": ".ds-card { width: 280px; border-radius: 0.625rem; border: 1px solid rgba(23,20,15,0.09); background: rgba(255,253,249,0.92); overflow: hidden; transition: transform 300ms cubic-bezier(0,0,0.2,1), box-shadow 300ms cubic-bezier(0,0,0.2,1), border-color 300ms cubic-bezier(0,0,0.2,1); } .ds-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(23,20,15,0.08), 0 0 0 1px rgba(47,111,78,0.20), 0 12px 40px rgba(47,111,78,0.10); border-color: rgba(47,111,78,0.20); } .ds-card-status { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0.75rem; padding: 0.3rem 0.7rem; border-radius: 9999px; background: rgba(255,255,255,0.85); color: var(--signal, #2F6F4E); border: 1px solid rgba(47,111,78,0.20); font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; font-weight: 600; } .ds-card-status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; } .ds-card-body { padding: 0 1.5rem 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; } .ds-card-title { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: 1.2rem; margin: 0; color: var(--neutral-heading, #17140F); } .ds-card-meta { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--neutral-text-muted, #726A5E); margin: 0; } .ds-card-desc { font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.6; color: var(--neutral-text, #26221D); margin: 0; } .ds-card-tags { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.25rem; } .ds-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; padding: 0.2rem 0.55rem; background: #EDEAE2; color: var(--neutral-text-muted, #726A5E); border: 1px solid rgba(23,20,15,0.12); border-radius: 0.3rem; }"
+    },
+    {
+      "name": "Corner-Bracket Photo Frame",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The system's signature portrait treatment: a two-color bracket framing a square-cornered photo.",
+      "html": "<div class=\"ds-photo-frame\"><span class=\"ds-corner ds-corner--tl\"></span><span class=\"ds-corner ds-corner--br\"></span><img class=\"ds-photo\" src=\"https://placehold.co/220x275\" alt=\"\" /></div>",
+      "css": ".ds-photo-frame { position: relative; width: 220px; aspect-ratio: 4 / 5; padding: 10px; } .ds-photo { width: 100%; height: 100%; object-fit: cover; display: block; } .ds-corner { position: absolute; width: 22px; height: 22px; pointer-events: none; } .ds-corner--tl { top: 0; left: 0; border-top: 2px solid var(--signal, #2F6F4E); border-left: 2px solid var(--signal, #2F6F4E); } .ds-corner--br { bottom: 0; right: 0; border-bottom: 2px solid var(--wire, #B8402E); border-right: 2px solid var(--wire, #B8402E); }"
+    },
+    {
+      "name": "Theme Toggle",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Monospace status-pill toggle (● LIGHT / ● DARK) instead of a sun/moon icon swap.",
+      "html": "<button class=\"ds-theme-toggle\"><span class=\"ds-theme-dot\"></span><span class=\"ds-theme-label\">Light</span></button>",
+      "css": ".ds-theme-toggle { display: inline-flex; align-items: center; gap: 0.5rem; height: 2.25rem; padding: 0 0.9rem; border-radius: 9999px; border: 1px solid rgba(23,20,15,0.22); background: #FFFDF9; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--neutral-text, #26221D); box-shadow: 0 4px 12px rgba(23,20,15,0.08); transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, color 200ms ease; } .ds-theme-toggle:hover { transform: translateY(-2px); border-color: var(--signal, #2F6F4E); color: var(--signal, #2F6F4E); box-shadow: 0 10px 30px rgba(23,20,15,0.08); } .ds-theme-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--signal, #2F6F4E); box-shadow: 0 0 6px rgba(47,111,78,0.6); }"
+    },
+    {
+      "name": "Nav Node",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Side-nav dot; the active node is framed with the two-wire corner bracket.",
+      "html": "<button class=\"ds-nav-node ds-nav-node--active\"><span class=\"ds-nav-node-corner ds-nav-node-corner--tl\"></span><span class=\"ds-nav-node-corner ds-nav-node-corner--br\"></span><span class=\"ds-nav-node-dot\"></span></button>",
+      "css": ".ds-nav-node { position: relative; width: 1.75rem; height: 1.75rem; display: flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; padding: 0; } .ds-nav-node-dot { width: 7px; height: 7px; border-radius: 50%; background: #F7F5F0; border: 1.5px solid #9B9284; transition: width 200ms ease, height 200ms ease, border-color 200ms ease, background 200ms ease; } .ds-nav-node--active .ds-nav-node-dot { width: 8px; height: 8px; background: var(--signal, #2F6F4E); border-color: var(--signal, #2F6F4E); box-shadow: 0 0 0 3px rgba(47,111,78,0.10); } .ds-nav-node-corner { position: absolute; width: 12px; height: 12px; pointer-events: none; } .ds-nav-node-corner--tl { top: -7px; left: -7px; border-top: 1.5px solid var(--signal, #2F6F4E); border-left: 1.5px solid var(--signal, #2F6F4E); } .ds-nav-node-corner--br { bottom: -7px; right: -7px; border-bottom: 1.5px solid var(--wire, #B8402E); border-right: 1.5px solid var(--wire, #B8402E); }"
+    },
+    {
+      "name": "Glass Input",
+      "kind": "input",
+      "refersTo": null,
+      "description": "Contact form field: translucent paper background with a warm blur.",
+      "html": "<input class=\"ds-input\" type=\"email\" placeholder=\"you@email.com\" />",
+      "css": ".ds-input { width: 100%; padding: 0.75rem 1rem; border-radius: 0.75rem; border: 1px solid rgba(23,20,15,0.12); background: rgba(255,253,249,0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); color: var(--neutral-text, #26221D); font-family: 'Inter', sans-serif; font-size: 1rem; } .ds-input::placeholder { color: #9B9284; } .ds-input:focus { outline: none; border-color: var(--signal, #2F6F4E); box-shadow: 0 0 0 3px rgba(47,111,78,0.20); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Engineer's Notebook",
+    "overview": "This is a technical spec written by hand on warm paper, not a rendered dashboard. The palette's own token names — signal, wire, ochre — read like circuit-diagram annotations, and the surface language follows through: corner-bracket frames around portraits like crop marks on a print, mono status dots that echo a build log, numbered eyebrow labels (0N · SECTION) like page headers in a lab notebook, and bordered \"manifest\" panels that present information the way a spec sheet lists fields. The feel is precise, warm, and quietly confident — technical credibility without coldness, expressed through a warm ink-on-paper neutral scale rather than clinical grays.\n\nContent leads. The system stays out of the way of the actual evidence (real project screenshots, real stack, real contact details) and never performs enthusiasm it hasn't earned — no gradient hero sweeps, no stock-illustration flourishes, no motion for its own sake.",
+    "keyCharacteristics": [
+      "Warm ink/paper neutral scale (#F7F5F0 → #17140F) instead of cool grays or pure black/white.",
+      "A restrained three-accent palette — signal green, wire rust, ochre gold — used by role, not decoration.",
+      "Fraunces serif for display type only; Inter for body; JetBrains Mono for every label, status, and data point.",
+      "A recurring corner-bracket motif (signal top-left, wire bottom-right) tying photos and the active nav node together.",
+      "Flat surfaces at rest; depth is something that happens in response to interaction, not a resting state."
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "Signal green is the only color that drives a primary action or an active state. Wire and ochre are always secondary — a paired bracket color, a gradient stop, a status detail — never the sole color of an interactive control.", "section": "colors" },
+      { "name": "The Three-Font Rule", "body": "Fraunces never appears outside a heading; JetBrains Mono never appears in a full sentence of prose. If it's a label, status, or number, it's mono. If it's a heading, it's Fraunces. Everything else is Inter.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Nothing carries a resting shadow except the floating glass panels (mobile nav, modals). Everything else earns its shadow through hover, focus, or active state — depth signals \"you're touching this,\" not \"this is important.\"", "section": "elevation" },
+      { "name": "The Two-Wire Bracket Rule", "body": "A corner bracket is never a single color. The top-left corner is always signal green, the bottom-right is always rust wire — the pairing is the signature, not either color alone.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do reserve Fraunces for headings only; keep body copy in Inter and every label, status, or data point in JetBrains Mono (The Three-Font Rule).",
+      "Do pair corner brackets in two colors — signal green top-left, rust wire bottom-right — never a single uniform color (The Two-Wire Bracket Rule).",
+      "Do keep surfaces flat at rest and introduce shadow only as a response to hover, focus, or active state (The Flat-By-Default Rule).",
+      "Do lead every major section with a numbered mono eyebrow label (0N · SECTION) matching the nav's index numbering.",
+      "Do keep signal green as the only color driving a primary action or active state; wire and ochre stay secondary (The One Accent Rule)."
+    ],
+    "donts": [
+      "Don't round the corners of profile/portrait photos — this was tried and explicitly rejected; photos stay square-cornered with bracket framing instead.",
+      "Don't use gradient-heavy hero backgrounds or a generic SaaS purple/blue gradient sweep — the only gradient in the system is the restrained signal→wire duotone, applied sparingly (gradient text, a CTA glow), never as a full-bleed background.",
+      "Don't give a flat element a resting shadow; shadow is earned by interaction, not applied by default.",
+      "Don't introduce a fourth accent color — the palette is deliberately limited to signal, wire, and ochre plus the warm neutral scale."
+    ]
+  }
+}
