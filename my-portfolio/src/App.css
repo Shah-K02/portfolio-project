@@ -393,10 +393,17 @@ body {
   pointer-events: auto;
 }
 
-/* Global: ensure all sections clear the bottom mobile nav bar */
+/* Ensure the fixed mobile nav dock never sits on top of the last section's
+   content at the true bottom of the page. A per-section padding-bottom is
+   not reliable here: several sections (e.g. Contact) reset their own
+   padding via the shorthand `padding` property at this same breakpoint,
+   silently overriding a bottom-only value set elsewhere. A dedicated
+   spacer after all sections can't be clobbered that way. */
 @media (max-width: 768px) {
-  .app-container > * {
-    padding-bottom: calc(var(--section-padding, 5rem) + 4rem);
+  .app-container::after {
+    content: '';
+    display: block;
+    height: calc(var(--section-padding, 4rem) + 2rem);
   }
 }
 
