@@ -176,12 +176,18 @@ const ContactSection: React.FC = () => {
 
             {formState === "success" && (
               <p className="form-status form-success">
+                <span className="form-status-tag">Sent</span>
                 Message sent — I'll get back to you soon.
               </p>
             )}
             {formState === "error" && (
               <p className="form-status form-error">
-                Something went wrong. Please try emailing me directly.
+                <span className="form-status-tag">Error</span>
+                Something went wrong.{" "}
+                <a href="mailto:shahkar0215@gmail.com" className="form-status-link">
+                  Email me directly
+                </a>{" "}
+                instead.
               </p>
             )}
 

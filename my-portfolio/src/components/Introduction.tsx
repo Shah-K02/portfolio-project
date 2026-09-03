@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { GitHubIcon, LinkedInIcon } from "./Icons";
 import "./Introduction.css";
 import { motion } from "framer-motion";
-import { Upload, Download } from "react-feather";
+import { Upload, Download, Check } from "react-feather";
 import { usePerformanceDetection } from "../utils/performanceDetection";
 import MagneticCursor from "./MagneticCursor";
 import { useAdmin } from "../context/AdminContext";
@@ -23,6 +23,23 @@ const Introduction: React.FC = () => {
   const { isAdmin, cvUrl, uploadCV, cvLoading } = useAdmin();
   const sectionRef = useRef<HTMLElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Brief, honest acknowledgment that the CV link was actually clicked —
+  // it opens in a new tab, so nothing here delays or replaces that action.
+  const [cvJustOpened, setCvJustOpened] = useState(false);
+  const cvAckTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (cvAckTimeout.current) clearTimeout(cvAckTimeout.current);
+    };
+  }, []);
+
+  const handleCVClick = () => {
+    setCvJustOpened(true);
+    if (cvAckTimeout.current) clearTimeout(cvAckTimeout.current);
+    cvAckTimeout.current = setTimeout(() => setCvJustOpened(false), 1400);
+  };
 
   const handleViewWork = () => {
     const section =
@@ -121,10 +138,15 @@ const Introduction: React.FC = () => {
               href={cvUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="intro-btn intro-btn--outline"
+              className={`intro-btn intro-btn--outline${cvJustOpened ? ' is-acknowledged' : ''}`}
               aria-label="Download Shah Kar's CV"
+              onClick={handleCVClick}
             >
-              <Download size={16} />
+              {cvJustOpened ? (
+                <Check size={16} aria-hidden="true" />
+              ) : (
+                <Download size={16} aria-hidden="true" />
+              )}
               Download CV
             </a>
 
